@@ -1,0 +1,55 @@
+/*Fonts*/
+@font-face{
+  font-family: 	Montserrat-Regular;
+  src: url('/fonts/Montserrat-Regular.ttf');
+}
+
+@font-face{
+  font-family: Harabara;
+  src: url('/fonts/Harabara.ttf');
+}
+/*End Fonts*/
+
+/*background from logo*/
+#logoBody{
+	width: 250px;
+	height: 100px;
+	background-color: Red;
+	border-radius: 50%;
+}
+
+/* white border from logo*/
+#logoBorder{
+	position: relative;
+	width: 220px;
+	height: 90px;
+	border-radius: 50%;
+	border-style: solid;
+	border-color: #FFF;
+	top: 5px;
+}
+
+/*First text from logo*/
+#txtUp{
+	font-size: 20px;
+	color: #FFF;
+	font-family: Montserrat-Regular;
+}
+
+/*Second text from logo*/
+#txtMiddle{
+	font-size: 30px;
+	color: #FFF;
+	position: relative;
+	bottom: 30px;
+	font-family: Harabara;
+}
+
+/*Third text from logo*/
+#txtBottom{
+	font-size: 20px;
+	color: #FFF;
+	position: relative;
+	bottom: 56px;
+	font-family: Montserrat-Regular;
+}
