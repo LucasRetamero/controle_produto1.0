@@ -7,31 +7,57 @@
 				    Home<span class="sr-only"></span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active bg-light text-primary font-weight-bold" href="#">
-                  <img src="{{ asset('img/icons/home.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
-				    Produto<span class="sr-only"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-               <a class="nav-link active bg-light text-primary font-weight-bold" href="#">
-                  <img src="{{ asset('img/icons/home.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
-				    Endereçamento<span class="sr-only"></span>
-                </a>
-              </li>
-              <li class="nav-item">
-               <a class="nav-link active bg-light text-primary font-weight-bold" href="#">
-                  <img src="{{ asset('img/icons/home.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
-				    Relatório<span class="sr-only"></span>
-                </a>
-              </li>
-               <li class="nav-item">
-               <a class="nav-link active bg-light text-primary font-weight-bold" href="{{ route('dashboard.configuracao') }}">
-                  <img src="{{ asset('img/icons/home.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
-				    Configuração<span class="sr-only"></span>
-                </a>
-              </li>
-			  
+
+			   <div id="main-menu" class="list-group">
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Endereço</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo de Endereço</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Lote</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
+                </div>
+			   </div>
+			   
+			    <div id="main-menu" class="list-group">
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Relatório <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Endereço</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo de Endereço</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Lote</a>
+                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
+                </div>
+			   </div>
+			   
+				<div id="main-menu" class="list-group">
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Configuração <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="{{ route('dashboard.configuracao.importacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Importação</a>
+                    <a href="{{ route('dashboard.configuracao.exportacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Exportação</a>
+					<a href="#sub-sub-menu" class="list-group-item font-weight-bold" data-toggle="collapse" data-parent="#sub-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img> Usuário<span class="caret"></span></a>
+                    <div class="collapse list-group-level2" id="sub-sub-menu">
+                        <a href="{{ route('dashboard.configuracao.userFormAdd') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-sub-menu">- Adicionar Usuário</a>
+                        <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-sub-menu">- Lista de Usuários</a>
+                    </div>
+                </div>
+			   </div> 
+			   
             </ul>
           </div>
         </nav>
+		
+		<!-- List com sub-menu --
+		<div id="main-menu" class="list-group">
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 1</a>
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 2</a>
+                    <a href="#sub-sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#sub-menu">Sub Item 3 <span class="caret"></span></a>
+                    <div class="collapse list-group-level2" id="sub-sub-menu">
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 1</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 2</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 3</a>
+                    </div>
+                </div>
+			   </div>-->

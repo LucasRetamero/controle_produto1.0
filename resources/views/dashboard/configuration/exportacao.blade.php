@@ -1,6 +1,6 @@
 @extends('dashboard.default')
-<!-- Configuração dashboard -->
 
+@section('content')
 <!-- CSS from configution dashboard -->
 <style type="text/css">
 input[type=checkbox]
@@ -26,12 +26,11 @@ input[type=checkbox]
 </style>
 <!-- End CSS from configuration dashboard -->
 
-@section('content')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Configuração</h1>        
+            <h1 class="h2">Configuração / Exportação</h1>        
 </div>
 
-<!-- Form from backup -->
+<!-- Backup -->
 <div class="jumbotron bg-primary">
         
 		<div class="container">
@@ -76,56 +75,6 @@ input[type=checkbox]
     </form>	
 	
 </div>
-<!-- End from backup -->
+<!-- End backup -->
 
-<!-- Form from recovery -->
-<div class="jumbotron bg-primary">
-        
-		<div class="container">
-          <h1 class="h3 text-white">Importação</h1>
-		  <hr class="confHr">
-        </div>
-		
-  <form class="form-signin">
-   <label class="d-block h5 text-white">Selecione o arquivo para importar</label>
-  
-  <label for="inputFileForm" class="btn btn-light font-weight-bold btn-block">Selecionar arquivo</label>
-  <input type="file" class="form-control-file" style="display:none;" id="inputFileForm">
-  <span id="fileName" style="display:none;"></span>
-  <input id="srcFileText" class="form-control font-weight-bold" type="text" placeholder="Selecione o arquivo..." style="background-color: white;font-size:large;" readonly>
-  </br>
-  <input type="button" class="form-control-file btn-light btn-lg btn-block" id="inputWayFileBackup" value="Realizar Importação">
-  	
-    </form>	
-	
-</div>
-<!-- End from recovery -->
-
-<!-- manager user -->
-<div class="jumbotron bg-primary">
-        
-		<div class="container">
-          <h1 class="h3 text-white">Gerenciar Usuários</h1>
-		  <hr class="confHr">
-        </div>
-		
-  <form class="form-signin">
-   <a href="{{ route('dashboard.configuracao.userFormAdd') }}"><button type="button" class="btn btn-light btn-block" id="addUser">Adicionar Usuário</button></a>
-   </br>
-   <button type="button" class="btn btn-light btn-block" id="addUser">Tabela de Usuários</button>
-  </form>	
-	
-</div>
-<!-- End manager user -->
-
-
-<!-- Script configuration dashboard -->
-<script type="text/javascript">
- var $input    = document.getElementById('inputFileForm'),
-     $fileName = document.getElementById('fileName');
-
- $input.addEventListener('change', function(){
-	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
- });
-</script>
 @endsection
