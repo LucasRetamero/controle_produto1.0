@@ -27,9 +27,13 @@ Route::get('/', function(){
    return view('dashboard.index');	
 })->name('dashboard');
 
-Route::get('configuracao', function(){
-  return view('dashboard.configuracao');
-})->name('dashboard.configuracao');
+Route::get('configuracao/exportacao', function(){
+  return view('dashboard.configuration.exportacao');	
+})->name('dashboard.configuracao.exportacao');
+
+Route::get('configuracao/importacao', function(){
+ return view('dashboard.configuration.importacao');	
+})->name('dashboard.configuracao.importacao');
 
 Route::get('configuracao/userFormAdd', function(){
 	return view('dashboard.configuration.addLoginForm');
