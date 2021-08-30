@@ -35,11 +35,7 @@
                 <div class="collapse list-group-level1" id="sub-menu">
                     <a href="{{ route('dashboard.configuracao.importacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Importação</a>
                     <a href="{{ route('dashboard.configuracao.exportacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Exportação</a>
-					<a href="#sub-sub-menu" class="list-group-item font-weight-bold" data-toggle="collapse" data-parent="#sub-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img> Usuário<span class="caret"></span></a>
-                    <div class="collapse list-group-level2" id="sub-sub-menu">
-                        <a href="{{ route('dashboard.configuracao.userFormAdd') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-sub-menu">- Adicionar Usuário</a>
-                        <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-sub-menu">- Lista de Usuários</a>
-                    </div>
+                    <a href="{{ route('dashboard.configuracao.usuarios') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Usuários</a>
                 </div>
 			   </div> 
 			   

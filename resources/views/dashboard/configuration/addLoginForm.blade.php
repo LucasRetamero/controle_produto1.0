@@ -6,11 +6,22 @@
 .confHr{
   border-top:3px solid #FFF;
 }
+
+thead{
+	background-color: #6095EB;
+	color: #FFF;
+	font-size: large;
+}
+th,td{
+ font-size:large;	
+}
 </style>
-<!-- End CSS from user form dashboard -->
+
 @section('content')
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Configuração / Adicionar Usuário</h1>        
+
+<div class="container">
+            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Adicionar Usuário</h1> 
+            <hr style="border-top:3px solid #000">			
 </div>
 
 <!-- Form add login -->
@@ -48,6 +59,16 @@
     <small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
   
+    <div class="form-group">
+    <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
+    <select class="form-control" id="cbNivelAcesso">
+      <option>Selecione o nivel de acesso...</option>
+      <option>Administrador</option>
+      <option>Gerência</option>
+      <option>Produção</option>
+    </select>
+  </div>
+  
   <div class="form-group">
     <label for="txtPassword" class="text-white h5">Senha:</label>
     <input type="password" class="form-control" id="txtPassword" placeholder="Digite a senha de acesso...">
@@ -57,14 +78,76 @@
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
-
-  <button type="submit" class="btn btn-light btn-block">Cadastrar</button>
-  <button type="submit" class="btn btn-light btn-block">Tabela de usuários</button>
+ 
+ <button type="submit" class="btn btn-light btn-block">Cadastrar</button>
 
     </form>	
-	
+
+	<a href="{{ route('dashboard.configuracao.usuarios') }}"><button class="btn btn-light btn-block">Lista de usuários</button></a>
 </div>
 <!-- End form add login-->
+
+<!-- Table of permissions -->
+<table class="table">
+
+    <div class="container">
+      <h1 class="h3">Tabela de nivel de acesso</h1>
+	  <hr style="border-top:3px solid #000">
+    </div>
+		
+  <thead class="thead">
+    <tr>
+      <th scope="col">Função</th>
+      <th scope="col">Administração</th>
+      <th scope="col">Gerência</th>
+      <th scope="col">Produção</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Adicionar itens</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+    </tr>
+    <tr>
+      <th scope="row">Editar itens</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+    </tr>  
+    <tr>
+      <th scope="row">Remover itens</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+    </tr>
+    <tr>
+      <th scope="row">Gerar Relatórios</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+    </tr>
+    <tr>
+      <th scope="row">Realizar Exportação</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+    </tr>
+    <tr>
+      <th scope="row">Realizar Importação</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+    </tr>
+    <tr>
+      <th scope="row">Gerenciar Usuários</th>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+    </tr>	
+  </tbody>
+</table>
 
 <!-- JS Script -->
 <script type="text/javascript">
@@ -108,33 +191,23 @@ function checkpassword(password) {
   
   switch (strength) {
     case 0:
-      strengthbar.value = 0;
-	  strengthbar.style.width = "0%";
-	  strengthbar.innerHTML = "0%";
+     changeProgessBar(0, "0%", "0%");
       break;
 
     case 1:
-      strengthbar.value = 25;
-	  strengthbar.style.width = "25%";
-	  strengthbar.innerHTML = "25%";
+	 changeProgessBar(25, "25%", "25%");
       break;
 
     case 2:
-      strengthbar.value = 50;
-	  strengthbar.style.width = "50%";
-	  strengthbar.innerHTML = "50%";
+	   changeProgessBar(50, "50%", "50%");
       break;
 
     case 3:
-      strengthbar.value = 75;
-	  strengthbar.style.width = "75%";
-	  strengthbar.innerHTML = "75%";
+	   changeProgessBar(75, "75%", "75%");
       break;
 
     case 4:
-      strengthbar.value = 100;
-	  strengthbar.style.width = "100%";
-	  strengthbar.innerHTML = "100%";
+	  changeProgessBar(100, "100%", "100%");
       break;
   }
   
@@ -145,7 +218,6 @@ function checkpassword(password) {
 function removeBackgroundAddOther(bgAdd){
    	for(var x = 0; x < removeBackground.length; x++ ){
 	strengthbar.classList.remove(removeBackground[x]);
-	//console.log(removeBackground[x]);
 	}
 	strengthbar.classList.add(bgAdd);
 }
@@ -165,6 +237,12 @@ function changeProgresBarColor(){
 	   //Do something
 	   break;
 	}	
+}
+
+function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
+	  strengthbar.value = valueProgress;
+	  strengthbar.style.width = widthProgress;
+	  strengthbar.innerHTML = innerHtmlProgress;
 }    
 </script>
 <!-- End JS Script--> 

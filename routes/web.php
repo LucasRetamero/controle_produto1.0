@@ -35,8 +35,12 @@ Route::get('configuracao/importacao', function(){
  return view('dashboard.configuration.importacao');	
 })->name('dashboard.configuracao.importacao');
 
-Route::get('configuracao/userFormAdd', function(){
+Route::get('configuracao/usuarios', function(){
+ return view('dashboard.configuration.usuario');
+})->name('dashboard.configuracao.usuarios');
+
+Route::get('configuracao/usuarios/userFormAdd', function(){
 	return view('dashboard.configuration.addLoginForm');
-})->name('dashboard.configuracao.userFormAdd');
+})->name('dashboard.configuracao.usuarios.userFormAdd');
 
 });
