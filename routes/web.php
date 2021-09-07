@@ -27,6 +27,14 @@ Route::get('/', function(){
    return view('dashboard.index');	
 })->name('dashboard');
 
+Route::get('cadastro/produtos', function(){
+  return view('dashboard.cadastro.produto.produto');
+})->name('dashboard.cadastro.produto');
+
+Route::get('cadastro/produtos/produtosFormulario', function(){
+ return view('dashboard.cadastro.produto.produtoForm');	
+})->name('dashboard.cadastro.produto.productAddForm');
+
 Route::get('configuracao/exportacao', function(){
   return view('dashboard.configuration.exportacao');	
 })->name('dashboard.configuracao.exportacao');
@@ -36,11 +44,11 @@ Route::get('configuracao/importacao', function(){
 })->name('dashboard.configuracao.importacao');
 
 Route::get('configuracao/usuarios', function(){
- return view('dashboard.configuration.usuario');
+ return view('dashboard.configuration.usuario.usuario');
 })->name('dashboard.configuracao.usuarios');
 
-Route::get('configuracao/usuarios/userFormAdd', function(){
-	return view('dashboard.configuration.addLoginForm');
+Route::get('configuracao/usuarios/usuariosFormulario', function(){
+	return view('dashboard.configuration.usuario.usuarioForm');
 })->name('dashboard.configuracao.usuarios.userFormAdd');
 
 });

@@ -1,5 +1,7 @@
 @extends('dashboard.default')
-<!--  Add User form dashboard -->
+
+
+@section('content')
 
 <!-- CSS from user form dashboard -->
 <style type="text/css">
@@ -17,7 +19,6 @@ th,td{
 }
 </style>
 
-@section('content')
 
 <div class="container">
             <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Adicionar Usuário</h1> 
@@ -35,12 +36,14 @@ th,td{
   <form class="form-signin">
   
   <div class="form-group">
-    <label for="txtLogin" class="text-white h5">Nome | Sobrenome:</label>
+    
       <div class="row">
       <div class="col">
+	   <label for="txtLogin" class="text-white h5">Nome:</label>
        <input type="text" class="form-control" id="txtName"  placeholder="Digite o nome">
       </div>
       <div class="col">
+	   <label for="txtLogin" class="text-white h5">Sobrenome:</label>
        <input type="text" class="form-control" id="txtSecondName"  placeholder="Digite o sobrenome">
       </div>
       </div>
@@ -70,20 +73,30 @@ th,td{
   </div>
   
   <div class="form-group">
-    <label for="txtPassword" class="text-white h5">Senha:</label>
-    <input type="password" class="form-control" id="txtPassword" placeholder="Digite a senha de acesso...">
+    <div class="row">
+      <div class="col">
+	  <label for="txtPassword" class="text-white h5">Senha:</label>
+      <input type="password" class="form-control" id="txtPassword" placeholder="Digite a senha de acesso...">
+      </div>
+	  
+      <div class="col">
+	  <label for="txtPasswordAgain" class="text-white h5">Confirmação de Senha:</label>
+      <input type="password" class="form-control" id="txtPasswordAgain" placeholder="Digite a senha novamente">
+      </div>
+	  
+      </div>
+	  
       </br>
+	  
 	  <label for="txtPassword" class="text-white h5">Nivel da senha:</label> 
-	   <div class="progress">
+	  <div class="progress">
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
  
  <button type="submit" class="btn btn-light btn-block">Cadastrar</button>
 
-    </form>	
-
-	<a href="{{ route('dashboard.configuracao.usuarios') }}"><button class="btn btn-light btn-block">Lista de usuários</button></a>
+    </form>
 </div>
 <!-- End form add login-->
 
@@ -170,7 +183,7 @@ var removeBackground = [
 	 'bg-transparent'
      ];
 code.addEventListener("keyup", function() {
-  checkpassword(code.value);
+	checkpassword(code.value);
 });
    
 function checkpassword(password) {
@@ -184,7 +197,7 @@ function checkpassword(password) {
   if (password.match(/[0-9]+/)) {
     strength += 1;
   }
-  if (password.match(/[$@#&!]+/)) {
+  if (password.match(/[$@#&!*]+/)) {
     strength += 1;
 
   }
@@ -192,6 +205,7 @@ function checkpassword(password) {
   switch (strength) {
     case 0:
      changeProgessBar(0, "0%", "0%");
+	 changeProgessBar(0, "3%", "0%");
       break;
 
     case 1:
