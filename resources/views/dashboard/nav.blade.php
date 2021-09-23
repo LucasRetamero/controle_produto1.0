@@ -12,9 +12,9 @@
 				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
                     <a href="{{ route('dashboard.cadastro.produto') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
-                    <a href="{{ route('dashboard.cadastro.produto') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Estoque</a>
-                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Endereço</a>
-                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo do Endereço</a>
+                    <a href="{{ route('dashboard.cadastro.estoque') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Estoque</a>
+                    <a href="{{ route('dashboard.cadastro.endereco')}}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Endereço</a>
+                    <a href="{{ route('dashboard.cadastro.tipo_endereco.tipoEndereco') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo do Endereço</a>
                     <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Lote</a>
                     <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Localização</a>
                     <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>

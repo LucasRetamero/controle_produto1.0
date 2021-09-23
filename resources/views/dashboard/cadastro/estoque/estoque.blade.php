@@ -10,7 +10,8 @@ thead{
 }
 
 td{
-    font-weight: bolder;  
+  font-size: large;
+  font-weight: bolder;  
 }
 
 #btnUpdate,
@@ -34,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Produto</h1> 
+    <h1 class="h2">Cadastro / Estoque</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -43,7 +44,7 @@ td{
   <div class="row">  
      <div class="col-sm-12 text-center">
       <h1 class="h3">Menu</h1>
-       <a href="{{ route('dashboard.cadastro.produto.productAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
+       <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
        <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
      </div>
   </div>
@@ -54,7 +55,7 @@ td{
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
          <div class="col-sm-12 text-center">
-          <h1 class="h3">Consultar lista de produto</h1>
+          <h1 class="h3">Consultar lista do estoque</h1>
      <form action="#">
       <div class="form-row">
 	  
@@ -88,37 +89,31 @@ td{
 </br>
 <!-- Table of users -->
 <table class="table">
-  <h1 class="h3 text-center">Lista de Produtos</h1>
+  <h1 class="h3 text-center">Lista do estoque</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Ean</th>
+      <th scope="col">id_User</th>
       <th scope="col">Nome</th>
-      <th scope="col">Data de Fabricação</th>
-      <th scope="col">Data de Vencimento</th>
-      <th scope="col">Qtd Atual</th>
-      <th scope="col">Qtd Minima</th>
-      <th scope="col">Localização</th>
-      <th scope="col">Sub_Especie</th>
-      <th scope="col">Menu</th>
+      <th scope="col">Sobrenome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Login</th>
+      <th scope="col">Nivel de Acesso</th>
+      <th scope="col">Ações</th>
 	  
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>7898053583099</td>
-      <td>ACEPRAN 1% - 20 ML</td>
-      <td>20/09/2021</td>
-      <td>30/12/2021</td>
-      <td>5</td>
-      <td>2</td>
-      <td>ARMARIO</td>
-      <td>INJETAVEIS, TOPICOS E ORAIS</td>
+      <td>Jorge</td>
+      <td>Silva</td>
+      <td>jorge_silva@gmail.com</td>
+      <td>JorgeSilva</td>
+      <td>Administração</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button>
+          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIicon.png') }}" class="imgIcons"/> Editar</button>
           <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button>
          </div>
         </div> <!-- End buttons edit /  remove-->

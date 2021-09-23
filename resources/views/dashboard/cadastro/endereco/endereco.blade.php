@@ -10,7 +10,8 @@ thead{
 }
 
 td{
-    font-weight: bolder;  
+  font-size: large;
+  font-weight: bolder;  
 }
 
 #btnUpdate,
@@ -34,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Produto</h1> 
+    <h1 class="h2">Cadastro / Endereço</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -43,7 +44,7 @@ td{
   <div class="row">  
      <div class="col-sm-12 text-center">
       <h1 class="h3">Menu</h1>
-       <a href="{{ route('dashboard.cadastro.produto.productAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
+       <a href="{{ route('dashboard.cadastro.endereco.enderecoAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
        <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
      </div>
   </div>
@@ -54,7 +55,7 @@ td{
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
          <div class="col-sm-12 text-center">
-          <h1 class="h3">Consultar lista de produto</h1>
+          <h1 class="h3">Consultar lista de endereço</h1>
      <form action="#">
       <div class="form-row">
 	  
@@ -88,18 +89,15 @@ td{
 </br>
 <!-- Table of users -->
 <table class="table">
-  <h1 class="h3 text-center">Lista de Produtos</h1>
+  <h1 class="h3 text-center">Lista de Endereços</h1>
   <thead class="thead">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Ean</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Data de Fabricação</th>
-      <th scope="col">Data de Vencimento</th>
-      <th scope="col">Qtd Atual</th>
-      <th scope="col">Qtd Minima</th>
-      <th scope="col">Localização</th>
-      <th scope="col">Sub_Especie</th>
+      <th scope="col">Area</th>
+      <th scope="col">Rua</th>
+      <th scope="col">Predio</th>
+      <th scope="col">Nivel</th>
+      <th scope="col">Apto</th>
       <th scope="col">Menu</th>
 	  
     </tr>
@@ -107,14 +105,11 @@ td{
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>7898053583099</td>
-      <td>ACEPRAN 1% - 20 ML</td>
-      <td>20/09/2021</td>
-      <td>30/12/2021</td>
-      <td>5</td>
-      <td>2</td>
-      <td>ARMARIO</td>
-      <td>INJETAVEIS, TOPICOS E ORAIS</td>
+      <td>D007</td>
+      <td>001</td>
+      <td>002</td>
+      <td>000</td>
+      <td>001</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">

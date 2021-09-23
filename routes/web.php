@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/home', function(){
 	return view('login.index');
-});
+})->name('home');
 
 Route::group(['prefix' => 'dashboard'], function(){
 
@@ -34,6 +34,31 @@ Route::get('cadastro/produtos', function(){
 Route::get('cadastro/produtos/produtosFormulario', function(){
  return view('dashboard.cadastro.produto.produtoForm');	
 })->name('dashboard.cadastro.produto.productAddForm');
+
+Route::get('cadastro/estoque', function(){
+ return view('dashboard.cadastro.estoque.estoque');
+})->name('dashboard.cadastro.estoque');
+
+Route::get('cadastro/produtos/estoqueFormulario', function(){
+ return view('dashboard.cadastro.estoque.estoqueForm');
+})->name('dashboard.cadastro.estoque.estoqueAddForm');
+
+Route::get('cadastro/enderecos', function(){
+ return view('dashboard.cadastro.endereco.endereco');
+})->name('dashboard.cadastro.endereco');
+
+Route::get('cadastro/enderecos/enderecoFormulario', function(){
+ return view('dashboard.cadastro.endereco.enderecoForm');
+})->name('dashboard.cadastro.endereco.enderecoAddForm');
+
+Route::get('cadastro/tipo_Endereco/tipoEndereco', function(){
+ return view('dashboard.cadastro.tipoEndereco.tipoEndereco');
+})->name('dashboard.cadastro.tipo_endereco.tipoEndereco');
+
+Route::get('cadastro/tipoEndereco/tipoEnderecoFormulario', function(){
+ return view('dashboard.cadastro.tipoEndereco.tipoEnderecoForm');
+})->name('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm');
+
 
 Route::get('configuracao/exportacao', function(){
   return view('dashboard.configuration.exportacao');	
