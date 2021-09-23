@@ -26,8 +26,9 @@ input[type=checkbox]
 </style>
 <!-- End CSS from configuration dashboard -->
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Configuração / Exportação</h1>        
+<div class="container">
+        <h1 class="h2">Configuração / Exportação</h1>
+        <hr style="border-top:3px solid #000">        
 </div>
 
 <!-- Backup -->

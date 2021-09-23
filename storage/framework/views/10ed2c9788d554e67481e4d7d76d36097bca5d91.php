@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    <a href="<?php echo e(route('home')); ?>">Laravel</a>
                 </div>
 
                 <div class="links">

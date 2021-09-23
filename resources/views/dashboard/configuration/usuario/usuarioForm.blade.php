@@ -1,5 +1,7 @@
+@extends('dashboard.default')
 
-<!--  Add User form dashboard -->
+
+@section('content')
 
 <!-- CSS from user form dashboard -->
 <style type="text/css">
@@ -17,10 +19,9 @@ th,td{
 }
 </style>
 
-<?php $__env->startSection('content'); ?>
 
 <div class="container">
-            <h1 class="h2">Configuração / <a href="<?php echo e(route('dashboard.configuracao.usuarios')); ?>">Usuários</a> / Adicionar Usuário</h1> 
+            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Adicionar Usuário</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
 
@@ -88,16 +89,14 @@ th,td{
       </br>
 	  
 	  <label for="txtPassword" class="text-white h5">Nivel da senha:</label> 
-	   <div class="progress">
+	  <div class="progress">
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
  
  <button type="submit" class="btn btn-light btn-block">Cadastrar</button>
 
-    </form>	
-
-	<a href="<?php echo e(route('dashboard.configuracao.usuarios')); ?>"><button class="btn btn-light btn-block">Lista de usuários</button></a>
+    </form>
 </div>
 <!-- End form add login-->
 
@@ -120,45 +119,45 @@ th,td{
   <tbody>
     <tr>
       <th scope="row">Adicionar itens</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
     </tr>
     <tr>
       <th scope="row">Editar itens</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
     </tr>  
     <tr>
       <th scope="row">Remover itens</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
     </tr>
     <tr>
       <th scope="row">Gerar Relatórios</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
     </tr>
     <tr>
       <th scope="row">Realizar Exportação</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
     </tr>
     <tr>
       <th scope="row">Realizar Importação</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
     </tr>
     <tr>
       <th scope="row">Gerenciar Usuários</th>
-      <td><img src="<?php echo e(asset('img/icons/rightIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
-      <td><img src="<?php echo e(asset('img/icons/noIcon.png')); ?>"></td>
+      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
+      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
     </tr>	
   </tbody>
 </table>
@@ -261,5 +260,4 @@ function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
 }    
 </script>
 <!-- End JS Script--> 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('dashboard.default', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH J:\Projects\Controle de Produto\controle_produto\resources\views/dashboard/configuration/addLoginForm.blade.php ENDPATH**/ ?>
+@endsection('content')
