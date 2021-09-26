@@ -98,3 +98,50 @@ body {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+
+/*
+ * Control Navbar
+ */
+
+.ctl-dashnav {
+
+}
+
+.ctl-dashnav li a {
+  display: block;
+  padding: .5rem 1rem;
+  background-color: #f8f9fa;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ctl-dashnav li a:hover {
+  background-color: #dae0e5;
+}
+
+.ctl-dashnav div a {
+  color: #fff;
+  background-color: #007bff;
+  font-weight: 700;
+}
+
+.ctl-dashnav div a:hover {
+  background-color: #0062cc;
+}
+
+.ctl-droparrow::after{
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+}
+
+.ctl-dashnav li a img {
+  filter: white(100%);
+  width: 20px;
+  height: 20px;
+}
