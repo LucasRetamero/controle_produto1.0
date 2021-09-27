@@ -1,4 +1,4 @@
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-md-2 d-none d-md-block bg-light ctl-dashnavsb sidebar">
     <div class="sidebar-sticky bg-primary ctl-dashnav">
         <!-- New List -->
         <ul class="nav flex-column">
@@ -7,7 +7,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#menu" data-toggle="collapse" class="ctl-droparrow"><img src="{{asset('img/icons/addIcon.png')}}"> Cadastro </a>
+                <a href="#menu" data-toggle="collapse" class="ctl-droparrow" aria-expanded="false"><img src="{{asset('img/icons/addIcon.png')}}"> Cadastro </a>
             </li>
             <div class="collapse list-group-level1" id="menu">
                 <a href="{{route('dashboard.cadastro.produto')}}" class="list-group-item">- Produto</a>
@@ -20,7 +20,7 @@
             </div>
 
             <li class="nav-item">
-                <a href="#menu2" data-toggle="collapse" class="ctl-droparrow"><img src="{{asset('img/icons/icon_dashanalyst.png')}}"> Relatório </a>
+                <a href="#menu2" data-toggle="collapse" class="ctl-droparrow" aria-expanded="false"><img src="{{asset('img/icons/icon_dashanalyst.png')}}"> Relatório </a>
             </li>
             <div class="collapse list-group-level1" id="menu2">
                 <a href="{{route('dashboard.cadastro.produto')}}" class="list-group-item">- Produto</a>
@@ -33,7 +33,7 @@
             </div>
 
             <li class="nav-item">
-                <a href="#menu3" data-toggle="collapse" class="ctl-droparrow"><img src="{{asset('img/icons/icon_dashconfig.png')}}"> Configuração </a>
+                <a href="#menu3" data-toggle="collapse" class="ctl-droparrow" aria-expanded="false"><img src="{{asset('img/icons/icon_dashconfig.png')}}"> Configuração </a>
             </li>
             <div class="collapse list-group-level1" id="menu3">
                 <a href="{{route('dashboard.configuracao.importacao')}}" class="list-group-item">- Importação</a>
