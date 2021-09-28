@@ -14,10 +14,10 @@
                     <a href="<?php echo e(route('dashboard.cadastro.produto')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
                     <a href="<?php echo e(route('dashboard.cadastro.estoque')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Estoque</a>
                     <a href="<?php echo e(route('dashboard.cadastro.endereco')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Endereço</a>
-                    <a href="<?php echo e(route('dashboard.cadastro.tipo_endereco.tipoEndereco')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo do Endereço</a>
-                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Lote</a>
-                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Localização</a>
-                    <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
+                    <a href="<?php echo e(route('dashboard.cadastro.tipo_endereco')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo do Endereço</a>
+                    <a href="<?php echo e(route('dashboard.cadastro.lote')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Lote</a>
+                    <a href="<?php echo e(route('dashboard.cadastro.localizacao')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Localização</a>
+                    <a href="<?php echo e(route('dashboard.cadastro.subEspecie')); ?>" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
                 </div>
 			   </div>
 			   
