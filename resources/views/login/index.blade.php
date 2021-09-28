@@ -60,13 +60,14 @@ body {
 	</style>
   </head>
   <body class="bg-primary text-center">
-    <form class="form-signin bg-light">
-      <img class="mb-4" src="{{ asset('img/icons/product.png') }}" alt="" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal">Controle de Produto</h1>
+    <form method="post" action="{{ route('login.logar') }}"class="form-signin bg-light">
+	<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+      <img class="mb-4" src="{{ asset('img/icons/product.png') }}" alt="" width="72" height="72">   
+   	 <h1 class="h3 mb-3 font-weight-normal">Controle de Produto</h1>
       <label for="inputLogin" class="sr-only">Digite o login...</label>
-      <input type="text" id="inputLogin" class="form-control" placeholder="Digite o login" required autofocus>
+      <input type="email" id="inputLogin" name="email" class="form-control" placeholder="Digite o email..." required autofocus>
       <label for="inputPassword" class="sr-only">Digite a senha...</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Digite a senha" required>
+      <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Digite a senha..." required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
       <p class="mt-5 mb-3 text-muted font-weight-bold">&copy; 2021</p>
     </form>

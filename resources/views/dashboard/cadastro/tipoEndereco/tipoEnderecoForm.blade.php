@@ -45,7 +45,7 @@ td{
 </style>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco.tipoEndereco') }}">Tipo do Endereço</a> / Formulário do tipo endereco</h1> 
+            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo do Endereço</a> / Formulário do tipo endereco</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
  

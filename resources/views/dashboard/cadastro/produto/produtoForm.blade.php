@@ -251,6 +251,11 @@ td{
     <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"></img> Gravar</button>
    </div>
    
+  <div class="btn-group mr-2" role="group" aria-label="First group">
+    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/reloadIcon.png') }}" class="imgIcons"></img> Atualizar</button>
+  </div>
+    
+   
    <div class="btn-group mr-2" role="group" aria-label="Second group">
     <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/clearIcon.png') }}" class="imgIcons"></img> Limpar campos</button>
    </div>

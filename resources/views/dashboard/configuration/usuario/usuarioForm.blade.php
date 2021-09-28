@@ -1,5 +1,6 @@
 @extends('dashboard.default')
 
+@section('title', 'Dashboard / Formulário: Usuarios')
 
 @section('content')
 
@@ -21,7 +22,7 @@ th,td{
 
 
 <div class="container">
-            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Adicionar Usuário</h1> 
+            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Formulário: Usuários</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
 
@@ -29,61 +30,97 @@ th,td{
 <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Adicionar Usuário</h1>
-		  <hr class="confHr">
+		@if(isset($dadoUsuario))
+		  <h1 class="h3 text-white">Editar Usuário</h1>
+		@else
+		  <h1 class="h3 text-white">Adicionar Usuário</h1>
+        @endif		 
+		 <hr class="confHr">
         </div>
 		
-  <form class="form-signin">
-  
+  <form method="post" action="{{ route('login.addEditRemUsuario') }}"class="form-signin">
   <div class="form-group">
     
       <div class="row">
       <div class="col">
 	   <label for="txtLogin" class="text-white h5">Nome:</label>
-       <input type="text" class="form-control" id="txtName"  placeholder="Digite o nome">
-      </div>
+       <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+	   @if(isset($dadoUsuario))
+	   <input type="hidden" name="id" value="{{ $dadoUsuario[0]->id }}"/>
+	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="{{ $dadoUsuario[0]->nome }}" required autofocus>
+	   @else
+	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="" required autofocus>      
+	   @endif
+	  </div>
       <div class="col">
 	   <label for="txtLogin" class="text-white h5">Sobrenome:</label>
-       <input type="text" class="form-control" id="txtSecondName"  placeholder="Digite o sobrenome">
-      </div>
+       @if(isset($dadoUsuario))
+	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="{{ $dadoUsuario[0]->sobrenome }}" required autofocus>
+       @else
+	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="" required autofocus> 
+	   @endif
+	  </div>
       </div>
 	<small id="txtName" class="form-text text-muted"><!-- Small message --></small>
   </div>
   
   <div class="form-group">
     <label for="txtEmail" class="text-white h5">Emai:</label>
-    <input type="email" class="form-control" id="txtEmail"  placeholder="Digite o email">
-    <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
+    @if(isset($dadoUsuario))
+	<input type="email" class="form-control" id="txtEmail" name="email" value="{{ $dadoUsuario[0]->email }}" placeholder="Digite o email" required autofocus>
+    @else
+	<input type="email" class="form-control" id="txtEmail" name="email" value="" placeholder="Digite o email" required autofocus>
+    @endif
+	<small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
   </div>
   
   <div class="form-group">
     <label for="txtLogin" class="text-white h5">Login:</label>
-    <input type="text" class="form-control" id="txtLogin"  placeholder="Digite o login....">
-    <small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
+    @if(isset($dadoUsuario))
+	<input type="text" class="form-control" id="txtLogin"  name="login" value="{{ $dadoUsuario[0]->login }}" placeholder="Digite o login...." required autofocus>
+    @else
+    <input type="text" class="form-control" id="txtLogin"  name="login" value="" placeholder="Digite o login...." required autofocus>
+    @endif
+	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
   
     <div class="form-group">
     <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
-    <select class="form-control" id="cbNivelAcesso">
-      <option>Selecione o nivel de acesso...</option>
-      <option>Administrador</option>
-      <option>Gerência</option>
-      <option>Produção</option>
-    </select>
+    <select class="form-control" id="cbNivelAcesso" name="nivelAcesso" required>
+	  @if(isset($dadoUsuario))
+		@switch($dadoUsuario[0]->nivelAcesso)  
+          @case('Administrador')
+		  <option value="Administrador" selected>Administrador</option>
+          <option value="Gerência">Gerência</option>
+          <option value="Produção">Produção</option>
+		  @break  
+          @case('Gerência')		  
+	      <option value="Administrador">Administrador</option>   
+		  <option value="Gerência" selected>Gerência</option>
+          <option value="Produção">Produção</option>
+		  @break
+		  @case('Produção')
+		  <option value="Administrador">Administrador</option>
+          <option value="Gerência">Gerência</option>
+	      <option value="Produção" selected>Produção</option>
+          @break
+		@endswitch
+	  @else
+		<option value="" selected></option>
+		<option value="Administrador">Administrador</option>
+        <option value="Gerência">Gerência</option>
+        <option value="Produção">Produção</option>  
+	  @endif
+	</select>
   </div>
   
   <div class="form-group">
     <div class="row">
       <div class="col">
 	  <label for="txtPassword" class="text-white h5">Senha:</label>
-      <input type="password" class="form-control" id="txtPassword" placeholder="Digite a senha de acesso...">
-      </div>
-	  
-      <div class="col">
-	  <label for="txtPasswordAgain" class="text-white h5">Confirmação de Senha:</label>
-      <input type="password" class="form-control" id="txtPasswordAgain" placeholder="Digite a senha novamente">
-      </div>
-	  
+	  <input type="password" class="form-control" id="txtPassword" name="password" value="" placeholder="Digite a senha de acesso..." required autofocus>
+	  </div>
+	    
       </div>
 	  
       </br>
@@ -93,10 +130,17 @@ th,td{
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
- 
- <button type="submit" class="btn btn-light btn-block">Cadastrar</button>
-
-    </form>
+ @if(isset($dadoUsuario))
+<button type="submit"  name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>	 
+<button type="submit"  name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>	 
+</br>
+<a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a>	 
+ @else
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="{{ asset('img\icons\addIcon.png') }}"></img>Cadastrar</button>
+ </br>
+ <a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a> 
+ @endif
+	</form>
 </div>
 <!-- End form add login-->
 
