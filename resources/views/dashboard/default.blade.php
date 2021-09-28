@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
   </head>
 
   <body>
@@ -32,9 +33,17 @@
     </div>
 
      <!-- Optional JavaScript -->
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- Optional JavaScript After JQuery -->
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript">
+      $(document).ready( function () {
+          $('.ctl-js-table').DataTable();
+      } );
+    </script>
   </body>
 </html>
