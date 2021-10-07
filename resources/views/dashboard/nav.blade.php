@@ -3,13 +3,13 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active bg-light text-primary font-weight-bold" href="{{ route('dashboard') }}">
-                  <img src="{{ asset('img/icons/home.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
+                  <img src="{{ asset('img/icons/dashbaordIcon.png') }}" style="filter: white(100%);" width="20px" height="20px"></img>                   
 				    Home<span class="sr-only"></span>
                 </a>
               </li>
 
 			   <div id="main-menu" class="list-group">
-				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/addIcon.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
                     <a href="{{ route('dashboard.cadastro.produto') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
                     <a href="{{ route('dashboard.cadastro.estoque') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Estoque</a>
@@ -22,7 +22,7 @@
 			   </div>
 			   
 			    <div id="main-menu" class="list-group">
-				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Relatório <span class="caret"></span></a>
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/documentManIcon.png') }}" width="20px" height="20px"></img>  Relatório <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
                     <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Produto</a>
                     <a href="#" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Estoque</a>
@@ -34,7 +34,7 @@
 			   </div>
 			   
 				<div id="main-menu" class="list-group">
-				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Configuração <span class="caret"></span></a>
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/configurationIcon.png') }}" width="20px" height="20px"></img>  Configuração <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
                     <a href="{{ route('dashboard.configuracao.importacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Importação</a>
                     <a href="{{ route('dashboard.configuracao.exportacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> - Exportação</a>

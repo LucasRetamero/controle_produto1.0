@@ -105,25 +105,33 @@ td{
     </tr>
   </thead>
   <tbody>
+	<?php if($dados->count() > 0): ?>
+  <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row">1</th>
-      <td>7898053583099</td>
-      <td>ACEPRAN 1% - 20 ML</td>
-      <td>20/09/2021</td>
-      <td>30/12/2021</td>
-      <td>5</td>
-      <td>2</td>
-      <td>ARMARIO</td>
-      <td>INJETAVEIS, TOPICOS E ORAIS</td>
+      <th scope="row"><?php echo e($item->id); ?></th>
+      <td><?php echo e($item->ean); ?></td>
+      <td><?php echo e($item->nome); ?></td>
+      <td><?php echo e($item->data_fabricacao); ?></td>
+      <td><?php echo e($item->data_vencimento); ?></td>
+      <td><?php echo e($item->quant_atual); ?></td>
+      <td><?php echo e($item->quant_minimo); ?></td>
+      <td><?php echo e($item->localizacao); ?></td>
+      <td><?php echo e($item->sub_especie); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
-         <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button>
+		 <div class="col-sm-12 text-center">
+        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.edit', $item->id)); ?>"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button></a>
+        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.remove', $item->id)); ?>"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons" value="<?php echo e($item->id); ?>"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   <?php else: ?>
+   <div class="alert alert-danger" role="alert">
+    Nenhum produto encontrado !
+   </div>
+   <?php endif; ?>
 	
   </tbody>
 </table>

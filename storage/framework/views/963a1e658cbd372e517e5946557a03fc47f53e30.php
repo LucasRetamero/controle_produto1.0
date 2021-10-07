@@ -57,43 +57,42 @@ td{
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
-   <form class="form-signin">
+   <form method="post" action="<?php echo e(route('dashboard.cadastro.actions')); ?>" class="form-signin">
    
+   <input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />
+		
+	<?php if(isset($dadosSubEspecie)): ?>	
     <!-- Codigo -->
      <div class="form-group">
        <label for="cbNivelAcesso" class="text-white h5">Codigo</label>
-	   <input type="text" class="form-control" id="id_codigo"  placeholder="Codigo da Sub Especie.....">
+	   <input type="text" class="form-control" id="id"  name="id" value="<?php echo e($dadosSubEspecie[0]->id); ?>" placeholder="Codigo da Sub Especie....." required>
        <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
 	  </div>
+	<?php endif; ?>
     
 	<!-- Tipo do endereço --> 
 		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Sub Especie</label>
-         <input type="text" class="form-control" id="id_codigo"  placeholder="Digite a Sub Especie...">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
+         <label for="cbNivelAcesso" class="text-white h5">Sub Especie</label> 
+      <?php if(isset($dadosSubEspecie)): ?>        
+		<input type="text" class="form-control" id="sub_especie"  name="sub_especie" value="<?php echo e($dadosSubEspecie[0]->sub_especie); ?>" placeholder="Digite a Sub Especie..." required>
+	  <?php else: ?>	
+		<input type="text" class="form-control" id="sub_especie"  name="sub_especie" placeholder="Digite a Sub Especie..." required>
+       <?php endif; ?>      
+	  <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
 		 </div>
 		
   </br>
   <!-- Actions buttons -->
-  <center><div class="btn-group" role="group" aria-label="Basic example">
-  
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/addIcon.png')); ?>" class="imgIcons"></img> Gravar</button>
-   </div>
-        
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/clearIcon.png')); ?>" class="imgIcons"></img> Limpar campos</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"></img> Editar</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"></img> Remover</button>
-   </div>
-
-  </div></center>	
+  <?php if(!isset($dadosSubEspecie)): ?>
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="<?php echo e(asset('img\icons\addIcon.png')); ?>"></img>Cadastrar</button>
+ <?php endif; ?>
+ </br><button name="btnAction" onclick="updateDiv('attLocalizacao')" class="btn btn-light btn-block" style="font-size:x-large;" value="btnRefresh"><img src="<?php echo e(asset('img\icons\reloadIcon.png')); ?>" width="40px" height="40px"></img>Atualizar</button>
+ <?php if(isset($dadosSubEspecie)): ?>
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="<?php echo e(asset('img\icons\editIcon.png')); ?>" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="<?php echo e(asset('img\icons\removeIcon.png')); ?>" width="40px" height="40px"></img>Remover</button>
+ <?php endif; ?>
+ </br><button type="submit" name="btnAction" class="btn btn-light btn-block" style="font-size:x-large;" value="btnCancel"><img src="<?php echo e(asset('img\icons\NoIcon.png')); ?>" width="40px" height="40px"></img>Cancelar</button>
+  	
  
  </form>
 </div><!-- Termina lista do estoque -->

@@ -36,6 +36,7 @@
     <script src="<?php echo e(asset('js/jquery-3.3.1.slim.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/popper.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/jQuery v3.6.0.js')); ?>"></script>
   </body>
 </html>
 <?php /**PATH J:\Projects\Controle de Produto\controle_produto\resources\views/dashboard/default.blade.php ENDPATH**/ ?>

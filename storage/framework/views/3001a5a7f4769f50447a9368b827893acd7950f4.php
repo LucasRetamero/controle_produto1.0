@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('title','Controle de produto - Dashboard / formulário de produto'); ?>
+<?php $__env->startSection('title','Controle de produto - Dashboard / Formulário: Produto'); ?>
 
 <?php $__env->startSection('content'); ?>
 <!-- CSS -->
@@ -52,7 +52,7 @@ td{
 </div>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="<?php echo e(route('dashboard.cadastro.produto')); ?>">Produto</a> / Formulário de produto</h1> 
+            <h1 class="h2">Cadastro / <a href="<?php echo e(route('dashboard.cadastro.produto')); ?>">Produto</a> / Formulário: Produto</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
  
@@ -61,7 +61,7 @@ td{
     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Formulário do produto</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Formulário do estoque</a>
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Formulário: Estoque</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
@@ -74,11 +74,15 @@ td{
 <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Formulário do Produto</h1>
+		<?php if(isset($dadosProduto)): ?>
+          <h1 class="h3 text-white">Formulário: Editar Produto</h1>
+		<?php else: ?>
+          <h1 class="h3 text-white">Formulário: Cadastrar Produto</h1>
+        <?php endif; ?>			
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
-   <form class="form-signin">
+   <form class="form-signin" method="post" action="<?php echo e(route('dashboard.cadastro.produto.productAddForm.action')); ?>">
     
 	<div class="accordion" id="accordionExample">
   
@@ -95,50 +99,71 @@ td{
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         
-		<!-- Photo -->
+		<input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />
+		
+		<!-- Photo 
 	    <div class="form-group mx-auto" style="width: 200px;">
          <label for="txtLogin" class="h5">Imagem do produto</label>
-	     <img src="<?php echo e(asset('img/icons/defaultProductIcon.png')); ?>" width="200px" height="200px"/>
-         <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
+	     <img src="<?php echo e(asset('img/icons/defaultProductIcon.png')); ?>" width="200px" height="200px" id="imgProdutoShow"/>
+         <small id="txtEmail" class="form-text text-muted"> Small text</small>
 	     <label for="inputFileForm" class="btn btn-primary font-weight-bold btn-block">Selecionar foto</label>
          <input type="file" class="form-control-file" style="display:none;" id="inputFileForm">
          <span id="fileName" style="display:none;"></span>
          <input id="srcFileText" class="form-control font-weight-bold" type="text" placeholder="Selecione o arquivo..." style="background-color: white;font-size:large;" readonly>
-        </div>
+         <input type="hidden" name="img" id="imgProduto" value=" " />
+		</div>-->
 		
 		<!-- Code -->
 		<div class="form-group">
-         <label for="id_codigo" class="h5">Codigo</label>
-         <input type="text" class="form-control" id="id_codigo"  placeholder="Codigo do produto.....">
-         <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
+        <?php if(isset($dadosProduto)): ?>
+ 	     <label for="id_codigo" class="h5">Codigo</label>	
+		 <input  type="text" class="form-control" id="id_codigo" name="id" placeholder="Codigo do produto....." value="<?php echo e($dadosProduto[0]->id); ?>" />		
+		<?php endif; ?> 
+		 <small id="txtId" class="form-text text-muted"><!-- Small message --></small>
         </div>
 		
 		<!-- EAN(Barcode) -->
 		<div class="form-group">
          <label for="txt_ean" class="h5">EAN(Codigo de Barras)</label>
-         <input type="text" class="form-control" id="txt_ean"  placeholder="Digite EAN(Codigo de barras).....">
-         <small id="smTxt_ean" class="form-text text-muted"><!-- Small message --></small>
+        <?php if(isset($dadosProduto)): ?>
+		 <input  type="text" class="form-control" id="txt_ean" name="ean" placeholder="Digite EAN(Codigo de barras)....." value="<?php echo e($dadosProduto[0]->ean); ?>" />   
+	   <?php else: ?>
+		<input type="text" class="form-control" id="txt_ean"  name="ean" placeholder="Digite EAN(Codigo de barras).....">
+        <?php endif; ?>         
+		 <small id="txt_ean" class="form-text text-muted"><!-- Small message --></small>
         </div>
 		
 		<!-- Name -->
 		<div class="form-group">
          <label for="txt_nome" class="h5">Nome:</label>
-         <input type="text" class="form-control" id="txt_nome"  placeholder="Digite o nome.....">
-         <small id="smTxt_nome" class="form-text text-muted"><!-- Small message --></small>
+         <?php if(isset($dadosProduto)): ?>
+	      <input type="text" class="form-control" id="txt_nome"  name="nome" placeholder="Digite o nome....." value="<?php echo e($dadosProduto[0]->nome); ?>">
+		<?php else: ?>
+		<input type="text" class="form-control" id="txt_nome"  name="nome" placeholder="Digite o nome.....">
+         <?php endif; ?>
+		 <small id="smTxt_nome" class="form-text text-muted"><!-- Small message --></small>
         </div>
 		
 		<!-- Fabrication date -->
 		<div class="form-group">
          <label for="dt_fabricacao" class="h5">Data de Fabricação</label>
-         <input type="date" class="form-control" id="dt_fabricacao">
-         <small id="smDt_fabricacao" class="form-text text-muted"><!-- Small message --></small>
+         <?php if(isset($dadosProduto)): ?>
+	      <input type="date" class="form-control" id="dt_fabricacao" name="data_fabricacao" value="<?php echo e($dadosProduto[0]->data_fabricacao); ?>">
+		<?php else: ?>
+		<input type="date" class="form-control" id="dt_fabricacao" name="data_fabricacao">
+         <?php endif; ?>
+		 <small id="smDt_fabricacao" class="form-text text-muted"><!-- Small message --></small>
         </div>
 		
 		<!-- Expiration date -->
 		<div class="form-group">
          <label for="dt_validade" class="h5">Data de Vencimento</label>
-         <input type="date" class="form-control" id="dt_validade">
-         <small id="smDt_fabricacao" class="form-text text-muted"><!-- Small message --></small>
+         <?php if(isset($dadosProduto)): ?>
+	      <input type="date" class="form-control" id="dt_validade" name="data_vencimento" value="<?php echo e($dadosProduto[0]->data_vencimento); ?>">
+		<?php else: ?>
+		 <input type="date" class="form-control" id="dt_validade" name="data_vencimento">
+        <?php endif; ?>
+		 <small id="smDt_fabricacao" class="form-text text-muted"><!-- Small message --></small>
         </div>
   
 	  </div>
@@ -167,14 +192,22 @@ td{
 		 
 		  <div class="col">
 	       <label for="txt_atualQtd" class="h5">Quantidade atual</label>
-           <input type="text" class="form-control" id="txt_atualQtd"  placeholder="Digite a quantidade atual no estoque....">
-           <small id="smTxt_atualQtd" class="form-text text-muted"><!-- Small message --></small> 
+         <?php if(isset($dadosProduto)): ?>
+	      <input type="text" class="form-control" id="txt_atualQtd"  name="quant_atual"value="<?php echo e($dadosProduto[0]->quant_atual); ?>" placeholder="Digite a quantidade atual no estoque....">
+  		<?php else: ?>
+		 <input type="text" class="form-control" id="txt_atualQtd"  name="quant_atual" placeholder="Digite a quantidade atual no estoque....">
+           <?php endif; ?>
+		   <small id="smTxt_atualQtd" class="form-text text-muted"><!-- Small message --></small> 
 		  </div>
 		  
     	  <div class="col">
 	       <label for="txt_minQtd" class="h5">Quantidade minima</label>
-           <input type="text" class="form-control" id="txt_minQtd"  placeholder="Digite a quantidade minima desejada....">
-           <small id="smTxt_minQtd" class="form-text text-muted"><!-- Small message --></small>
+            <?php if(isset($dadosProduto)): ?>
+	        <input type="text" class="form-control" id="txt_atualQtd"  name="quant_minimo" value="<?php echo e($dadosProduto[0]->quant_minimo); ?>" placeholder="Digite a quantidade minima no estoque....">
+		 <?php else: ?>
+		 <input type="text" class="form-control" id="txt_atualQtd"  name="quant_minimo" placeholder="Digite a quantidade minima no estoque...."> 
+		   <?php endif; ?>
+		   <small id="smTxt_minQtd" class="form-text text-muted"><!-- Small message --></small>
           </div>
 	
          </div>
@@ -202,17 +235,24 @@ td{
           
 		  <div class="row">  
 		  
-		  <div class="col">
+		  <div id="attLocalizacao" class="col">
 		  
 	       <label for="cb_localizacao" class="h5">Localização 
 		   <button class="btn btn-light" style="font-size: large;" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><img src="<?php echo e(asset('img/icons/addIcon.png')); ?>" class="imgIcons"> </img> </button>
 		   </label>
 		  
-           <select class="form-control" id="cb_localizacao">
-           <option>Selecione a localização</option>
-           <option>Administrador</option>
-           <option>Gerência</option>
-           <option>Produção</option>
+           <select class="form-control" id="cb_localizacao" name="localizacao">
+           <?php if(isset($dadosProduto)): ?>
+	         <?php if($dadosProduto[0]->localizacao == 'item'): ?>  
+             <option value="teste" selected>Selecione a localização</option>  			  
+	         <?php endif; ?>
+		  <?php else: ?>
+		<option value="teste" selected>Selecione a localização</option>  			  
+		   <option value="Administrador">Administrador</option>
+           <option value="Gerência">Gerência</option>
+           <option value="Produção">Produção</option>
+		   <?php endif; ?>
+ 
            </select>
           </div>
 		  
@@ -221,11 +261,17 @@ td{
 		   <button class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/addIcon.png')); ?>" class="imgIcons"></img> </button>
 		   </label>
 		   
-           <select class="form-control" id="cb_subEspecie">
-           <option>Selecione a Sub-Especie</option>
-           <option>Administrador</option>
-           <option>Gerência</option>
-           <option>Produção</option>
+           <select class="form-control" id="cb_subEspecie" name="sub_especie">
+           <?php if(isset($dadosProduto)): ?>
+	         <?php if($dadosProduto[0]->sub_especie == 'item'): ?>  
+             <option value="teste" selected>Selecione a Sub-especie</option>  			  
+	         <?php endif; ?>
+		  <?php else: ?>
+		   <option value="teste" selected>Selecione a Sub-especie</option> 
+		   <option value="Administrador">Administrador</option>
+           <option value="Gerência">Gerência</option>
+           <option value="Produção">Produção</option>
+		   <?php endif; ?>
            </select>
           </div>
 		  
@@ -243,8 +289,19 @@ td{
   
   </div>
    
-  </br>   
-  <!-- Actions buttons -->
+  </br>  
+
+ <?php if(!isset($dadosProduto)): ?>
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="<?php echo e(asset('img\icons\addIcon.png')); ?>"></img>Cadastrar</button>
+ <?php endif; ?>
+ </br><button name="btnAction" onclick="updateDiv('attLocalizacao')" class="btn btn-light btn-block" style="font-size:x-large;" value="btnRefresh"><img src="<?php echo e(asset('img\icons\reloadIcon.png')); ?>" width="40px" height="40px"></img>Atualizar</button>
+ <?php if(isset($dadosProduto)): ?>
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="<?php echo e(asset('img\icons\editIcon.png')); ?>" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="<?php echo e(asset('img\icons\removeIcon.png')); ?>" width="40px" height="40px"></img>Remover</button>
+ <?php endif; ?>
+ </br><button type="submit" name="btnAction" class="btn btn-light btn-block" style="font-size:x-large;" value="btnCancel"><img src="<?php echo e(asset('img\icons\NoIcon.png')); ?>" width="40px" height="40px"></img>Cancelar</button>
+   
+  <!-- Actions buttons 
   <center><div class="btn-group" role="group" aria-label="Basic example">
   
   <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -268,7 +325,7 @@ td{
     <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"></img> Remover</button>
    </div>
 
-  </div></center>	
+  </div></center>-->	
 	 
  </form>
 
@@ -479,7 +536,14 @@ td{
     </div>
   </div><!-- Termina estoque -->
   </br>
-  <!-- Actions buttons -->
+  
+  <!-- Buttons: Add/Refresh/Edit/Remove/Cancel -->
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="<?php echo e(asset('img\icons\addIcon.png')); ?>"></img>Cadastrar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-light btn-block" style="font-size:x-large;" value="btnRefresh"><img src="<?php echo e(asset('img\icons\reloadIcon.png')); ?>" width="40px" height="40px"></img>Atualizar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="<?php echo e(asset('img\icons\editIcon.png')); ?>" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="<?php echo e(asset('img\icons\removeIcon.png')); ?>" width="40px" height="40px"></img>Remover</button>
+ </br><a href="<?php echo e(route('dashboard.cadastro.produto')); ?>"><button type="submit" name="btnAction" class="btn btn-light btn-block" style="font-size:x-large;" value="btnCancel"><img src="<?php echo e(asset('img\icons\NoIcon.png')); ?>" width="40px" height="40px"></img>Cancelar</button></a>
+  <!-- Actions buttons 
   <center><div class="btn-group" role="group" aria-label="Basic example">
   
   <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -502,7 +566,7 @@ td{
     <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"></img> Remover</button>
    </div>
 
-  </div></center>	
+  </div></center>-->
  
  </form>
 </div><!-- Termina lista do estoque -->
@@ -516,13 +580,17 @@ td{
 
 <!-- JS Script -->
 <script type="text/javascript">
-var $input    = document.getElementById('inputFileForm'),
-     $fileName = document.getElementById('fileName');
+//var $input    = document.getElementById('inputFileForm'),
+//     $fileName = document.getElementById('fileName');
 
- $input.addEventListener('change', function(){
-	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
- });
-
+ //$input.addEventListener('change', function(){
+//	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
+//	document.getElementById('imgProduto').value = $fileName.textContent;
+ //});
+function updateDiv(div) {
+    var div = '#' + div;
+    $(div).load(window.location.href + " " + div);
+}
 </script>
 <?php $__env->stopSection(); ?>
 

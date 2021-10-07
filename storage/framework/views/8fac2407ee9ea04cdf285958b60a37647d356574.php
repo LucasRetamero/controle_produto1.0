@@ -31,14 +31,14 @@ th,td{
         
 		<div class="container">
 		<?php if(isset($dadoUsuario)): ?>
-		  <h1 class="h3 text-white">Editar Usuário</h1>
+		  <h1 class="h3 text-white">Editar: Usuário</h1>
 		<?php else: ?>
-		  <h1 class="h3 text-white">Adicionar Usuário</h1>
+		  <h1 class="h3 text-white">Adicionar: Usuário</h1>
         <?php endif; ?>		 
 		 <hr class="confHr">
         </div>
 		
-  <form method="post" action="<?php echo e(route('login.addEditRemUsuario')); ?>"class="form-signin">
+  <form method="post"  id="addUserForm" action="<?php echo e(route('login.addEditRemUsuario')); ?>" class="form-signin">
   <div class="form-group">
     
       <div class="row">
@@ -206,9 +206,10 @@ th,td{
   </tbody>
 </table>
 
-<!-- JS Script -->
-<script type="text/javascript">
 
+<!-- JS Script -->
+<script>
+	
 var code = document.getElementById("txtPassword");
 
 var strengthbar = document.getElementById("passParameter");

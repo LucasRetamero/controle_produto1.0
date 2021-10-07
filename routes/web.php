@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
 
-Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function(){
+Route::group(['prefix' => 'dashboard'], function(){
 
 //Rota: Home Dashboard
 Route::get('/', function(){
@@ -27,14 +27,21 @@ Route::get('/', function(){
 })->name('dashboard');
 
 //Rota: Lista de Produtos
-Route::get('cadastro/produtos', function(){
-  return view('dashboard.cadastro.produto.produto');
-})->name('dashboard.cadastro.produto');
+Route::get('cadastro/produtos', 'Cadastro\ProdutosController@index')->name('dashboard.cadastro.produto');
 
 //Rota: Formulario de Produtos
 Route::get('cadastro/produtos/produtosFormulario', function(){
  return view('dashboard.cadastro.produto.produtoForm');	
 })->name('dashboard.cadastro.produto.productAddForm');
+
+//Rota: Add/Update/Remove/Cancel Produto
+Route::post('cadastro/produtos/produtosFormulario/action', 'Cadastro\ProdutosController@actionsMenu')->name('dashboard.cadastro.produto.productAddForm.action');
+
+//Rota: Update Form Produto
+Route::get('Cadastro/produtos/produtosFormulario/editar/{id}', 'Cadastro\ProdutosController@editFormProduto')->name('dashboard.cadastro.produto.productAddForm.edit');
+
+//Rota: Remove produto
+Route::get('Cadastro/produtos/produtosFormulario/remover/{id}', 'Cadastro\ProdutosController@removeProduto')->name('dashboard.cadastro.produto.productAddForm.remove');
 
 //Rota: Lista do Estoque
 Route::get('cadastro/estoque', function(){
@@ -87,9 +94,18 @@ Route::get('cadastro/localizacao/localizacaoFormulario',function(){
 })->name('dashboard.cadastro.localizacao.localizacaoAddForm');
 
 //Rota: Lista de Sub Especie
-Route::get('cadastro/subEspecie',function(){
- return view('dashboard.cadastro.subEspecie.subEspecie');	
-})->name('dashboard.cadastro.subEspecie');
+Route::get('cadastro/subEspecie', 'Cadastro\SubEspecieController@index')->name('dashboard.cadastro.subEspecie');
+
+//Rota: Add/edit/remove Sub Especie
+Route::post('cadastro/subEspecie/actions', 'Cadastro\SubEspecieController@actionsMenu')->name('dashboard.cadastro.actions');
+
+//Rota: Form Sub Especie to edit
+Route::get('cadastro/subEspecie/editForm/{id}', 'Cadastro\SubEspecieController@editForm')->name('dashboard.cadastro.subEspecie.edit');
+//Rota: Remove Sub Especie by url
+Route::get('cadastro/subEspecie/remove/{id}', 'Cadastro\SubEspecieController@getDeleteByUrl')->name('dashboard.cadastro.subEspecie.remove');
+
+//Rota: Searching by Sub Especie
+Route::post('cadastro/subEspecie/searching', 'Cadastro\SubEspecieController@searchBySubEspecie')->name('dashboard.cadastro.subEspecie.searching');
 
 //Rota: Formulario da Sub Especie
 Route::get('cadastro/subEspecie/subEspecieFormulario',function(){

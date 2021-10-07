@@ -74,7 +74,7 @@ td{
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar o usuârio...">
         </div>    
 	 </div>
 		 

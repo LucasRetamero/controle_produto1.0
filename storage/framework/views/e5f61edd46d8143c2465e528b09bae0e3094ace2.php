@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('title','Controle de produto - Dashboard / formulário de produto'); ?>
+<?php $__env->startSection('title','Controle de produto - Dashboard / formulário do endereço'); ?>
 
 <?php $__env->startSection('content'); ?>
 <!-- CSS -->

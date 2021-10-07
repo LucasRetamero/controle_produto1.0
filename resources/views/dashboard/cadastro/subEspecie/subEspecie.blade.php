@@ -56,18 +56,19 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de sub especie</h1>
-     <form action="#">
+     <form method="post" action="{{ route('dashboard.cadastro.subEspecie.searching') }}">
       <div class="form-row">
-	  
+	   <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
         <div class="col">
          <div class="form-group">
-          <input type="text" class="form-control" id="txtSearchLote" placeholder="Digite a sub especie..." />
+          <input type="text" class="form-control" id="txtSearchLote" name="sub_especie" placeholder="Digite a sub especie..." />
          </div>
         </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="SubEspecie" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="All" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -87,18 +88,26 @@ td{
     </tr>
   </thead>
   <tbody>
+  @if($dadosSubEspecie->count() > 0)
+  @foreach($dadosSubEspecie as $item)
     <tr>
-      <th scope="row">1</th>
-	  <td>TESTE</td>
+      <th scope="row">{{ $item->id }}</th>
+	  <td>{{ $item->sub_especie }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button>
+          <a href="{{ route('dashboard.cadastro.subEspecie.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+          <a href="{{ route('dashboard.cadastro.subEspecie.remove', $item->id) }}"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+  @endforeach
+   @else
+   <div class="alert alert-danger" role="alert">
+    Nenhuma Sub-Especie encontrada !
+   </div>
+   @endif
 	
   </tbody>
 </table>
