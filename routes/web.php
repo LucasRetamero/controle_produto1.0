@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
 
+//Grupo de rotas: Dashboard
 Route::group(['prefix' => 'dashboard'], function(){
 
 //Rota: Home Dashboard
@@ -29,10 +30,11 @@ Route::get('/', function(){
 //Rota: Lista de Produtos
 Route::get('cadastro/produtos', 'Cadastro\ProdutosController@index')->name('dashboard.cadastro.produto');
 
+//Rota: Searching Lista de Produtos
+Route::post('cadastro/produtos/searching', 'Cadastro\ProdutosController@searchingMenu')->name('dashboard.cadastro.produto.searching');
+
 //Rota: Formulario de Produtos
-Route::get('cadastro/produtos/produtosFormulario', function(){
- return view('dashboard.cadastro.produto.produtoForm');	
-})->name('dashboard.cadastro.produto.productAddForm');
+Route::get('cadastro/produtos/produtosFormulario', 'Cadastro\ProdutosController@indexFormProduto')->name('dashboard.cadastro.produto.productAddForm');
 
 //Rota: Add/Update/Remove/Cancel Produto
 Route::post('cadastro/produtos/produtosFormulario/action', 'Cadastro\ProdutosController@actionsMenu')->name('dashboard.cadastro.produto.productAddForm.action');
@@ -44,9 +46,10 @@ Route::get('Cadastro/produtos/produtosFormulario/editar/{id}', 'Cadastro\Produto
 Route::get('Cadastro/produtos/produtosFormulario/remover/{id}', 'Cadastro\ProdutosController@removeProduto')->name('dashboard.cadastro.produto.productAddForm.remove');
 
 //Rota: Lista do Estoque
-Route::get('cadastro/estoque', function(){
- return view('dashboard.cadastro.estoque.estoque');
-})->name('dashboard.cadastro.estoque');
+Route::get('cadastro/estoque', 'Cadastro\EstoqueController@index')->name('dashboard.cadastro.estoque');
+
+//Rota: Searching Estoque
+Route::post('cadastro/estoque/searching', 'Cadastro\EstoqueController@searchingMenu')->name('dashboard.cadastro.estoque.searching');
 
 //Rota: Formulario do Estoque
 Route::get('cadastro/produtos/estoqueFormulario', function(){
@@ -54,9 +57,16 @@ Route::get('cadastro/produtos/estoqueFormulario', function(){
 })->name('dashboard.cadastro.estoque.estoqueAddForm');
 
 //Rota: Lista de Endereço
-Route::get('cadastro/enderecos', function(){
- return view('dashboard.cadastro.endereco.endereco');
-})->name('dashboard.cadastro.endereco');
+Route::get('cadastro/enderecos', 'Cadastro\EnderecoController@index')->name('dashboard.cadastro.endereco');
+
+//Rota: Searching Endereço
+Route::post('cadastro/enderecos/searching', 'Cadastro\EnderecoController@searchingAction')->name('dashboard.cadastro.endereco.searching');
+
+//Rota: open form to edit or remove Endereço
+Route::get('cadastro/enderecos/enderecoFormulario/editOrRemove/{id}/{option}', 'Cadastro\EnderecoController@editRemoveTable')->name('dashboard.cadastro.endereco.enderecoForm.editOrRemove');
+
+//Rota: Add/Edit or remove Endereço
+Route::post('cadastro/enderecos/enderecoFormulario/actionsMenu', 'Cadastro\EnderecoController@actionsMenu')->name('dashboard.cadastro.endereco.enderecoForm.actionsMenu');
 
 //Rota: Formulario do Endereço
 Route::get('cadastro/enderecos/enderecoFormulario', function(){
@@ -64,9 +74,16 @@ Route::get('cadastro/enderecos/enderecoFormulario', function(){
 })->name('dashboard.cadastro.endereco.enderecoAddForm');
 
 //Rota: Lista Tipo de Endereço
-Route::get('cadastro/tipo_Endereco/tipoEndereco', function(){
- return view('dashboard.cadastro.tipoEndereco.tipoEndereco');
-})->name('dashboard.cadastro.tipo_endereco');
+Route::get('cadastro/tipo_Endereco/tipoEndereco', 'Cadastro\TipoEnderecoController@index')->name('dashboard.cadastro.tipo_endereco');
+
+//Rota: Searching Tipo de Endereço
+Route::post('cadastro/tipo_Endereco/tipoEndereco/searching', 'Cadastro\TipoEnderecoController@searchingAction')->name('dashboard.cadastro.tipo_endereco.searching');
+
+//Rota: open Formulario tipo do endereço to edit or remove
+Route::get('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/editOrRemove/{id}/{option}', 'Cadastro\TipoEnderecoController@editRemoveLoteTable')->name('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove');
+
+//Rota: Add, edit or remove tipo do endereço to 
+Route::post('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/actionsMenu', 'Cadastro\TipoEnderecoController@actionsMenu')->name('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.actionsMenu');
 
 //Rota: Formulario Tipo de Endereço
 Route::get('cadastro/tipoEndereco/tipoEnderecoFormulario', function(){
@@ -74,19 +91,33 @@ Route::get('cadastro/tipoEndereco/tipoEnderecoFormulario', function(){
 })->name('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm');
 
 //Rota: Lista de Lote
-Route::get('cadastro/lote',function(){
- return view('dashboard.cadastro.lote.lote');	
-})->name('dashboard.cadastro.lote');
+Route::get('cadastro/lote', 'Cadastro\LoteController@index')->name('dashboard.cadastro.lote');
 
-//Rota: Formulario do Lote
+//Rota: Searching like name or all Lote
+Route::post('cadastro/lote/searching', 'Cadastro\LoteController@searchingAction')->name('dashboard.cadastro.lote.searching');
+
+//Rota: Actions Add/Edit/Remove Lote
+Route::post('cadastro/lote/actionsMenu', 'Cadastro\LoteController@actionsMenu')->name('dashboard.cadastro.lote.loteForm.actionsMenu');
+
+//Rota: Formulario do Lote to add
 Route::get('cadastro/lote/loteFormulario',function(){
  return view('dashboard.cadastro.lote.loteForm');	
 })->name('dashboard.cadastro.lote.loteAddForm');
 
+//Rota: Formulario do Lote to edit or remove
+Route::get('cadastro/lote/loteFormulario/EditOrRemove/{id}/{option}','Cadastro\LoteController@editRemoveLoteTable')->name('dashboard.cadastro.lote.loteAddForm.editOrRemove');
+
 //Rota: Lista de Localizacao
-Route::get('cadastro/localizacao',function(){
- return view('dashboard.cadastro.localizacao.localizacao');	
-})->name('dashboard.cadastro.localizacao');
+Route::get('cadastro/localizacao','Cadastro\LocalizacaoController@index')->name('dashboard.cadastro.localizacao');
+
+//Rota: Searching Localizacao Name or All
+Route::post('cadastro/localizacao/searchingActions','Cadastro\LocalizacaoController@searchingMenu')->name('dashboard.cadastro.localizacao.searching');
+
+//Rota: List of actions Add, edit or remove Localizacao
+Route::post('cadastro/localizacao/localizacaoFormulario/actionsMenu', 'Cadastro\LocalizacaoController@actionsMenu')->name('dashboard.cadastro.localizacao.localizacaoAddForm.actionsMenu');
+
+//Rota: Form da localizacao to edit or remove  
+Route::get('cadastro/localizacao/localizacaoFormulario/EditRemove/{id}/{option}', 'Cadastro\LocalizacaoController@indexFormToEditRemove')->name('dashboard.cadastro.localizacao.localizacaoAddForm.editRemove');
 
 //Rota: Formulario da localizacao
 Route::get('cadastro/localizacao/localizacaoFormulario',function(){
@@ -111,7 +142,6 @@ Route::post('cadastro/subEspecie/searching', 'Cadastro\SubEspecieController@sear
 Route::get('cadastro/subEspecie/subEspecieFormulario',function(){
  return view('dashboard.cadastro.subEspecie.subEspecieForm');	
 })->name('dashboard.cadastro.subEspecie.subEspecieAddForm');
-
 
 //Rota: Exportar database
 Route::get('configuracao/exportacao', function(){

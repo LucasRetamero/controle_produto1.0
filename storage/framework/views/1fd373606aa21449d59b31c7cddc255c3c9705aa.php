@@ -67,8 +67,8 @@ td{
 		 
      </div>
 	
-	   <button type="submit" name="btnAction" value="SubEspecie" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
-	   <button type="submit" name="btnAction" value="All" class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -97,7 +97,7 @@ td{
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
           <a href="<?php echo e(route('dashboard.cadastro.subEspecie.edit', $item->id)); ?>"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button></a>
-          <a href="<?php echo e(route('dashboard.cadastro.subEspecie.remove', $item->id)); ?>"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button></a>
+          <a href="<?php echo e(route('dashboard.cadastro.subEspecie.remove', $item->id)); ?>" onclick="return confirm('Deseja realmente remover essa item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
@@ -105,7 +105,7 @@ td{
   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
    <?php else: ?>
    <div class="alert alert-danger" role="alert">
-    Nenhuma Sub-Especie encontrada !
+    Nenhuma Item encontrado !
    </div>
    <?php endif; ?>
 	

@@ -56,18 +56,20 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de lote</h1>
-     <form action="#">
+     <form method="post" action="{{ route('dashboard.cadastro.lote.searching') }}">
       <div class="form-row">
 	  
         <div class="col">
          <div class="form-group">
-          <input type="text" class="form-control" id="txtSearchLote" placeholder="Digite o lote..." />
+          <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
+		  <input type="text" class="form-control" id="txtSearchLote" name="lote" placeholder="Digite o lote..." />
          </div>
         </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+       <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -87,18 +89,26 @@ td{
     </tr>
   </thead>
   <tbody>
+    @if($dadosLote->count() > 0)
+  @foreach($dadosLote as $item)
     <tr>
-      <th scope="row">1</th>
-	  <td>TESTE</td>
+      <th scope="row">{{ $item->id }}</th>
+	  <td>{{ $item->lote }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button>
+          <a href="{{ route('dashboard.cadastro.lote.loteAddForm.editOrRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+          <a href="{{ route('dashboard.cadastro.lote.loteAddForm.editOrRemove', ['id' => $item->id, 'option' => 'remove'] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+  @endforeach
+   @else
+   <div class="alert alert-danger" role="alert">
+    Nenhuma Item encontrado !
+   </div>
+   @endif
 	
   </tbody>
 </table>

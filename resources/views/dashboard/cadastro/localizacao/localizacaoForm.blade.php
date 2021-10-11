@@ -57,46 +57,39 @@ td{
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
-   <form class="form-signin">
-   
-    <!-- Codigo -->
-     <div class="form-group">
-       <label for="cbNivelAcesso" class="text-white h5">Codigo</label>
-	   <input type="text" class="form-control" id="id_codigo"  placeholder="Codigo da localização.....">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
-	  </div>
+   <form method="post" action="{{ route('dashboard.cadastro.localizacao.localizacaoAddForm.actionsMenu') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
     
-	<!-- Tipo do endereço --> 
+	<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+		
+	@if(isset($dadosLocalizacao))	
+	   <input type="hidden" id="id_codigo"  name="id" value="{{ $dadosLocalizacao[0]->id }}">
+       <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
+	@endif
+    
+	<!-- Tipo da localizacao --> 
 		<div class="form-group">
          <label for="cbNivelAcesso" class="text-white h5">Localização</label>
-         <input type="text" class="form-control" id="id_codigo"  placeholder="Digite a localização...">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
+          @if(isset($dadosLocalizacao))
+     	  <input type="text" class="form-control" id="txtLocalicazao" name="localizacao" value="{{ $dadosLocalizacao[0]->localizacao}}">
+          @else
+		  <input type="text" class="form-control" id="txtLocalicazao" name="localizacao" placeholder="Digite a localização...">
+         @endif
+		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
 		 </div>
 		
   </br>
   <!-- Actions buttons -->
-  <center><div class="btn-group" role="group" aria-label="Basic example">
-  
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"></img> Gravar</button>
-   </div>
-        
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/clearIcon.png') }}" class="imgIcons"></img> Limpar campos</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"></img> Editar</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"></img> Remover</button>
-   </div>
-
-  </div></center>	
+  @if(!isset($dadosLocalizacao))
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="{{ asset('img\icons\addIcon.png') }}"></img>Cadastrar</button>
+ @else
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
+ @endif
+ </br><a href="{{ route('dashboard.cadastro.localizacao') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+  		
  
  </form>
-</div><!-- Termina lista do estoque -->
+</div>
 		
  	
 </div>

@@ -56,30 +56,33 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de endereço</h1>
-     <form action="#">
-      <div class="form-row">
+     <form method="post" action="<?php echo e(route('dashboard.cadastro.endereco.searching')); ?>">
+      <input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />
+	
+	  <div class="form-row">
 	  
         <div class="col2">
          <div class="form-group">
-          <select class="form-control" id="slctQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
+          <select class="form-control" id="slctQuery" name="cbQuery">
+           <option value="area" selected>Area</option>
+           <option value="rua">Rua</option>
+           <option value="predio">Predio</option>
+           <option value="nivel">Nivel</option>
+           <option value="apto">Apto</option>
          </select>
          </div>
         </div>
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="enderecoQuery" class="form-control" placeholder="Digite o endereço desejado...">
         </div>    
 	 </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+       <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -103,22 +106,31 @@ td{
     </tr>
   </thead>
   <tbody>
+    <?php if($dadosEndereco->count() > 0): ?>
+  <?php $__currentLoopData = $dadosEndereco; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row">1</th>
-      <td>D007</td>
-      <td>001</td>
-      <td>002</td>
-      <td>000</td>
-      <td>001</td>
+      <th scope="row"><?php echo e($item->id); ?></th>
+	  <td><?php echo e($item->area); ?></td>
+	  <td><?php echo e($item->rua); ?></td>
+	  <td><?php echo e($item->predio); ?></td>
+	  <td><?php echo e($item->nivel); ?></td>
+	  <td><?php echo e($item->apto); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button>
+          <a href="<?php echo e(route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'edit' ] )); ?>"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button></a>
+          <a href="<?php echo e(route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'remove'] )); ?>" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   <?php else: ?>
+   <div class="alert alert-danger" role="alert">
+    Nenhum Item encontrado !
+   </div>
+   <?php endif; ?>
+	
 	
   </tbody>
 </table>

@@ -65,11 +65,11 @@ class SubEspecieController extends Controller
 	//Search by sub especie
 	public function searchBySubEspecie(Request $request){
 	 switch($request->input('btnAction')){	
-	 case "SubEspecie":
+	 case "nameQuery":
 	 return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllBySubEspecie($request->input('sub_especie'))]);		
 	 break;
 	 
-	 case "All":
+	 case "allQuery":
 	 return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie()]);	
 	 break;
 

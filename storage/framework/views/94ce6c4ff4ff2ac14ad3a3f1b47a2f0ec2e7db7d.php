@@ -56,10 +56,12 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista do estoque</h1>
-     <form action="#">
-      <div class="form-row">
+     <form method="post" action="<?php echo e(route('dashboard.cadastro.estoque.searching')); ?>">
+       <input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />      
+		       
+	 <div class="form-row">
 	  
-        <div class="col2">
+        <!--<div class="col2">
          <div class="form-group">
           <select class="form-control" id="slctQuery">
            <option value="Nome" selected>Nome</option>
@@ -69,17 +71,18 @@ td{
            <option value="Nivel de acesso">Nivel de acesso</option>
          </select>
          </div>
-        </div>
+        </div>-->
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="nomeProdutoQuery" class="form-control" placeholder="Digite o nome do produto...">
         </div>    
 	 </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -92,151 +95,53 @@ td{
   <h1 class="h3 text-center">Lista do estoque</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">id_User</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Sobrenome</th>
-      <th scope="col">Email</th>
-      <th scope="col">Login</th>
-      <th scope="col">Nivel de Acesso</th>
+      <th scope="col">ID</th>
+      <th scope="col">Produto</th>
+      <th scope="col">Lote</th>
+      <th scope="col">Tipo_Endereco</th>
+      <th scope="col">Area</th>
+      <th scope="col">Rua</th>
+      <th scope="col">predio</th>
+      <th scope="col">nivel</th>
+      <th scope="col">apto</th>
       <th scope="col">Ações</th>
 	  
     </tr>
   </thead>
   <tbody>
+    <?php if($dados->count() > 0): ?>
+  <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row">1</th>
-      <td>Jorge</td>
-      <td>Silva</td>
-      <td>jorge_silva@gmail.com</td>
-      <td>JorgeSilva</td>
-      <td>Administração</td>
+      <th scope="row"><?php echo e($item->id); ?></th>
+      <td><?php echo e($item->nome_produto); ?></td>
+      <td><?php echo e($item->lote); ?></td>
+      <td><?php echo e($item->tipo_produto); ?></td>
+      <td><?php echo e($item->area); ?></td>
+      <td><?php echo e($item->rua); ?></td>
+      <td><?php echo e($item->predio); ?></td>
+      <td><?php echo e($item->nivel); ?></td>
+      <td><?php echo e($item->apto); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
-         <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="<?php echo e(asset('img/icons/editIicon.png')); ?>" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"/> Remover</button>
+		 <div class="col-sm-12 text-center">
+        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.edit', $item->id)); ?>"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button></a>
+        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.remove', $item->id)); ?>" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons" value="<?php echo e($item->id); ?>"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
-	
+   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   <?php else: ?>
+   <div class="alert alert-danger" role="alert">
+    Nenhum item encontrado !
+   </div>
+   <?php endif; ?>
   </tbody>
 </table>
 
 
 <!-- JS from page -->
 <script type="text/javascript">
-// List of text component -------
-var txtComponentList = ["idNomeSearch",
-                        "idSobreNomeSearch",
-						"idEmailSearch",
-						"idLoginSearch"]; 
-
-// Options of the Select list ------
-var nivelAcessoOptions = ["Administração", 
-                          "Gerência", 
-						  "Produção"];
-
-// Select configuration -----------
-var nivelAcessoSelectList = document.createElement('select');
-    nivelAcessoSelectList.id = "nivelAcessoSearch";;
-	nivelAcessoSelectList.name = "nivelAcessoQuery";
-	nivelAcessoSelectList.className = "form-control";
-
-// Text form configuration-------
-var formTextMethod = document.createElement("INPUT");
-    formTextMethod.setAttribute("type","text");
-	formTextMethod.className = "form-control";
-
-// Get select component-------
-var select = document.getElementById('slctQuery');
-
-// Execute when select an option from search
-select.addEventListener('change', function(){
-	verifyTheCase();
-});
-
-// Verify the option selected to create element 
-function verifyTheCase(){
-	switch(select.value){
-	  case "Nome":
-      createFormTextMethod("idNomeSearch", "nomeSearch", "Digite o nome do usuario..");
-	  break;
-      case "Sobrenome":
-      createFormTextMethod("idSobreNomeSearch", "sobreNomeSearch", "Digite o sobrenome do usuario..");
-	  break;
-      case "Email":
-      createFormTextMethod("idEmailSearch", "emailSearch", "Digite o email do usuario..");
-	  break;
-      case "Login":
-      createFormTextMethod("idLoginSearch", "loginSearch", "Digite o login do usuario..");
-	  break;
-      case "Nivel de acesso":
-      createSelectMethod();
-	  break;  	  
-	}
-}
-
-// Set configuration to create element
-function createFormTextMethod(idInput,nameInput, placeHolInput){
-	formTextMethod.id = idInput;
-	formTextMethod.name = nameInput;
-    formTextMethod.placeholder = placeHolInput;
-	
-	if(document.getElementById("nameSearchOrigin")){
-     	document.body.querySelector("#searchInput").removeChild(document.getElementById("nameSearchOrigin"));
-		verifyTheCase();
-      }else if(document.getElementById("nivelAcessoSearch")){
-		document.body.querySelector("#searchInput") .removeChild(document.getElementById("nivelAcessoSearch")); 
-        verifyTheCase();	 
- 	 }else{ 
-	   document.body.querySelector("#searchInput").appendChild(formTextMethod);	
-	  }
-}
-
-//Clear other elements before create list
-function clearOtherElement(){
-   if(document.getElementById("nameSearchOrigin")){
-	document.body.querySelector("#searchInput").removeChild(document.getElementById("nameSearchOrigin"));
-	}else{	
-	for(var x=0; x < txtComponentList.length; x++){
-      if(document.getElementById(txtComponentList[x]))
-      document.body.querySelector("#searchInput").removeChild(document.getElementById(txtComponentList[x]));		  
-	 }
-	}	
-}
-
-// Add option and configuration of the select
-function createSelectMethod(){
-	
-	clearOtherElement();
-	
-	if(nivelAcessoSelectList.length > 0){
-	clearListBeforeAdd();	
-	addOptionListSearch();
-	}else{
-	addOptionListSearch();
-	}
-	
-	document.body.querySelector("#searchInput").appendChild(nivelAcessoSelectList);		
-}
-
-//Add option on the list
-function addOptionListSearch(){
-    for(var o=0; o < nivelAcessoOptions.length; o++){
-	  var option = document.createElement("option");
-          option.value = nivelAcessoOptions[o];
-          option.text  = nivelAcessoOptions[o];
-        nivelAcessoSelectList.appendChild(option);      		  
-	}	
-}
-
-//Clear List
-function clearListBeforeAdd(){
-	for(var p = nivelAcessoSelectList.length-1; p >= 0; p--){
-	 nivelAcessoSelectList.options[p] = null;	
-	}
-}
 
 // Hidden or show div of query
 function hiddenOrShowQuerUser(){

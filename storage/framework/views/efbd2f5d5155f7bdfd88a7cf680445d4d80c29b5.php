@@ -55,30 +55,21 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de produto</h1>
-     <form action="#">
-      <div class="form-row">
+     <form method="post" action="<?php echo e(route('dashboard.cadastro.produto.searching')); ?>">
+      <input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />      
+		  
+	  <div class="form-row">
 	  
-        <div class="col2">
-         <div class="form-group">
-          <select class="form-control" id="slctQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
-         </select>
-         </div>
-        </div>
-	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="name" class="form-control" placeholder="Digite o nome do produto...">
         </div>    
 	 </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
+       <button type="submit" name="btnAction" value="allQuery"  class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -121,7 +112,7 @@ td{
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
         <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.edit', $item->id)); ?>"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"/> Editar</button></a>
-        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.remove', $item->id)); ?>"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons" value="<?php echo e($item->id); ?>"/> Remover</button></a>
+        <a href="<?php echo e(route('dashboard.cadastro.produto.productAddForm.remove', $item->id)); ?>" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons" value="<?php echo e($item->id); ?>"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
@@ -129,7 +120,7 @@ td{
    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
    <?php else: ?>
    <div class="alert alert-danger" role="alert">
-    Nenhum produto encontrado !
+    Nenhum item encontrado !
    </div>
    <?php endif; ?>
 	

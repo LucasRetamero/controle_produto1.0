@@ -21,16 +21,7 @@ class ProdutosDAO extends Model {
 	
 	//Add
 	public function addProduto($dados){
-	 return ProdutosDAO::create([ 
-	        'ean'             => $dados['ean'], 
-	        'nome'            => $dados['nome'], 
-			'data_fabricacao' => $dados['data_fabricacao'], 
-			'data_vencimento' => $dados['data_vencimento'], 
-			'quant_atual'     => $dados['quant_atual'], 
-			'quant_minimo'    => $dados['quant_minimo'],
-			'localizacao'     => $dados['localizacao'],
-			'sub_especie'     => $dados['sub_especie'], 
-			]);
+	 return ProdutosDAO::create($dados);
 	}
 	
 	//Get all list
@@ -54,5 +45,11 @@ class ProdutosDAO extends Model {
 	public function getDelete($id){
 	return ProdutosDAO::where('id',$id)
                         ->delete();	
+	}
+	
+	//Get List like namespace
+	public function getLikeNameDAO($name){
+	return ProdutosDAO::where('nome', 'like', $name.'%')
+	                    ->get();
 	}
 }

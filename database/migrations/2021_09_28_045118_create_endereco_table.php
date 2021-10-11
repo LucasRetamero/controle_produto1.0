@@ -15,6 +15,7 @@ class CreateEnderecoTable extends Migration
     {
         Schema::create('endereco', function (Blueprint $table) {
             $table->increments('id');
+			$table->string('area');
 			$table->string('rua');
 			$table->string('predio');
 			$table->string('nivel');
