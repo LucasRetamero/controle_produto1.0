@@ -56,30 +56,33 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de endereço</h1>
-     <form action="#">
-      <div class="form-row">
+     <form method="post" action="{{ route('dashboard.cadastro.endereco.searching') }}">
+      <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+	
+	  <div class="form-row">
 	  
         <div class="col2">
          <div class="form-group">
-          <select class="form-control" id="slctQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
+          <select class="form-control" id="slctQuery" name="cbQuery">
+           <option value="area" selected>Area</option>
+           <option value="rua">Rua</option>
+           <option value="predio">Predio</option>
+           <option value="nivel">Nivel</option>
+           <option value="apto">Apto</option>
          </select>
          </div>
         </div>
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="enderecoQuery" class="form-control" placeholder="Digite o endereço desejado...">
         </div>    
 	 </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+       <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -103,22 +106,31 @@ td{
     </tr>
   </thead>
   <tbody>
+    @if($dadosEndereco->count() > 0)
+  @foreach($dadosEndereco as $item)
     <tr>
-      <th scope="row">1</th>
-      <td>D007</td>
-      <td>001</td>
-      <td>002</td>
-      <td>000</td>
-      <td>001</td>
+      <th scope="row">{{ $item->id }}</th>
+	  <td>{{ $item->area }}</td>
+	  <td>{{ $item->rua }}</td>
+	  <td>{{ $item->predio }}</td>
+	  <td>{{ $item->nivel }}</td>
+	  <td>{{ $item->apto }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button>
+          <a href="{{ route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+          <a href="{{ route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'remove'] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+  @endforeach
+   @else
+   <div class="alert alert-danger" role="alert">
+    Nenhum Item encontrado !
+   </div>
+   @endif
+	
 	
   </tbody>
 </table>

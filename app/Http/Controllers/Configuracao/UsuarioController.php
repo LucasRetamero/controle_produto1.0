@@ -28,6 +28,8 @@ class UsuarioController extends Controller
 	 
 	  if(Auth::attempt($credentials)){
 		return redirect()->intended('dashboard');
+	  }else{
+		return view('login.index',['errorMsg' => 'Erro ao realizar login !']); 
 	  }
 		
 	}
@@ -38,33 +40,43 @@ class UsuarioController extends Controller
     return redirect('/login');	
 	}
 	
-	//Add / Edit or remove usuario
-	public function addEditRemUsuario(Request $request){
-	 $validated = $request->validate([
+	//Validate User
+	public function validatedUser($dados){
+	return  $validated = $dados->validate([
 	  'nome'        => 'required',
 	  'sobrenome'   => 'required',
 	  'email'       => 'required|max:60',
 	  'login'       => 'required',
 	  'password'    => 'required',
 	  'nivelAcesso' => 'required',
-	 ]);
-	 
-	 if($request->input('btnAction') == 'btnEdit'){
-	 
-	 $this->UsuarioDAO->editUsuario($request->input('id'), $request->all());
-	
-	}else if($request->input('btnAction') == 'btnRemove'){
-	
-	$this->UsuarioDAO->removeUsuario($request->input('id'));
-	
-	}else{
-	
-	$this->UsuarioDAO->addUsuario($request->all());	
-	
+	 ]);	
 	}
 	
-    return redirect()->route('dashboard.configuracao.usuarios');
-	}
+	//Add / Edit or remove usuario
+	public function addEditRemUsuario(Request $request){
+	 
+	 switch($request->input('btnAction')){
+	 
+	 case "btnAdd":
+	  $this->validatedUser($request);
+	  $this->UsuarioDAO->addUsuario($request->all());	
+	  return redirect()->route('dashboard.configuracao.usuarios');
+	 break;
+	 
+	 case "btnEdit":
+	  $this->validatedUser($request);
+	  $this->UsuarioDAO->editUsuario($request->input('id'), $request->all());
+      return redirect()->route('dashboard.configuracao.usuarios');
+	 break;
+	 
+	 case "btnRemove":
+	  $this->UsuarioDAO->removeUsuario($request->input('id'));
+	  return redirect()->route('dashboard.configuracao.usuarios');
+	 break;
+	 	
+	 } 
+	
+    }
 	
 	//Lista de usuarios
 	public function listaUsuarios(){

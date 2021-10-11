@@ -55,30 +55,21 @@ td{
   <div class="row">  
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de produto</h1>
-     <form action="#">
-      <div class="form-row">
+     <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
+      <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
+		  
+	  <div class="form-row">
 	  
-        <div class="col2">
-         <div class="form-group">
-          <select class="form-control" id="slctQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
-         </select>
-         </div>
-        </div>
-	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" class="form-control" placeholder="Digite o nome do usuârio...">
+         <input type="text" id="nameSearchOrigin" name="name" class="form-control" placeholder="Digite o nome do produto...">
         </div>    
 	 </div>
 		 
      </div>
 	
-	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+       <button type="submit" name="btnAction" value="allQuery"  class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
     
 	</form>
          </div>
@@ -105,25 +96,33 @@ td{
     </tr>
   </thead>
   <tbody>
+	@if($dados->count() > 0)
+  @foreach($dados as $item)
     <tr>
-      <th scope="row">1</th>
-      <td>7898053583099</td>
-      <td>ACEPRAN 1% - 20 ML</td>
-      <td>20/09/2021</td>
-      <td>30/12/2021</td>
-      <td>5</td>
-      <td>2</td>
-      <td>ARMARIO</td>
-      <td>INJETAVEIS, TOPICOS E ORAIS</td>
+      <th scope="row">{{ $item->id }}</th>
+      <td>{{ $item->ean }}</td>
+      <td>{{ $item->nome }}</td>
+      <td>{{ $item->data_fabricacao }}</td>
+      <td>{{ $item->data_vencimento }}</td>
+      <td>{{ $item->quant_atual }}</td>
+      <td>{{ $item->quant_minimo }}</td>
+      <td>{{ $item->localizacao }}</td>
+      <td>{{ $item->sub_especie }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
-         <div class="col-sm-12 text-center">
-          <button id="btnUpdate" class="btn btn-primary btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button>
-          <button id="btnRemove" class="btn btn-outline-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button>
+		 <div class="col-sm-12 text-center">
+        <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+        <a href="{{ route('dashboard.cadastro.produto.productAddForm.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+   @endforeach
+   @else
+   <div class="alert alert-danger" role="alert">
+    Nenhum item encontrado !
+   </div>
+   @endif
 	
   </tbody>
 </table>

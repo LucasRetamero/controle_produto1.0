@@ -51,37 +51,37 @@ class UsuarioDAO extends Model
 	
 	//Buscar apenas um usuario
 	public function getOneUsuario($id){
-    return UsuarioDAO::where('id',$id)
+    return UsuarioDAO::where('id', $id)
                        ->get();	
 	}
 	
 	//Buscar pelo nome
 	public function getNomeUsuario($nome){
-	return UsuarioDAO::all()
-                       ->where('nome', $nome);	
+	return UsuarioDAO::where('nome', 'like', $nome.'%')
+					   ->get();
 	}
 	
 	//Buscar pelo sobrenome
 	public function getSobreNomeUsuario($sobreNome){
-	return UsuarioDAO::all()
-                       ->where('sobrenome', $sobreNome);	
+	return UsuarioDAO::where('sobrenome', 'like', $sobreNome.'%')
+	                   ->get();	
 	}
 	
 	//Buscar pelo email
 	public function getEmailUsuario($email){
-	return UsuarioDAO::all()
-                       ->where('email', $email);	
+	return UsuarioDAO::where('email', 'like', $email.'%')
+	                   ->get();	
 	}
 	
 	//Buscar pelo login
 	public function getLoginUsuario($login){
-	return UsuarioDAO::all()
-                       ->where('login', $login);	
+	return UsuarioDAO::where('login', 'like', $login.'%')
+	                   ->get();	
 	}
 	
 	//Buscar pelo nivel de acesso
 	public function getNivelAcessoUsuario($nivelAcesso){
-	return UsuarioDAO::all()
-                       ->where('nivelAcesso', $nivelAcesso);	
+	return UsuarioDAO::where('nivelAcesso', $nivelAcesso)
+	                   ->get();	
 	 }	
 }

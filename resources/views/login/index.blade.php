@@ -69,6 +69,12 @@ body {
       <label for="inputPassword" class="sr-only">Digite a senha...</label>
       <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Digite a senha..." required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+	  </br>
+	  @if(isset($errorMsg))
+	  <div class="alert alert-danger" role="alert">
+       <b>{{ $errorMsg }}</b>
+       </div>
+	  @endif
       <p class="mt-5 mb-3 text-muted font-weight-bold">&copy; 2021</p>
     </form>
     <!-- Optional JavaScript -->

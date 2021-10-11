@@ -1,6 +1,6 @@
 @extends('dashboard.default')
 
-@section('title','Controle de produto - Dashboard / formulário do tipo do endereço')
+@section('title','Controle de produto - Dashboard / Formulário: Tipo do endereço')
 
 @section('content')
 <!-- CSS -->
@@ -45,7 +45,7 @@ td{
 </style>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo do Endereço</a> / Formulário do tipo endereco</h1> 
+            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo do Endereço</a> / Formulário: Tipo do Endereç</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
  
@@ -57,46 +57,37 @@ td{
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
-   <form class="form-signin">
-   
-    <!-- Codigo -->
-     <div class="form-group">
-       <label for="cbNivelAcesso" class="text-white h5">Codigo</label>
-	   <input type="text" class="form-control" id="id_codigo"  placeholder="Codigo do tipo do endereço.....">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
-	  </div>
+   <form method="post" action="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.actionsMenu') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
+    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
+	  
+    @if(isset($dadosTipoEndereco))	
+	   <input type="hidden" id="id_codigo"  name="id" value="{{ $dadosTipoEndereco[0]->id }}">
+       <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
+	@endif
     
 	<!-- Tipo do endereço --> 
 		<div class="form-group">
          <label for="cbNivelAcesso" class="text-white h5">Tipo do endereço</label>
-         <input type="text" class="form-control" id="id_codigo"  placeholder="Digite o tipo do endereço">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
+         @if(isset($dadosTipoEndereco))
+     	  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" value="{{ $dadosTipoEndereco[0]->tipo_endereco}}" required>
+          @else
+		  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" placeholder="Digite o tipo de endereço" required>
+         @endif<small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
 		 </div>
 		
   </br>
   <!-- Actions buttons -->
-  <center><div class="btn-group" role="group" aria-label="Basic example">
-  
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"></img> Gravar Tipo do endereço</button>
-   </div>
-        
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/clearIcon.png') }}" class="imgIcons"></img> Limpar campos</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"></img> Editar</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"></img> Remover</button>
-   </div>
-
-  </div></center>	
+  @if(!isset($dadosTipoEndereco))
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="{{ asset('img\icons\addIcon.png') }}"></img>Cadastrar</button>
+ @else
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
+ @endif
+ </br><a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+  		
  
  </form>
-</div><!-- Termina lista do estoque -->
+</div>
 		
  	
 </div>
