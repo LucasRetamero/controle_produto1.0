@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','Dashboard\homeController@index');
 
 Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
 
@@ -23,9 +21,7 @@ Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
 Route::group(['prefix' => 'dashboard'], function(){
 
 //Rota: Home Dashboard
-Route::get('/', function(){
-   return view('dashboard.index');	
-})->name('dashboard');
+Route::get('/', 'Dashboard\homeController@index')->name('dashboard');
 
 //Rota: Lista de Produtos
 Route::get('cadastro/produtos', 'Cadastro\ProdutosController@index')->name('dashboard.cadastro.produto');
@@ -52,9 +48,16 @@ Route::get('cadastro/estoque', 'Cadastro\EstoqueController@index')->name('dashbo
 Route::post('cadastro/estoque/searching', 'Cadastro\EstoqueController@searchingMenu')->name('dashboard.cadastro.estoque.searching');
 
 //Rota: Formulario do Estoque
-Route::get('cadastro/produtos/estoqueFormulario', function(){
- return view('dashboard.cadastro.estoque.estoqueForm');
-})->name('dashboard.cadastro.estoque.estoqueAddForm');
+Route::get('cadastro/produtos/estoqueFormulario','Cadastro\EstoqueController@getEstoqueForm')->name('dashboard.cadastro.estoque.estoqueAddForm');
+
+//Rota: Add/Edit/Remove Estoque
+Route::post('cadastro/produtos/estoqueFormulario/ActionsList','Cadastro\EstoqueController@actionsList')->name('dashboard.cadastro.estoque.estoqueAddForm.actionsList');
+
+//Rota: Get a produc to the Estoque
+Route::get('cadastro/produtos/estoqueFormulario/getProduto', 'Cadastro\EstoqueController@getEstoqueFormWithProduct')->name('dashboard.cadastro.estoque.estoqueAddForm.getProduto');
+
+//Rota: Edit/Remove from table
+Route::get('cadastro/produtos/estoque/table/{id}/{option}','Cadastro\EstoqueController@actionsListeTable')->name('dashboard.cadastro.estoque.actionsList');
 
 //Rota: Lista de Endereço
 Route::get('cadastro/enderecos', 'Cadastro\EnderecoController@index')->name('dashboard.cadastro.endereco');

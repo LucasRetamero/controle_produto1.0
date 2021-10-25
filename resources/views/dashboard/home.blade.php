@@ -1,3 +1,12 @@
+<style type="text/css">
+* {font-family: Arial;}
+#wrapper { width: 620px; margin-left:30px;}
+table {margin:25px 0 50px 0;float: left;}
+td, th {padding: 5px 20px 5px 5px;font-size: 25px;}
+canvas { margin:30px 50px; float:right;}
+
+</style>
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
@@ -12,133 +21,128 @@
             </div>
           </div>
 
-          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+            <!-- Main content -->
 
-          <h2>Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      
+	 <div id="wrapper">
+<canvas id="canvas" width="300" height="300"></canvas>
+<table id="mydata">
+ <thead> 
+  <tr>       
+	<th>Endereços</th>
+	<th>Valores</th> 
+  </tr>
+ </thead>
+ 
+ <tbody>
+  <tr>
+	<td>Existentes</td>  
+	<td>{{ $allEndereco }}</td>  
+   </tr>
+   
+   <tr>
+	<td>Ocupados</td>  
+	<td>{{ $usedEndereco }}</td>  
+  </tr>
+  
+  <tr>
+	<td>Vazio</td>  
+	<td>{{ $emptyEndereco }}</td>  
+  </tr>
+
+
+ 
+ </tbody>
+</table>
+
+<!--<button type="button" class="btn btn-primary h5" id="muda-cor">Mudar cores</button>-->
+</div>
+
+<script type="text/javascript">
+window.onload = function() {
+(function() { //keep the global space clean
+    ///// STEP 0 - setup
+    // source data table and canvas tag
+    var data_table = document.getElementById('mydata');
+    var canvas = document.getElementById('canvas');
+    var td_index = 1; // which TD contains the data
+
+    ///// STEP 1 - Get the, get the, get the data!
+
+    // get the data[] from the table
+    var tds, data = [], color, colors = [], value = 0, total = 0;
+    var trs = data_table.getElementsByTagName('tr'); // all TRs
+    for (var i = 0; i < trs.length; i++) {
+        tds = trs[i].getElementsByTagName('td'); // all TDs
+
+        if (tds.length === 0) continue; //  no TDs here, move on
+
+        // get the value, update total
+        value  = parseFloat(tds[td_index].innerHTML);
+        data[data.length] = value;
+        total += value;
+
+        // random color
+        color = getColor();
+        colors[colors.length] = color; // save for later
+        trs[i].style.backgroundColor = color; // color this TR
+    }
+
+    ///// STEP 2 - Draw pie on canvas
+
+    // exit if canvas is not supported
+    if (typeof canvas.getContext === 'undefined') {
+        return;
+    }
+
+    // get canvas context, determine radius and center
+    var ctx = canvas.getContext('2d');
+    var canvas_size = [canvas.width, canvas.height];
+    var radius = Math.min(canvas_size[0], canvas_size[1]) / 2;
+    var center = [canvas_size[0]/2, canvas_size[1]/2];
+
+    var sofar = 0; // keep track of progress
+    // loop the data[]
+    for (var piece in data) {
+
+        var thisvalue = data[piece] / total;
+
+        ctx.beginPath();
+        ctx.moveTo(center[0], center[1]); // center of the pie
+        ctx.arc(  // draw next arc
+            center[0],
+            center[1],
+            radius,
+            Math.PI * (- 0.5 + 2 * sofar), // -0.5 sets set the start to be top
+            Math.PI * (- 0.5 + 2 * (sofar + thisvalue)),
+            false
+        );
+
+        ctx.lineTo(center[0], center[1]); // line back to the center
+        ctx.closePath();
+        ctx.fillStyle = colors[piece];    // color
+        ctx.fill();
+
+        sofar += thisvalue; // increment progress tracker
+    }
+
+    ///// DONE!
+
+    // utility - generates random color
+    function getColor() {
+        var rgb = [];
+        for (var i = 0; i < 3; i++) {
+            rgb[i] = Math.round(100 * Math.random() + 155) ; // [155-255] = lighter colors
+        }
+        return 'rgb(' + rgb.join(',') + ')';
+    }
+
+
+var mudarCor = document.getElementById("muda-cor"); 
+mudarCor.onclick = function() {
+window.location.reload();
+}
+
+})() // exec!
+}
+</script>

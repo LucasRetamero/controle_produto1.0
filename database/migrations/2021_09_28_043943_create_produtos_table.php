@@ -15,14 +15,11 @@ class CreateProdutosTable extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('ean');
+			$table->string('codigo');
 			$table->string('nome');
-			$table->string('data_fabricacao')->nullable();
-			$table->string('data_vencimento')->nullable();
-			$table->string('quant_atual')->nullable();
-			$table->string('quant_minimo')->nullable();
-			$table->string('localizacao')->nullable();
-			$table->string('sub_especie')->nullable();
+			$table->string('ean');
+			$table->string('fornecedor');
+			$table->string('sub_especie');
 			$table->timestamps();
         });
     }

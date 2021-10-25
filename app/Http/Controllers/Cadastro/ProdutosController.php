@@ -38,8 +38,10 @@ class ProdutosController extends Controller{
 	//Validated Produto
 	public function validatedProduct($dados){
 	$validated = $dados->validate([
-	  'ean'         => 'required',
-	  'nome'        => 'required',
+	  'codigo'       => 'required',
+	  'nome'         => 'required',
+	  'fornecedor'   => 'required',
+	  'sub_especie'  => 'required',
 	 ]);	
 	}
 	
@@ -49,17 +51,17 @@ class ProdutosController extends Controller{
 		case "btnAdd":
 		$this->validatedProduct($request);
 		$this->produtosDAO->addProduto($request->except(['_token','btnAction']));
-		return redirect()->route('dashboard.cadastro.produto');
+		return $this->getProdutoFormReturnMsg("Produto cadastrado com sucesso !");
 		break;
 		
 		case "btnEdit":
 		$this->produtosDAO->getUpdate($request->input('id'), $request->except(['_token','btnAction']));
-		return redirect()->route('dashboard.cadastro.produto');
+		return $this->getProdutoFormReturnMsg("Produto editado com sucesso !");
 		break;
 		
 		case "btnRemove":
 		$this->produtosDAO->getDelete($request->input('id'));
-		return redirect()->route('dashboard.cadastro.produto');
+		return $this->getProdutoFormReturnMsg("Produto deletado com sucesso !");
 		break;
 		
 		case "btnCancel":
@@ -70,14 +72,27 @@ class ProdutosController extends Controller{
 	
 	//Searching produto
 	public function searchingMenu(Request $request){
-	  switch($request->input('btnAction')){
-		 case "nameQuery": 
-		 return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeNameDAO($request->input('name'))]); 
-		 break; 
-		 
-		 case "allQuery": 
-		 return $this->index();
-		 break; 
+	    switch($request->input('cbQuery')){
+		  case "nome": 
+		  return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeNomeDAO($request->input('textSearch') ) ]); 
+		  break;
+		  
+		  case "codigo": 
+		  return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeCodigoDAO($request->input('textSearch') ) ]); 
+		  break; 
+		  
+		  case "ean": 
+		  return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeEanDAO($request->input('textSearch') ) ]); 
+		  break; 
+		  
+		  case "fornecedor": 
+		  return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeFornecedorDAO($request->input('textSearch') ) ]); 
+		  break; 
+		  
+		  case "subEspecie": 
+		  return view('dashboard.cadastro.produto.produto',['dados' => $this->produtosDAO->getLikeSubEspecieDAO($request->input('textSearch') ) ]); 
+		  break; 
+ 
 	  }
 	}
 	
@@ -85,5 +100,10 @@ class ProdutosController extends Controller{
 	public function removeProduto($id){
 	$this->produtosDAO->getDelete($id);	
 	return redirect()->route('dashboard.cadastro.produto'); 	
+	}
+	
+	//Return produto from with a message
+	public function getProdutoFormReturnMsg($msg){
+	return view('dashboard.cadastro.produto.produtoForm',['msgSuccess' => $msg, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie()]);
 	}
 }

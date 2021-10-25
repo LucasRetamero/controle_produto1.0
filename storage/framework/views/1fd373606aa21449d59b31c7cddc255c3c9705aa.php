@@ -81,7 +81,6 @@ td{
   <h1 class="h3 text-center">Lista de sub especie</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Sub_Especie</th>
       <th scope="col">Menu</th>
 	  
@@ -91,7 +90,6 @@ td{
   <?php if($dadosSubEspecie->count() > 0): ?>
   <?php $__currentLoopData = $dadosSubEspecie; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row"><?php echo e($item->id); ?></th>
 	  <td><?php echo e($item->sub_especie); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 

@@ -60,16 +60,28 @@ td{
 		  
 	  <div class="form-row">
 	  
+        <div class="col2">
+         <div class="form-group">
+          <select class="form-control" id="slctQuery" name="cbQuery">
+           <option value="nome" selected>Nome</option>
+           <option value="codigo">Codigo</option>
+           <option value="ean">EAN</option>
+           <option value="fornecedor">Fornecedor</option>
+	       <option value="subEspecie">Sub-Especie</option>
+          </select>
+         </div>
+        </div>
+	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" name="name" class="form-control" placeholder="Digite o nome do produto...">
+         <input type="text" id="nameSearch" name="textSearch" class="form-control" placeholder="Digite para pesquisar sobre o produto...">
         </div>    
 	 </div>
-		 
+		  
      </div>
 	
 	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Iniciar consulta</button>
-       <button type="submit" name="btnAction" value="allQuery"  class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button>
+       <A href="<?php echo e(route('dashboard.cadastro.produto')); ?>"><button   class="btn btn-success font-weight-bold"><img src="<?php echo e(asset('img/icons/FilterIcon.png')); ?>" class="imgIcons"/> Buscar Todos</button></a>
     
 	</form>
          </div>
@@ -82,15 +94,11 @@ td{
   <h1 class="h3 text-center">Lista de Produtos</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Ean</th>
+      <th scope="col">Codigo</th>
       <th scope="col">Nome</th>
-      <th scope="col">Data de Fabricação</th>
-      <th scope="col">Data de Vencimento</th>
-      <th scope="col">Qtd Atual</th>
-      <th scope="col">Qtd Minima</th>
-      <th scope="col">Localização</th>
-      <th scope="col">Sub_Especie</th>
+	  <th scope="col">EAN</th>
+      <th scope="col">Fornecedor</th>
+      <th scope="col">Sub-Especie</th>
       <th scope="col">Menu</th>
 	  
     </tr>
@@ -99,14 +107,10 @@ td{
 	<?php if($dados->count() > 0): ?>
   <?php $__currentLoopData = $dados; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row"><?php echo e($item->id); ?></th>
-      <td><?php echo e($item->ean); ?></td>
+      <th scope="row"><?php echo e($item->codigo); ?></th>
       <td><?php echo e($item->nome); ?></td>
-      <td><?php echo e($item->data_fabricacao); ?></td>
-      <td><?php echo e($item->data_vencimento); ?></td>
-      <td><?php echo e($item->quant_atual); ?></td>
-      <td><?php echo e($item->quant_minimo); ?></td>
-      <td><?php echo e($item->localizacao); ?></td>
+      <td><?php echo e($item->ean); ?></td>
+      <td><?php echo e($item->fornecedor); ?></td>
       <td><?php echo e($item->sub_especie); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 

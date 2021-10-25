@@ -18,6 +18,14 @@ thead{
 th,td{
  font-size:large;	
 }
+
+.hiddenComp{
+ display: none;	
+}
+
+.showComp{
+ display: block;	
+}
 </style>
 
 
@@ -30,11 +38,7 @@ th,td{
 <div class="jumbotron bg-primary">
         
 		<div class="container">
-		@if(isset($dadoUsuario))
-		  <h1 class="h3 text-white">Editar: Usuário</h1>
-		@else
-		  <h1 class="h3 text-white">Adicionar: Usuário</h1>
-        @endif		 
+		 <h1 class="h3 text-white">Formulário: Usuários</h1>		 
 		 <hr class="confHr">
         </div>
 		
@@ -71,7 +75,7 @@ th,td{
     @else
 	<input type="email" class="form-control" id="txtEmail" name="email" value="" placeholder="Digite o email" required autofocus>
     @endif
-	<small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
+	<small class="form-text text-white h5">@if(isset($errorMessage)) {{ $errorMessage }} @endif</small>
   </div>
   
   <div class="form-group">
@@ -83,42 +87,43 @@ th,td{
     @endif
 	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
-  
+  <!--
     <div class="form-group">
     <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
     <select class="form-control" id="cbNivelAcesso" name="nivelAcesso" required>
-	  @if(isset($dadoUsuario))
-		@switch($dadoUsuario[0]->nivelAcesso)  
-          @case('Administrador')
+	  if(isset($dadoUsuario))
+		switch($dadoUsuario[0]->nivelAcesso)  
+          case('Administrador')
 		  <option value="Administrador" selected>Administrador</option>
           <option value="Gerência">Gerência</option>
           <option value="Produção">Produção</option>
-		  @break  
-          @case('Gerência')		  
+		  break  
+          case('Gerência')		  
 	      <option value="Administrador">Administrador</option>   
 		  <option value="Gerência" selected>Gerência</option>
           <option value="Produção">Produção</option>
-		  @break
-		  @case('Produção')
+		  break
+		  case('Produção')
 		  <option value="Administrador">Administrador</option>
           <option value="Gerência">Gerência</option>
 	      <option value="Produção" selected>Produção</option>
-          @break
-		@endswitch
-	  @else
+          break
+		endswitch
+	  else
 		<option value="" selected></option>
 		<option value="Administrador">Administrador</option>
         <option value="Gerência">Gerência</option>
         <option value="Produção">Produção</option>  
-	  @endif
+	  endif
 	</select>
-  </div>
+  </div>-->
   
   <div class="form-group">
     <div class="row">
       <div class="col">
-	  <label for="txtPassword" class="text-white h5">Senha:</label>
-	  <input type="password" class="form-control" id="txtPassword" name="password" value="" placeholder="Digite a senha de acesso..." required autofocus>
+	  <label for="txtPassword" class="text-white h5">Senha: </label>	 
+	  <input type="password" class="form-control" id="txtPassword" name="password" placeholder="Digite a senha de acesso..." required autofocus>
+	  <small class="form-text text-white h5">@if(isset($dadoUsuario))*É preciso inserir a mesma ou uma nova senha.*@endif</small>
 	  </div>
 	    
       </div>
@@ -143,69 +148,6 @@ th,td{
 	</form>
 </div>
 <!-- End form add login-->
-
-<!-- Table of permissions -->
-<table class="table">
-
-    <div class="container">
-      <h1 class="h3">Tabela de nivel de acesso</h1>
-	  <hr style="border-top:3px solid #000">
-    </div>
-		
-  <thead class="thead">
-    <tr>
-      <th scope="col">Função</th>
-      <th scope="col">Administração</th>
-      <th scope="col">Gerência</th>
-      <th scope="col">Produção</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Adicionar itens</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-    </tr>
-    <tr>
-      <th scope="row">Editar itens</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-    </tr>  
-    <tr>
-      <th scope="row">Remover itens</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-    </tr>
-    <tr>
-      <th scope="row">Gerar Relatórios</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-    </tr>
-    <tr>
-      <th scope="row">Realizar Exportação</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-    </tr>
-    <tr>
-      <th scope="row">Realizar Importação</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-    </tr>
-    <tr>
-      <th scope="row">Gerenciar Usuários</th>
-      <td><img src="{{ asset('img/icons/rightIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-      <td><img src="{{ asset('img/icons/noIcon.png') }}"></td>
-    </tr>	
-  </tbody>
-</table>
-
 
 <!-- JS Script -->
 <script>
@@ -302,7 +244,8 @@ function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
 	  strengthbar.value = valueProgress;
 	  strengthbar.style.width = widthProgress;
 	  strengthbar.innerHTML = innerHtmlProgress;
-}    
+}   
+ 
 </script>
 <!-- End JS Script--> 
 @endsection('content')

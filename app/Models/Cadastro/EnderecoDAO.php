@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EnderecoDAO extends Model
 {
     protected $table = 'endereco';
-	protected $fillable = ['area',
-	                       'rua',
-	                       'predio',
-	                       'nivel',
-	                       'apto'];
+	protected $fillable = ['endereco'];
 	public $timestamps = false;
     
     //Add
@@ -43,32 +39,8 @@ class EnderecoDAO extends Model
 	}
 	
 	//Get all like area of localizacao
-	public function getLikeAreaAll($name){
-	 return EnderecoDAO::where('area', 'like', $name.'%')
-                           ->get();	 
-	}
-	
-	//Get all like rua of localizacao
-	public function getLikeRuaAll($name){
-	 return EnderecoDAO::where('rua', 'like', $name.'%')
-                           ->get();	 
-	}
-	
-	//Get all like predio of localizacao
-	public function getLikePredioAll($name){
-	 return EnderecoDAO::where('predio', 'like', $name.'%')
-                           ->get();	 
-	}
-	
-	//Get all like nivel of localizacao
-	public function getLikeNivelAll($name){
-	 return EnderecoDAO::where('nivel', 'like', $name.'%')
-                           ->get();	 
-	}
-	
-	//Get all like apto of localizacao
-	public function getLikeAptoAll($name){
-	 return EnderecoDAO::where('apto', 'like', $name.'%')
+	public function getLikeEnderecoAll($name){
+	 return EnderecoDAO::where('endereco', 'like', $name.'%')
                            ->get();	 
 	}
 }

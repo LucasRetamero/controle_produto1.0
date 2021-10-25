@@ -23,10 +23,10 @@
 
     <div class="container-fluid">
       <div class="row">
-        <!-- nav from dashboard -->
+          <!-- nav from dashboard --> 
          <?php echo $__env->make('dashboard.nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-         <?php echo $__env->yieldContent('content'); ?>
+		 <?php echo $__env->yieldContent('content'); ?>
         </main>
       </div>
     </div>

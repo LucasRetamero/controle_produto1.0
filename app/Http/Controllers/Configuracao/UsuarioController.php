@@ -48,19 +48,22 @@ class UsuarioController extends Controller
 	  'email'       => 'required|max:60',
 	  'login'       => 'required',
 	  'password'    => 'required',
-	  'nivelAcesso' => 'required',
 	 ]);	
 	}
 	
 	//Add / Edit or remove usuario
 	public function addEditRemUsuario(Request $request){
 	 
-	 switch($request->input('btnAction')){
+	  switch($request->input('btnAction')){
 	 
 	 case "btnAdd":
-	  $this->validatedUser($request);
-	  $this->UsuarioDAO->addUsuario($request->all());	
-	  return redirect()->route('dashboard.configuracao.usuarios');
+	  if(!$this->verifyEmailDB($request->input('email'))){
+       $this->validatedUser($request);
+	   $this->UsuarioDAO->addUsuario($request->all());	
+	   return redirect()->route('dashboard.configuracao.usuarios');
+	  }else{
+	   return view('dashboard.configuration.usuario.usuarioForm',['errorMessage' => "Email j? existente !"]);	  
+	  }
 	 break;
 	 
 	 case "btnEdit":
@@ -74,9 +77,17 @@ class UsuarioController extends Controller
 	  return redirect()->route('dashboard.configuracao.usuarios');
 	 break;
 	 	
-	 } 
+	 }
 	
     }
+	
+	//Verificar se existe o mesmo
+	public function verifyEmailDB($email){
+     if($this->UsuarioDAO->getQtdEmailUsuario($email) > 0)
+	  return true;
+     else
+	  return false;
+	} 
 	
 	//Lista de usuarios
 	public function listaUsuarios(){

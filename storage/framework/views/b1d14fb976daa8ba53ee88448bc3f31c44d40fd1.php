@@ -67,8 +67,7 @@ td{
            <option value="Sobrenome">Sobrenome</option>
            <option value="Email">Email</option>
 	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
-         </select>
+          </select>
          </div>
         </div>
 	
@@ -94,26 +93,22 @@ td{
   <h1 class="h3 text-center">Lista de Usuários</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Nome</th>
       <th scope="col">Sobrenome</th>
       <th scope="col">Email</th>
       <th scope="col">Login</th>
-      <th scope="col">Nivel de Acesso</th>
       <th scope="col">Menu</th>
 	  
     </tr>
   </thead>
   <tbody>
   <?php if($dadosUsuarios->count() > 0): ?>
-  <?php $__currentLoopData = $dadosUsuarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php $__currentLoopData = $dadosUsuarios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <tr>
-      <th scope="row"><?php echo e($item->id); ?></th>
       <td><?php echo e($item->nome); ?></td>
       <td><?php echo e($item->sobrenome); ?></td>
       <td><?php echo e($item->email); ?></td>
       <td><?php echo e($item->login); ?></td>
-      <td><?php echo e($item->nivelAcesso); ?></td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
@@ -122,7 +117,7 @@ td{
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
-   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
    <?php else: ?>
    <div class="alert alert-danger" role="alert">
     Nenhum usuário encontrado !

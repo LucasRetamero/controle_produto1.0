@@ -25,17 +25,17 @@ class SubEspecieController extends Controller
 		case "btnAdd":
 		$this->validatedProduct($request);
 		$this->subEspecieDAO->addSubEspecie($request->except(['_token', 'btnAction']));
-		return redirect()->route('dashboard.cadastro.subEspecie');
+		return $this->getSubEspecieFormWithMsg("Sub-Especie cadastrada com sucesso !");
 		break;
 		
 		case "btnEdit":
 		$this->subEspecieDAO->updateSub($request->input('id'), $request->except(['_token','btnAction']));
-		return redirect()->route('dashboard.cadastro.subEspecie');
+		return $this->getSubEspecieFormWithMsg("Sub-Especie editada com sucesso !");
 		break;
 		
 		case "btnRemove":
 		$this->subEspecieDAO->deleteSub($request->input('id'));
-		return redirect()->route('dashboard.cadastro.subEspecie');
+		return $this->getSubEspecieFormWithMsg("Sub-Especie deletada com sucesso !");
 		break;
 		
 		case "btnCancel":
@@ -74,6 +74,11 @@ class SubEspecieController extends Controller
 	 break;
 
 	 }
+	}
+	
+	//Return form Sub Especie with message
+	public function getSubEspecieFormWithMsg($msg){
+	return view('dashboard.cadastro.subEspecie.subEspecieForm', ['msgSuccess' => $msg]);	
 	}
 	
     

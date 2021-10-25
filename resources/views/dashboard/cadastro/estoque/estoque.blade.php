@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Estoque</h1> 
+    <h1 class="h2">Cadastro / Logistico</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -55,34 +55,34 @@ td{
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
          <div class="col-sm-12 text-center">
-          <h1 class="h3">Consultar lista do estoque</h1>
+          <h1 class="h3">Consultar lista logistica</h1>
      <form method="post" action="{{ route('dashboard.cadastro.estoque.searching') }}">
        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
 		       
 	 <div class="form-row">
 	  
-        <!--<div class="col2">
+        <<div class="col2">
          <div class="form-group">
-          <select class="form-control" id="slctQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
+          <select class="form-control" id="slctQuery" name="tipoQuery">
+           <option value="nome" selected>Nome do Produto</option>
+           <option value="ean">EAN</option>
+           <option value="lote">Lote</option>
+	       <option value="endereco">Endereço</option>
+           <option value="tipo_endereco">Tipo Endereço</option>
          </select>
          </div>
-        </div>-->
+        </div>
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" name="nomeProdutoQuery" class="form-control" placeholder="Digite o nome do produto...">
+         <input type="text" id="nameSearchOrigin" name="textoQuery" class="form-control" placeholder="Digite a informação desejada para realizar a consulta..." required autofocus>
         </div>    
 	 </div>
 		 
      </div>
 	
 	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
-	   <button type="submit" name="btnAction" value="allQuery" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
+	    <a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</a>
     
 	</form>
          </div>
@@ -92,18 +92,15 @@ td{
 </br>
 <!-- Table of users -->
 <table class="table">
-  <h1 class="h3 text-center">Lista do estoque</h1>
+  <h1 class="h3 text-center">Lista da logistica</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Produto</th>
+      <th scope="col">Codigo</th>
+      <th scope="col">Nome do produto</th>
+      <th scope="col">EAN</th>
       <th scope="col">Lote</th>
-      <th scope="col">Tipo_Endereco</th>
-      <th scope="col">Area</th>
-      <th scope="col">Rua</th>
-      <th scope="col">predio</th>
-      <th scope="col">nivel</th>
-      <th scope="col">apto</th>
+      <th scope="col">Endereço</th>
+      <th scope="col">Tipo Endereço</th>
       <th scope="col">Ações</th>
 	  
     </tr>
@@ -112,20 +109,17 @@ td{
     @if($dados->count() > 0)
   @foreach($dados as $item)
     <tr>
-      <th scope="row">{{ $item->id }}</th>
+      <th scope="row">{{ $item->codigo}}</th>
       <td>{{ $item->nome_produto }}</td>
+      <td>{{ $item->ean }}</td>
       <td>{{ $item->lote }}</td>
-      <td>{{ $item->tipo_produto }}</td>
-      <td>{{ $item->area }}</td>
-      <td>{{ $item->rua }}</td>
-      <td>{{ $item->predio }}</td>
-      <td>{{ $item->nivel }}</td>
-      <td>{{ $item->apto }}</td>
+      <td>{{ $item->endereco }}</td>
+      <td>{{ $item->tipo_endereco }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
-        <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
-        <a href="{{ route('dashboard.cadastro.produto.productAddForm.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
+        <a href="{{ route('dashboard.cadastro.estoque.actionsList', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+        <a href="{{ route('dashboard.cadastro.estoque.actionsList', ['id' => $item->id, 'option' => 'remove' ] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
