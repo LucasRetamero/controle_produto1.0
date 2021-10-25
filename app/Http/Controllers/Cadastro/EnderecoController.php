@@ -25,20 +25,23 @@ class EnderecoController extends Controller
 		 case "btnAdd":
 		 $this->validatedLote($request);
 		 $this->enderecoDAO->addDAO($request->all());
+		 return $this->getEnderecoFormWithMsg("Endereço cadastrado com sucesso !");
 		 break;
 		 
 		 case "btnEdit":
 		 $this->validatedLote($request);
 		 $this->enderecoDAO->editDAO($request->input('id'), $request->except(['_token','btnAction']));
+		 return $this->getEnderecoFormWithMsg("Endereço editado com sucesso !");
 		 break;
 		 
 		 case "btnRemove":
 		 $this->validatedLote($request);
 		 $this->enderecoDAO->removeDAO($request->input('id'));
+		 return $this->getEnderecoFormWithMsg("Endereço removido com sucesso !");
 		 break;
 		 
 	 }
-	 return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getAllDAO()]);		
+	 
 	}
 	
 	//Edit/Remove actions from table
@@ -53,56 +56,32 @@ class EnderecoController extends Controller
         $this->enderecoDAO->removeDAO($id);
         break;		 
 	 }
-     return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getAllDAO()]);		 
+     return $this->index();		 
 	}
 	
 	
 	//Searching menu
 	public function searchingAction(Request $request){
 	 switch($request->input('btnAction')){
-	  case "nameQuery":
-	  return $this->searchingOptions($request->input('cbQuery'), $request->input('enderecoQuery'));	
+	  case "nameQuery":	
+	  return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeEnderecoAll( $request->input('enderecoQuery') ) ]);			
 	  break;
 	 
 	  case "allQuery":
-	  return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getAllDAO()]);	
+	  return $this->index();	
       break;	 
 	 }
-	}
-	
-	//Searching Area/Rua/Predio/Nivel/Apto
-	public function searchingOptions($option, $name){	
-	  switch($option){
-		case "area":
-		 return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeAreaAll($name)]);	
-		break;
-		
-		case "rua":
-		return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeRuaAll($name)]);	
-		break;
-		
-		case "predio":
-		return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikePredioAll($name)]);	
-		break;
-		
-		case "nivel":
-		return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeNivelAll($name)]);	
-		break;
-		
-		case "apto":
-		return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeAptoAll($name)]);	
-		break; 
-	 }	
 	}
 
 	//Validated Lote
 	public function validatedLote($dados){
 	$validated = $dados->validate([
-	  'area'  => 'required',
-	  'rua'  => 'required',
-	  'predio'  => 'required',
-	  'nivel'  => 'required',
-	  'apto'  => 'required',
+	  'endereco'  => 'required',
 	 ]);	
+	}
+	
+	//Return Endereço form with a message
+	public function getEnderecoFormWithMsg($msg){
+	return view('dashboard.cadastro.endereco.enderecoForm', ['msgSuccess' => $msg]);			
 	}
 }
