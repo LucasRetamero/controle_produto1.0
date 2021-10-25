@@ -49,7 +49,14 @@ td{
             <hr style="border-top:3px solid #000">			
 </div>
  
-<!-- Product form -->
+ <!-- Return message from query -->
+ @if(isset($msgSuccess))
+ <div class="alert alert-success h5" role="alert">
+ {{ $msgSuccess }}
+ </div>
+ @endif
+ 
+
 <div class="jumbotron bg-primary">
         
 		<div class="container">
@@ -67,62 +74,17 @@ td{
        <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
 	@endif
 	
-	<!-- Area -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Area:</label>
-         @if(isset($dadosEndereco))
-		 <input type="text" class="form-control" id="txtArea"  name="area" value="{{ $dadosEndereco[0]->area }}" placeholder="Digite a area" required>
-         @else
-		 <input type="text" class="form-control" id="txtArea"  name="area" placeholder="Digite a area" required>
+	<!-- Endereço -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Endereço:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosEndereco))
+		  <input type="text" class="form-control" id="txtEndereco" name="endereco" value="{{ $dadosEndereco[0]->endereco }}" placeholder="Digite o endereço..." required autofocus>
+          @else
+		  <input type="text" class="form-control" id="txtEndereco" name="endereco" placeholder="Digite o endereço..." required autofocus>
          @endif
-	   <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-		 
-	
-    <!-- Rua -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Rua:</label>
-         @if(isset($dadosEndereco))
-		 <input type="text" class="form-control" id="txtRua"  name="rua" value="{{ $dadosEndereco[0]->rua }}" placeholder="Digite a Rua" required>
-         @else
-		 <input type="text" class="form-control" id="txtRua"  name="rua" placeholder="Digite a Rua" required>
-         @endif
-	   <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-		 
-	<!-- Predio -->
-		<div class="form-group">
-        <label for="cbNivelAcesso" class="text-white h5">Predio:</label>  
-       @if(isset($dadosEndereco))
-		 <input type="text" class="form-control" id="txtPredio"  name="predio" value="{{ $dadosEndereco[0]->predio }}" placeholder="Digite o predio" required>
-         @else
-		 <input type="text" class="form-control" id="txtPredio"  name="predio" placeholder="Digite o predio" required>
-         @endif 
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small> 
-		 </div>
-		 
-	<!-- Nivel -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Nivel:</label>
-         @if(isset($dadosEndereco))
-		 <input type="text" class="form-control" id="txtNivel"  name="nivel" value="{{ $dadosEndereco[0]->nivel }}" placeholder="Digite o apto" required>
-         @else
-		 <input type="text" class="form-control" id="txtNivel"  name="nivel" placeholder="Digite o nivel" required>
-         @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small> 
-		 </div>
-		 
-		 <!-- Apto -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Apto:</label>
-        @if(isset($dadosEndereco))
-		 <input type="text" class="form-control" id="txtApto"  name="apto" value="{{ $dadosEndereco[0]->apto }}" placeholder="Digite o apto" required>
-         @else
-		 <input type="text" class="form-control" id="txtApto"  name="apto" placeholder="Digite o apto" required>
-         @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small> 
-		 </div>
-		
+        </div>
+       </div>	
   </br>
   <!-- Actions buttons -->
   @if(!isset($dadosEndereco))
@@ -131,7 +93,7 @@ td{
  </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
- </br><a href="{{ route('dashboard.cadastro.endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+ </br><a href="{{ route('dashboard.cadastro.endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista de Endereço</a>
   		
  
  </form>

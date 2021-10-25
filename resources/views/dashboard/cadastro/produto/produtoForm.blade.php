@@ -44,20 +44,21 @@ td{
 
 </style>
 
-<!-- Fixed bottom -->
-<div class="fixed-bottom">
-<a href="#topPage"><button class="btn float-right"><img src="{{ asset('img/icons/arrowIcons.png') }}" width="50px" height="50px" title="Redirecionar para o topo"></img></button></a>
-</div>
-
 <div class="container" id="topPage">
             <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.produto') }}">Produto</a> / Formulário: Produto</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
+<!-- Return message from query -->
+ @if(isset($msgSuccess))
+ <div class="alert alert-success h5" role="alert">
+ {{ $msgSuccess }}
+ </div>
+ @endif
  
  <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Formulário: Produto \ Geral</h1>
+          <h1 class="h3 text-white">Formulário: Produto</h1>
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
@@ -83,117 +84,73 @@ td{
  	     <input  type="hidden"  id="id_codigo" name="id" value="{{ $dadosProduto[0]->id }}" />		
 		@endif
 		
-		<!-- EAN(Barcode) -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">EAN(Codigo de Barras)</label>
-         @if(isset($dadosProduto))
-     	  <input type="text" class="form-control" id="txtEan" name="ean" value="{{ $dadosProduto[0]->ean}}" required>
+	   <!-- Codigo -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Codigo:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosProduto))
+		  <input type="text" class="form-control" id="txtCodigo" name="codigo" value="{{ $dadosProduto[0]->codigo }}" placeholder="Digite o Codigo do produto..." required autofocus>
           @else
-		  <input type="text" class="form-control" id="txtEan" name="ean" placeholder="Digite o Ean/Codigo de barras..." required>
+		  <input type="text" class="form-control" id="txtCodigo" name="codigo" placeholder="Digite o Codigo do produto..." required autofocus>
          @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-		 
-		 <!-- Nome -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Nome</label>
-         @if(isset($dadosProduto))
-     	  <input type="text" class="form-control" id="txtNome" name="nome" value="{{ $dadosProduto[0]->nome}}" required>
-          @else
-		  <input type="text" class="form-control" id="txtNome" name="nome" placeholder="Digite o nome..." required>
-         @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-	    
-		<!-- Data de fabricacao -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Data de Fabricacao</label>
-         @if(isset($dadosProduto))
-     	  <input type="date" class="form-control" id="dt_fabricacao" name="data_fabricacao" value="{{ $dadosProduto[0]->data_fabricacao }}">
-	     @else
-		 <input type="date" class="form-control" id="dt_fabricacao" name="data_fabricacao" value="Insira da data de fabricacao">
-	     @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-		 
-		 <!-- Data de validade -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Data de Validade:</label>
-         @if(isset($dadosProduto))
-     	 <input type="date" class="form-control" id="dt_fabricacao" name="data_vencimento" value="{{ $dadosProduto[0]->data_vencimento }}">
-	     @else
-		 <input type="date" class="form-control" id="dt_fabricacao" name="data_vencimento" value="Insira da data de validade">
-	     @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
-	
-	</br>
-	
-	<div class="container">
-          <h1 class="h3 text-white">Formulário: Produto \ Quantidade</h1>
-		  <hr style="border-top:3px solid #FFF">
         </div>
-  
-	    <!-- Quantidade atual -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Quantidade atual</label>
-         @if(isset($dadosProduto))
-     	  <input type="text" class="form-control" id="txtNome" name="quant_atual" value="{{ $dadosProduto[0]->quant_atual }}">
+       </div>
+	   
+	   <!-- Nome -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Nome:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosProduto))
+		  <input type="text" class="form-control" id="txtNome" name="nome" value="{{ $dadosProduto[0]->nome }}" placeholder="Digite o nome do produto..." required autofocus>
           @else
-		  <input type="text" class="form-control" id="txtNome" name="quant_atual" placeholder="Digite a quantidade atual...">
+		  <input type="text" class="form-control" id="txtNome" name="nome" placeholder="Digite o nome do produto..." required autofocus>
          @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		</div> 
-		
-		<!-- Quantidade minima -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Quantidade minima</label>
-         @if(isset($dadosProduto))
-     	  <input type="text" class="form-control" id="txtNome" name="quant_minimo" value="{{ $dadosProduto[0]->quant_minimo }}">
-          @else
-		  <input type="text" class="form-control" id="txtNome" name="quant_minimo" placeholder="Digite a quantidade minima...">
-         @endif
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		</div>
-		
-		</br>
-	
-	<div class="container">
-          <h1 class="h3 text-white">Formulário: Produto \ Categoria</h1>
-		  <hr style="border-top:3px solid #FFF">
         </div>
-    
-       <!--  Localização -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Localização</label>
-		 <select class="form-control" id="cb_localizacao" name="localizacao"> 
-         <option value="default" selected>Seleciona a localizacao....</option>		 
-	    @foreach($dadosLocalizacao as $item)  
-   	        @if(isset($dadosProduto) &&  $dadosProduto[0]->localizacao == $item->localizacao)
-     	     <option value="{{ $item->localizacao }}" selected>{{ $item->localizacao }}</option>
-		      @else
-		       <option value="{{ $item->localizacao }}">{{ $item->localizacao }}</option>  			  
-              @endif     
-		     @endforeach
-		 </select>	
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		</div>
-		
-		<!-- Sub-Especie -->
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Sub Especie</label>
+       </div>
+	   
+	   <!-- EAN -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">EAN:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosProduto))
+		  <input type="text" class="form-control" id="txtEAN" name="ean" value="{{ $dadosProduto[0]->ean }}" placeholder="Digite o codigo de barras do produto..." required autofocus>
+          @else
+		  <input type="text" class="form-control" id="txtEAN" name="ean" placeholder="Digite o codigo de barras do produto..." required autofocus>
+         @endif
+        </div>
+       </div>
+	   
+	   <!-- Fornecedor -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Fornecedor:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosProduto))
+		   <input type="text" class="form-control" id="txtFornecedor" name="fornecedor" value="{{ $dadosProduto[0]->fornecedor }}" placeholder="Digite o fornecedor do produto..." required autofocus>
+          @else
+		   <input type="text" class="form-control" id="txtFornecedor" name="fornecedor" placeholder="Digite o fornecedor do produto..." required autofocus>
+         @endif
+        </div>
+       </div>
+	   
+	   <!-- Sub-Especie -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Sub-Especie:</label>
+        <div class="col-sm-9">
 		 <select class="form-control" id="cb_localizacao" name="sub_especie"> 
-          <option value="default" selected>Seleciona a sub especie....</option>		 
-	    @foreach($dadosSubEspecie as $item)  
+          <option  value="default" selected>Seleciona a Sub-Especie do produto....</option>		 
+	      @foreach($dadosSubEspecie as $item)  
    	        @if(isset($dadosProduto) &&  $dadosProduto[0]->sub_especie == $item->sub_especie)
-     	     <option value="{{ $item->sub_especie }}" selected>{{ $item->sub_especie }}</option>
+     	      <option value="{{ $item->sub_especie }}" selected>{{ $item->sub_especie }}</option>
 		      @else
-		     <option value="{{ $item->sub_especie }}">{{ $item->sub_especie }}</option>  			  
+		      <option value="{{ $item->sub_especie }}">{{ $item->sub_especie }}</option>  			  
               @endif     
 		     @endforeach
 		 </select>	
-		 <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		</div>   
+        </div>
+       </div>
+ 		 		 	
+		</br>
+	  
   </br>
   <!-- Actions buttons -->
   @if(!isset($dadosProduto))
@@ -202,7 +159,7 @@ td{
  </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
- </br><a href="{{ route('dashboard.cadastro.produto') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+ </br><a href="{{ route('dashboard.cadastro.produto') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista de Produtos</a>
   	
  </form>
 </div>

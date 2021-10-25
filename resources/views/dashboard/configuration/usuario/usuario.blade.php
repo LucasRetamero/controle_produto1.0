@@ -67,8 +67,7 @@ td{
            <option value="Sobrenome">Sobrenome</option>
            <option value="Email">Email</option>
 	       <option value="Login">Login</option>
-           <option value="Nivel de acesso">Nivel de acesso</option>
-         </select>
+          </select>
          </div>
         </div>
 	
@@ -95,26 +94,22 @@ td{
   <h1 class="h3 text-center">Lista de Usuários</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Nome</th>
       <th scope="col">Sobrenome</th>
       <th scope="col">Email</th>
       <th scope="col">Login</th>
-      <th scope="col">Nivel de Acesso</th>
       <th scope="col">Menu</th>
 	  
     </tr>
   </thead>
   <tbody>
   @if($dadosUsuarios->count() > 0)
-  @foreach($dadosUsuarios as $item)
+    @foreach($dadosUsuarios as $item)
     <tr>
-      <th scope="row">{{ $item->id }}</th>
       <td>{{ $item->nome }}</td>
       <td>{{ $item->sobrenome }}</td>
       <td>{{ $item->email }}</td>
       <td>{{ $item->login }}</td>
-      <td>{{ $item->nivelAcesso }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
@@ -123,7 +118,7 @@ td{
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
-   @endforeach
+    @endforeach
    @else
    <div class="alert alert-danger" role="alert">
     Nenhum usuário encontrado !

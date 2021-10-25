@@ -81,7 +81,6 @@ td{
   <h1 class="h3 text-center">Lista de sub especie</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Sub_Especie</th>
       <th scope="col">Menu</th>
 	  
@@ -91,7 +90,6 @@ td{
   @if($dadosSubEspecie->count() > 0)
   @foreach($dadosSubEspecie as $item)
     <tr>
-      <th scope="row">{{ $item->id }}</th>
 	  <td>{{ $item->sub_especie }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
