@@ -8,13 +8,10 @@ use Illuminate\Http\Request;
 class ProdutosDAO extends Model {
 	
     protected $table = 'produtos';
-	protected $fillable = ['ean', 
+	protected $fillable = ['codigo', 
 	                       'nome', 
-						   'data_fabricacao', 
-						   'data_vencimento', 
-						   'quant_atual', 
-						   'quant_minimo',
-						   'localizacao',
+						   'ean', 
+						   'fornecedor', 
 						   'sub_especie'];
 	public $timestamps = false;
 	
@@ -47,9 +44,32 @@ class ProdutosDAO extends Model {
                         ->delete();	
 	}
 	
-	//Get List like namespace
-	public function getLikeNameDAO($name){
+	//Get List like Nome
+	public function getLikeNomeDAO($name){
 	return ProdutosDAO::where('nome', 'like', $name.'%')
 	                    ->get();
 	}
+	
+	//Get List like EAN
+	public function getLikeEanDAO($name){
+	return ProdutosDAO::where('ean',$name)
+	                    ->get();
+	}
+	
+	//Get List like Codigo
+	public function getLikeCodigoDAO($name){
+	return ProdutosDAO::where('codigo',$name)
+	                    ->get();
+						
+	}//Get List like fornecedor
+	public function getLikeFornecedorDAO($name){
+	return ProdutosDAO::where('fornecedor', 'like', $name.'%')
+	                    ->get();
+						
+	}//Get List like sub-especie
+	public function getLikeSubEspecieDAO($name){
+	return ProdutosDAO::where('sub_especie', 'like', $name.'%')
+	                    ->get();
+    }
+
 }

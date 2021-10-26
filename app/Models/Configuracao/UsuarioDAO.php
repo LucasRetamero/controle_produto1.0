@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 class UsuarioDAO extends Model
 {
     protected $table = 'usuarios';
-    protected $fillable = ['nome', 'sobrenome', 'email', 'login', 'password', 'nivelAcesso'];
+    protected $fillable = ['nome', 
+	                       'sobrenome', 
+						   'email', 
+						   'login', 
+						   'password'];
 	public $timestamps = false;
 	
 	//Cadastrar novo usuarios
@@ -20,8 +24,7 @@ class UsuarioDAO extends Model
 	   'sobrenome' => $dados['sobrenome'],
 	   'email'     => $dados['email'],
 	   'login'     => $dados['login'],
-	   'password'  => bcrypt($dados['password']),
-	   'nivelAcesso' => $dados['nivelAcesso'],                     
+	   'password'  => bcrypt($dados['password']),                     
 	]);	
 	}
 	
@@ -34,7 +37,6 @@ class UsuarioDAO extends Model
 	                'email'     => $dados['email'],
 	                'login'     => $dados['login'],
 	                'password'  => bcrypt($dados['password']),
-	                'nivelAcesso' => $dados['nivelAcesso'],
 	                ]);	
 	}
 	
@@ -73,6 +75,13 @@ class UsuarioDAO extends Model
 	                   ->get();	
 	}
 	
+	//Verificar quantidade pelo email
+	public function getQtdEmailUsuario($email){
+	  return UsuarioDAO::where('email', $email)
+	                   ->get()
+					   ->count();
+    }
+		
 	//Buscar pelo login
 	public function getLoginUsuario($login){
 	return UsuarioDAO::where('login', 'like', $login.'%')
