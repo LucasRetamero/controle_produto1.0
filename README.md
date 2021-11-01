@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-# Control de Produtos 1.0
+# Controle de Produtos 1.0
 Sistema completo para auxiliar gestão dos seus produtos !
 
 ### Preview
