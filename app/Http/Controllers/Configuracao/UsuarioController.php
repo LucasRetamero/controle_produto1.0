@@ -15,8 +15,7 @@ class UsuarioController extends Controller
 	public function __construct(UsuarioDAO $usuarioDAO){
 	 $this->UsuarioDAO = $usuarioDAO;	 
 	}
-	//$this->UsuarioDAO->authenticate($request);
-	
+
 	//Acessar login page
 	public function index(){
 	 return view('login.index');	
