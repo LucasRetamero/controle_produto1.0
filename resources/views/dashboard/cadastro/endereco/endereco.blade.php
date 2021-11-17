@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Endereço</h1> 
+    <h1 class="h2">Consultar / Endereço</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -95,9 +95,11 @@ td{
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <a href="{{ route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+          @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+     	  <a href="{{ route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
           <a href="{{ route('dashboard.cadastro.endereco.enderecoForm.editOrRemove', ['id' => $item->id, 'option' => 'remove'] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
-         </div>
+         @endif
+		 </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>

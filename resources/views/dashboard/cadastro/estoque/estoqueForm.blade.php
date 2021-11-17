@@ -77,12 +77,12 @@
         <div class="col-sm-9">
 		 @if(isset($dadosLogistico) || isset($dadosProduto) )
 		   @if(isset($dadosLogistico))
-	       <input type="text" class="form-control" id="txtCodigo" name="codigo" value="{{ $dadosLogistico[0]->codigo }}" placeholder="Digite o endereço..." required autofocus>
+	       <input type="text" class="form-control bg-warning" id="txtCodigo" name="codigo" value="{{ $dadosLogistico[0]->codigo }}" placeholder="Digite o endereço..." required autofocus>
 		   @else
-		   <input type="text" class="form-control" id="txtCodigo" name="codigo" value="{{ $dadosProduto[0]->codigo }}" placeholder="Digite o endereço..." required autofocus>
+		   <input type="text" class="form-control bg-warning" id="txtCodigo" name="codigo" value="{{ $dadosProduto[0]->codigo }}" placeholder="Digite o endereço..." required autofocus>
            @endif
 		  @else
-		  <input type="text" class="form-control" id="txtCodigo" name="codigo" placeholder="Digite o endereço..." required autofocus>
+		  <input type="text" class="form-control bg-warning" id="txtCodigo" name="codigo" placeholder="Digite o endereço..." required autofocus>
          @endif
         </div>
        </div>
@@ -93,12 +93,12 @@
         <div class="col-sm-9">
 		 @if(isset($dadosLogistico) || isset($dadosProduto) )
 		   @if(isset($dadosLogistico))
-	       <input type="text" class="form-control" id="txtNomeProduto" name="nome_produto" value="{{ $dadosLogistico[0]->nome_produto }}" placeholder="Digite o nome do produto..." required autofocus>
+	       <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="nome_produto" value="{{ $dadosLogistico[0]->nome_produto }}" placeholder="Digite o nome do produto..." required autofocus>
 	       @else
-		   <input type="text" class="form-control" id="txtNomeProduto" name="nome_produto" value="{{ $dadosProduto[0]->nome }}" placeholder="Digite o nome do produto..." required autofocus>
+		   <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="nome_produto" value="{{ $dadosProduto[0]->nome }}" placeholder="Digite o nome do produto..." required autofocus>
            @endif
 		  @else
-		  <input type="text" class="form-control" id="txtNomeProduto" name="nome_produto" placeholder="Digite o nome do produto..." required autofocus>
+		  <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="nome_produto" placeholder="Digite o nome do produto..." required autofocus>
          @endif
         </div>
        </div>	
@@ -109,12 +109,12 @@
         <div class="col-sm-9">
 		 @if(isset($dadosLogistico) || isset($dadosProduto) )
 		  @if(isset($dadosLogistico))
-	      <input type="text" class="form-control" id="txtNomeProduto" name="ean" value="{{ $dadosLogistico[0]->ean  }}" placeholder="Digite o codigo de barras do produto..." required autofocus>
+	      <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="ean" value="{{ $dadosLogistico[0]->ean  }}" placeholder="Digite o codigo de barras do produto..." required autofocus>
 	      @else
-		  <input type="text" class="form-control" id="txtNomeProduto" name="ean" value="{{ $dadosProduto[0]->ean  }}" placeholder="Digite o codigo de barras do produto..." required autofocus>
+		  <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="ean" value="{{ $dadosProduto[0]->ean  }}" placeholder="Digite o codigo de barras do produto..." required autofocus>
           @endif         
 		 @else
-		  <input type="text" class="form-control" id="txtNomeProduto" name="ean" placeholder="Digite o codigo de barras do produto..." required autofocus>
+		  <input type="text" class="form-control bg-warning" id="txtNomeProduto" name="ean" placeholder="Digite o codigo de barras do produto..." required autofocus>
          @endif
         </div>
        </div>
@@ -125,12 +125,12 @@
         <div class="col-sm-9">
 		 @if(isset($dadosLogistico) || isset($dadosProduto))
 		   @if(isset($dadosLogistico))  
-	       <input type="text" class="form-control" id="txtFornecedor" name="fornecedor" value="{{ $dadosLogistico[0]->fornecedor  }}" placeholder="Digite o fornecedor do produto..." required autofocus>
+	       <input type="text" class="form-control bg-warning" id="txtFornecedor" name="fornecedor" value="{{ $dadosLogistico[0]->fornecedor  }}" placeholder="Digite o fornecedor do produto..." required autofocus>
 		   @else
-		   <input type="text" class="form-control" id="txtFornecedor" name="fornecedor" value="{{ $dadosProduto[0]->fornecedor  }}" placeholder="Digite o fornecedor do produto..." required autofocus>
+		   <input type="text" class="form-control bg-warning" id="txtFornecedor" name="fornecedor" value="{{ $dadosProduto[0]->fornecedor  }}" placeholder="Digite o fornecedor do produto..." required autofocus>
            @endif
 		  @else
-		  <input type="text" class="form-control" id="txtFornecedor" name="fornecedor" placeholder="Digite o fornecedor do produto..." required autofocus>
+		  <input type="text" class="form-control bg-warning" id="txtFornecedor" name="fornecedor" placeholder="Digite o fornecedor do produto..." required autofocus>
          @endif
         </div>
        </div>	
@@ -139,7 +139,7 @@
 	   <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 text-white h4">Sub-Especie:</label>
         <div class="col-sm-9">
-		 <select class="form-control" id="cb_localizacao" name="sub_especie"> 
+		 <select class="form-control bg-warning" id="cb_localizacao" name="sub_especie" required autofocus> 
           <option  value="" selected>Seleciona a Sub-Especie do produto....</option>		 
 	      @foreach($dadosSubEspecie as $item)  
    	        @if(isset($dadosLogistico) &&  $dadosLogistico[0]->sub_especie == $item->sub_especie || isset($dadosProduto) &&  $dadosProduto[0]->sub_especie == $item->sub_especie)
@@ -168,7 +168,7 @@
 	   <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 text-white h4">Endereço:</label>
         <div class="col-sm-9">
-		 <select class="form-control" id="cb_localizacao" name="endereco"> 
+		 <select class="form-control" id="cb_localizacao" name="endereco" required autofocus> 
           <option  value="" selected>Seleciona a Endereço do produto....</option>		 
 	      @foreach($dadosEndereco as $item)  
    	        @if(isset($dadosLogistico) &&  $dadosLogistico[0]->endereco == $item->endereco)
@@ -185,11 +185,16 @@
 	   <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 text-white h4">Tipo Endereço:</label>
         <div class="col-sm-9">
-		 @if(isset($dadosLogistico))
-		  <input type="text" class="form-control" id="txtLote" name="tipo_endereco" value="{{ $dadosLogistico[0]->tipo_endereco }}" placeholder="Digite o Tipo do Endereço..." required autofocus>
-          @else
-		  <input type="text" class="form-control" id="txtLote" name="tipo_endereco" placeholder="Digite o Tipo do Endereço..." required autofocus>
-         @endif
+		 <select class="form-control" id="cb_localizacao" name="tipo_endereco" required autofocus> 
+          <option  value="" selected>Seleciona o Tipo Endereço....</option>		 
+	      @foreach($dadosTipoEndereco as $item)  
+   	        @if(isset($dadosLogistico) &&  $dadosLogistico[0]->tipo_endereco == $item->tipo_endereco )
+     	      <option value="{{ $item->tipo_endereco }}" selected>{{ $item->tipo_endereco }}</option>
+		      @else
+		      <option value="{{ $item->tipo_endereco }}">{{ $item->tipo_endereco }}</option>  			  
+              @endif     
+		     @endforeach
+		 </select>	
         </div>
        </div>
   </br>
@@ -211,16 +216,5 @@
  </form>
 </div><!-- Termina lista do estoque -->
 
-
-
-<!-- JS Script -->
-<script type="text/javascript">
-var $input    = document.getElementById('inputFileForm'),
-     $fileName = document.getElementById('fileName');
-
- $input.addEventListener('change', function(){
-	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
- });
-</script>
 @endsection
 

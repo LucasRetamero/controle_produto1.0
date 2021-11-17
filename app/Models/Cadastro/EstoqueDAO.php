@@ -36,7 +36,8 @@ class EstoqueDAO extends Model
 	
 	//Get all list
 	public function getAllDAO(){
-	return EstoqueDAO::all();	
+	return EstoqueDAO::orderBy('endereco')
+	                   ->get();	
 	}
 	
 	//Get one by id
@@ -48,12 +49,18 @@ class EstoqueDAO extends Model
 	//Get all by name
 	public function getLikeNameDAO($nome){
 	return EstoqueDAO::where('nome_produto', 'like', $nome.'%')
+					   ->get();	
+	}
+	
+	//Get all by codigo
+	public function getLikeCodigoDAO($nome){
+	return EstoqueDAO::where('codigo', 'like', $nome.'%')
                        ->get();	
 	}
 	
 	//Get all by ean
 	public function getLikeEanDAO($nome){
-	return EstoqueDAO::where('ean', 'like', $nome.'%')
+	return EstoqueDAO::where('ean', $nome)
                        ->get();	
 	}
 	
@@ -69,9 +76,27 @@ class EstoqueDAO extends Model
                        ->get();	
 	}
 	
+	//Get all by fornecedor
+	public function getLikeFornecedorDAO($nome){
+	return EstoqueDAO::where('fornecedor','like', $nome.'%')
+                       ->get();	
+	}
+	
+	//Get all by sub_especie
+	public function getLikeSubEspecieDAO($nome){
+	return EstoqueDAO::where('sub_especie','like', $nome.'%')
+                       ->get();	
+	}
+	
 	//Get unique by endereço
 	public function getListEnderecoDAO($nome){
 	return EstoqueDAO::where('endereco', $nome)
+                       ->get();	
+	}
+	
+	//Get unique by codigo
+	public function getListCodigoDAO($nome){
+	return EstoqueDAO::where('codigo', $nome)
                        ->get();	
 	}
 	

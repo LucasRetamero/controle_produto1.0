@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Tipo do Endereço</h1> 
+    <h1 class="h2">Consultar / Tipo Endereço</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -55,7 +55,7 @@ td{
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
          <div class="col-sm-12 text-center">
-          <h1 class="h3">Consultar lista do tipo do endereço</h1>
+          <h1 class="h3">Consultar lista do tipo endereço</h1>
      <form method="post" action="{{ route('dashboard.cadastro.tipo_endereco.searching') }}">
       <div class="form-row">
 	  
@@ -82,7 +82,6 @@ td{
   <h1 class="h3 text-center">Lista do Tipo Endereços</h1>
   <thead class="thead">
     <tr>
-      <th scope="col">ID</th>
       <th scope="col">Tipo_Endereco</th>
       <th scope="col">Menu</th>
 	  
@@ -92,14 +91,15 @@ td{
     @if($dadosTipoEndereco->count() > 0)
   @foreach($dadosTipoEndereco as $item)
     <tr>
-      <th scope="row">{{ $item->id }}</th>
 	  <td>{{ $item->tipo_endereco }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <a href="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+          @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+		  <a href="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
           <a href="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove', ['id' => $item->id, 'option' => 'remove'] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
-         </div>
+          @endif
+		 </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>

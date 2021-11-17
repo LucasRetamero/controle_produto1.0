@@ -34,6 +34,12 @@ th,td{
             <hr style="border-top:3px solid #000">			
 </div>
 
+@if(isset($errorMessage))
+ <div class="alert alert-danger h5" role="alert">
+ {{ $errorMessage }}
+ </div>
+ @endif
+ 
 <!-- Form add login -->
 <div class="jumbotron bg-primary">
         
@@ -42,7 +48,7 @@ th,td{
 		 <hr class="confHr">
         </div>
 		
-  <form method="post"  id="addUserForm" action="{{ route('login.addEditRemUsuario') }}" class="form-signin">
+  <form method="post"  id="addUserForm" action="{{ route('login.addEditRemUsuario') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
   <div class="form-group">
     
       <div class="row">
@@ -87,36 +93,36 @@ th,td{
     @endif
 	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
-  <!--
+ 
     <div class="form-group">
     <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
-    <select class="form-control" id="cbNivelAcesso" name="nivelAcesso" required>
-	  if(isset($dadoUsuario))
-		switch($dadoUsuario[0]->nivelAcesso)  
-          case('Administrador')
-		  <option value="Administrador" selected>Administrador</option>
-          <option value="Gerência">Gerência</option>
-          <option value="Produção">Produção</option>
-		  break  
-          case('Gerência')		  
-	      <option value="Administrador">Administrador</option>   
-		  <option value="Gerência" selected>Gerência</option>
-          <option value="Produção">Produção</option>
-		  break
-		  case('Produção')
-		  <option value="Administrador">Administrador</option>
-          <option value="Gerência">Gerência</option>
-	      <option value="Produção" selected>Produção</option>
-          break
-		endswitch
-	  else
-		<option value="" selected></option>
-		<option value="Administrador">Administrador</option>
-        <option value="Gerência">Gerência</option>
-        <option value="Produção">Produção</option>  
-	  endif
+    <select class="form-control" id="cbNivelAcesso" name="nivel_acesso" required>
+	  @if(isset($dadoUsuario))
+		@switch($dadoUsuario[0]->nivel_acesso)  
+          @case('administrador')
+		  <option value="administrador" selected>Administrador</option>
+          <option value="gerencia">Gerência</option>
+          <option value="producao">Produção</option>
+		 @break  
+         @case('gerencia')		  
+	      <option value="administrador">Administrador</option>   
+		  <option value="gerencia" selected>Gerência</option>
+          <option value="producao">Produção</option>
+		  @break
+		  @case('producao')
+		  <option value="administrador">Administrador</option>
+          <option value="gerencia">Gerência</option>
+	      <option value="producao" selected>Produção</option>
+          @break
+		@endswitch
+	  @else
+		<option value="" selected>Selecione o nivel do usuário</option>
+		<option value="administrador">Administrador</option>
+        <option value="gerencia">Gerência</option>
+        <option value="producao">Produção</option>  
+	  @endif
 	</select>
-  </div>-->
+  </div>
   
   <div class="form-group">
     <div class="row">

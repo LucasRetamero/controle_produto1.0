@@ -15,7 +15,6 @@ class UsuarioController extends Controller
 	public function __construct(UsuarioDAO $usuarioDAO){
 	 $this->UsuarioDAO = $usuarioDAO;	 
 	}
-	//$this->UsuarioDAO->authenticate($request);
 	
 	//Acessar login page
 	public function index(){
@@ -48,6 +47,7 @@ class UsuarioController extends Controller
 	  'email'       => 'required|max:60',
 	  'login'       => 'required',
 	  'password'    => 'required',
+	  'nivel_acesso'=> 'required',
 	 ]);	
 	}
 	
@@ -62,7 +62,7 @@ class UsuarioController extends Controller
 	   $this->UsuarioDAO->addUsuario($request->all());	
 	   return redirect()->route('dashboard.configuracao.usuarios');
 	  }else{
-	   return view('dashboard.configuration.usuario.usuarioForm',['errorMessage' => "Email j? existente !"]);	  
+	   return view('dashboard.configuration.usuario.usuarioForm',['errorMessage' => "Email já existente !"]);	  
 	  }
 	 break;
 	 
@@ -118,7 +118,7 @@ class UsuarioController extends Controller
         return view('dashboard.configuration.usuario.usuario',['dadosUsuarios' => $this->UsuarioDAO->getLoginUsuario($request->input('textSearch'))]); 
         break;
         
-		case 'Nivel de acesso':
+		case 'nivel_acesso':
         return view('dashboard.configuration.usuario.usuario',['dadosUsuarios' => $this->UsuarioDAO->getNivelAcessoUsuario($request->input('textSearch'))]); 
         break;		
 	 }	

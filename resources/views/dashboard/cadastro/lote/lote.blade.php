@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Lote</h1> 
+    <h1 class="h2">Consultar / Lote</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 

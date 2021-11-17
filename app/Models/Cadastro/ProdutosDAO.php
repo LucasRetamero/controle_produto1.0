@@ -61,15 +61,20 @@ class ProdutosDAO extends Model {
 	return ProdutosDAO::where('codigo',$name)
 	                    ->get();
 						
-	}//Get List like fornecedor
+	}
+	
+	//Get List like fornecedor
 	public function getLikeFornecedorDAO($name){
 	return ProdutosDAO::where('fornecedor', 'like', $name.'%')
 	                    ->get();
 						
-	}//Get List like sub-especie
+	}
+	
+	//Get List like sub-especie
 	public function getLikeSubEspecieDAO($name){
 	return ProdutosDAO::where('sub_especie', 'like', $name.'%')
 	                    ->get();
     }
+	
 
 }

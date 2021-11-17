@@ -34,7 +34,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Produto</h1> 
+    <h1 class="h2">Consultar / Produto</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -115,9 +115,11 @@ td{
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
-        <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+       @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+   	    <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
         <a href="{{ route('dashboard.cadastro.produto.productAddForm.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
-         </div>
+      @endif       
+	   </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>

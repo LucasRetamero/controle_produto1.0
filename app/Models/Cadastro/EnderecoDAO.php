@@ -29,7 +29,7 @@ class EnderecoDAO extends Model
 	
 	//Get all list
 	public function getAllDAO(){
-	return EnderecoDAO::all();	
+	return EnderecoDAO::orderBy('endereco')->get();	
 	}
 	
 	//Get one of list

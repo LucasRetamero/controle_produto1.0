@@ -45,7 +45,7 @@ td{
 </style>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo do Endereço</a> / Formulário: Tipo do Endereç</h1> 
+            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo Endereço</a> / Formulário: Tipo Endereç</h1> 
             <hr style="border-top:3px solid #000">			
 </div>
  
@@ -53,7 +53,7 @@ td{
 <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Formulário: Tipo do Endereço</h1>
+          <h1 class="h3 text-white">Formulário: Tipo Endereço</h1>
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
@@ -65,15 +65,17 @@ td{
        <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
 	@endif
     
-	<!-- Tipo do endereço --> 
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Tipo do endereço</label>
-         @if(isset($dadosTipoEndereco))
-     	  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" value="{{ $dadosTipoEndereco[0]->tipo_endereco}}" required>
+	<!-- Tipo Endereco -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Tipo endereço:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosTipoEndereco))
+		  <input type="text" class="form-control" id="txtSubEspecie" name="tipo_endereco" value="{{ $dadosTipoEndereco[0]->tipo_endereco }}" placeholder="Digite o Tipo Endereço..." required autofocus>
           @else
-		  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" placeholder="Digite o tipo de endereço" required>
-         @endif<small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
+		  <input type="text" class="form-control" id="txtSubEspecie" name="tipo_endereco" placeholder="Digite o Tipo Endereço..." required autofocus>
+         @endif
+        </div>
+       </div>
 		
   </br>
   <!-- Actions buttons -->
@@ -83,7 +85,7 @@ td{
  </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
- </br><a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+ </br><a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista Tipo Endereço</a>
   		
  
  </form>
