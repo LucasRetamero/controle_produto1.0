@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Logistico</h1> 
+    <h1 class="h2">Consultar / Logistica</h1>
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -96,7 +96,7 @@ td{
   <thead class="thead">
     <tr>
       <th scope="col">Codigo</th>
-      <th scope="col">Nome do produto</th>
+      <th scope="col">Nome produto</th>
       <th scope="col">EAN</th>
       <th scope="col">Lote</th>
       <th scope="col">Endereço</th>
@@ -109,21 +109,24 @@ td{
     @if($dados->count() > 0)
   @foreach($dados as $item)
     <tr>
-      <th scope="row">{{ $item->codigo}}</th>
+    <th scope="row">{{ $item->codigo}}</th>
       <td>{{ $item->nome_produto }}</td>
       <td>{{ $item->ean }}</td>
       <td>{{ $item->lote }}</td>
-      <td>{{ $item->endereco }}</td>
+      <td class="text-nowrap">{{ $item->endereco }}</td>
       <td>{{ $item->tipo_endereco }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">
-        <a href="{{ route('dashboard.cadastro.estoque.actionsList', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+        @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+		<a href="{{ route('dashboard.cadastro.estoque.actionsList', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
         <a href="{{ route('dashboard.cadastro.estoque.actionsList', ['id' => $item->id, 'option' => 'remove' ] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
-         </div>
+        @endif        
+		</div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
+	
    @endforeach
    @else
    <div class="alert alert-danger" role="alert">

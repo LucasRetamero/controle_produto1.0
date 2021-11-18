@@ -45,15 +45,15 @@ td{
 </style>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo do Endereço</a> / Formulário: Tipo do Endereç</h1> 
-            <hr style="border-top:3px solid #000">			
+            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo Endereço</a> / Formulário: Tipo Endereç</h1> 
+			<hr style="border-top:3px solid #000">			
 </div>
  
 <!-- Product form -->
 <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Formulário: Tipo do Endereço</h1>
+          <h1 class="h3 text-white">Formulário: Tipo Endereço</h1>
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
@@ -65,15 +65,17 @@ td{
        <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
 	@endif
     
-	<!-- Tipo do endereço --> 
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Tipo do endereço</label>
-         @if(isset($dadosTipoEndereco))
-     	  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" value="{{ $dadosTipoEndereco[0]->tipo_endereco}}" required>
+	<!-- Tipo Endereco -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Tipo endereço:</label>
+        <div class="col-sm-9">
+		 @if(isset($dadosTipoEndereco))
+		  <input type="text" class="form-control" id="txtSubEspecie" name="tipo_endereco" value="{{ $dadosTipoEndereco[0]->tipo_endereco }}" placeholder="Digite o Tipo Endereço..." required autofocus>
           @else
-		  <input type="text" class="form-control" id="txtTipo_endereco" name="tipo_endereco" placeholder="Digite o tipo de endereço" required>
-         @endif<small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
+		  <input type="text" class="form-control" id="txtSubEspecie" name="tipo_endereco" placeholder="Digite o Tipo Endereço..." required autofocus>
+         @endif
+        </div>
+       </div>
 		
   </br>
   <!-- Actions buttons -->
@@ -88,17 +90,7 @@ td{
  
  </form>
 </div>
-		
- 	
-</div>
-</div>
-  
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
-</div>
 
-<!-- JS Script -->
-<script type="text/javascript">
 
-</script>
 @endsection
 

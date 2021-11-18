@@ -20,6 +20,7 @@ class CreateUsuarioTable extends Migration
 			$table->string('email', 60)->unique();
 			$table->string('login');
 			$table->string('password');
+			$table->string('nivel_acesso');
       		$table->rememberToken();
             $table->timestamps();
         });

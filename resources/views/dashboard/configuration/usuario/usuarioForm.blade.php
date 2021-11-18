@@ -34,6 +34,13 @@ th,td{
             <hr style="border-top:3px solid #000">			
 </div>
 
+@if(isset($errorMessage))
+ <div class="alert alert-danger h5" role="alert">
+ {{ $errorMessage }}
+ </div>
+ @endif
+
+
 <!-- Form add login -->
 <div class="jumbotron bg-primary">
         
@@ -65,8 +72,8 @@ th,td{
 	   @endif
 	  </div>
       </div>
-	<small id="txtName" class="form-text text-muted"><!-- Small message --></small>
-  </div>
+		<small class="form-text text-white h5">@if(isset($errorMessage)) {{ $errorMessage }} @endif</small>
+	</div>
   
   <div class="form-group">
     <label for="txtEmail" class="text-white h5">Emai:</label>
@@ -87,36 +94,36 @@ th,td{
     @endif
 	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
-  <!--
-    <div class="form-group">
+  
+     <div class="form-group">
     <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
-    <select class="form-control" id="cbNivelAcesso" name="nivelAcesso" required>
-	  if(isset($dadoUsuario))
-		switch($dadoUsuario[0]->nivelAcesso)  
-          case('Administrador')
-		  <option value="Administrador" selected>Administrador</option>
-          <option value="Gerência">Gerência</option>
-          <option value="Produção">Produção</option>
-		  break  
-          case('Gerência')		  
-	      <option value="Administrador">Administrador</option>   
-		  <option value="Gerência" selected>Gerência</option>
-          <option value="Produção">Produção</option>
-		  break
-		  case('Produção')
-		  <option value="Administrador">Administrador</option>
-          <option value="Gerência">Gerência</option>
-	      <option value="Produção" selected>Produção</option>
-          break
-		endswitch
-	  else
-		<option value="" selected></option>
-		<option value="Administrador">Administrador</option>
-        <option value="Gerência">Gerência</option>
-        <option value="Produção">Produção</option>  
-	  endif
+    <select class="form-control" id="cbNivelAcesso" name="nivel_acesso" required>
+	  @if(isset($dadoUsuario))
+		 @switch($dadoUsuario[0]->nivel_acesso)  
+          @case('administrador')
+		  <option value="administrador" selected>Administrador</option>
+          <option value="gerencia">Gerência</option>
+          <option value="producao">Produção</option>
+		 @break  
+         @case('gerencia')		  
+	      <option value="administrador">Administrador</option>   
+		  <option value="gerencia" selected>Gerência</option>
+          <option value="producao">Produção</option>
+		  @break
+		 @case('producao')
+		  <option value="administrador">Administrador</option>
+          <option value="gerencia">Gerência</option>
+	      <option value="producao" selected>Produção</option>
+          @break
+		@endswitch
+	  @else
+	<option value="" selected>Selecione o nivel do usuário</option>
+		<option value="administrador">Administrador</option>
+        <option value="gerencia">Gerência</option>
+        <option value="producao">Produção</option>  
+	  @endif
 	</select>
-  </div>-->
+  </div>
   
   <div class="form-group">
     <div class="row">
@@ -149,103 +156,4 @@ th,td{
 </div>
 <!-- End form add login-->
 
-<!-- JS Script -->
-<script>
-	
-var code = document.getElementById("txtPassword");
-
-var strengthbar = document.getElementById("passParameter");
-
-//All background color from bootstrap
-var removeBackground = [
-     'bg-primary',
-	 'bg-secondary',
-	 'bg-success',
-	 'bg-danger',
-	 'bg-warning',
-	 'bg-info',
-	 'bg-light',
-	 'bg-dark',
-	 'bg-white',
-	 'bg-transparent'
-     ];
-code.addEventListener("keyup", function() {
-	checkpassword(code.value);
-});
-   
-function checkpassword(password) {
-  var strength = 0;
-  if (password.match(/[a-z]+/)) {
-    strength += 1;
-  }
-  if (password.match(/[A-Z]+/)) {
-    strength += 1;
-  }
-  if (password.match(/[0-9]+/)) {
-    strength += 1;
-  }
-  if (password.match(/[$@#&!*]+/)) {
-    strength += 1;
-
-  }
-  
-  switch (strength) {
-    case 0:
-     changeProgessBar(0, "0%", "0%");
-	 changeProgessBar(0, "3%", "0%");
-      break;
-
-    case 1:
-	 changeProgessBar(25, "25%", "25%");
-      break;
-
-    case 2:
-	   changeProgessBar(50, "50%", "50%");
-      break;
-
-    case 3:
-	   changeProgessBar(75, "75%", "75%");
-      break;
-
-    case 4:
-	  changeProgessBar(100, "100%", "100%");
-      break;
-  }
-  
-  changeProgresBarColor();
-  
-} 
-   
-function removeBackgroundAddOther(bgAdd){
-   	for(var x = 0; x < removeBackground.length; x++ ){
-	strengthbar.classList.remove(removeBackground[x]);
-	}
-	strengthbar.classList.add(bgAdd);
-}
-
-function changeProgresBarColor(){
-	switch(strengthbar.value){
-	  case 0:
-	   removeBackgroundAddOther("bg-danger");
-	   break;
-	  case 50:
-	   removeBackgroundAddOther("bg-warning");	
-	   break;
-	  case 75:
-	   removeBackgroundAddOther("bg-success");
-	   break;
-	  default:
-	   //Do something
-	   break;
-	}	
-}
-
-function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
-	  strengthbar.value = valueProgress;
-	  strengthbar.style.width = widthProgress;
-	  strengthbar.innerHTML = innerHtmlProgress;
-}   
- 
-</script>
-<!-- End JS Script--> 
-@endsection('content')
+@endsection

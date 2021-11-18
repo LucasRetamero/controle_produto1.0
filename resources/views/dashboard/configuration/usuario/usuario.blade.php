@@ -67,13 +67,14 @@ td{
            <option value="Sobrenome">Sobrenome</option>
            <option value="Email">Email</option>
 	       <option value="Login">Login</option>
+		   <option value="nivel_acesso">Nivel Acesso</option>
           </select>
          </div>
         </div>
 	
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar o usuârio...">
+          <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar o usuârio...">
         </div>    
 	 </div>
 		 
@@ -98,6 +99,7 @@ td{
       <th scope="col">Sobrenome</th>
       <th scope="col">Email</th>
       <th scope="col">Login</th>
+	  <th scope="col">Nivel Acesso</th>
       <th scope="col">Menu</th>
 	  
     </tr>
@@ -110,6 +112,7 @@ td{
       <td>{{ $item->sobrenome }}</td>
       <td>{{ $item->email }}</td>
       <td>{{ $item->login }}</td>
+	  <td>{{ $item->nivel_acesso }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
 		 <div class="col-sm-12 text-center">

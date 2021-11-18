@@ -212,15 +212,5 @@
 </div><!-- Termina lista do estoque -->
 
 
-
-<!-- JS Script -->
-<script type="text/javascript">
-var $input    = document.getElementById('inputFileForm'),
-     $fileName = document.getElementById('fileName');
-
- $input.addEventListener('change', function(){
-	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
- });
-</script>
 @endsection
 

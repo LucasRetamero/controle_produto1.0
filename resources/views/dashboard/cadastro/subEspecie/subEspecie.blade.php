@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Cadastro / Sub Especie</h1> 
+    <h1 class="h2">Consultar / Sub Especie</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -94,9 +94,11 @@ td{
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-          <a href="{{ route('dashboard.cadastro.subEspecie.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
+            @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+		  <a href="{{ route('dashboard.cadastro.subEspecie.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
           <a href="{{ route('dashboard.cadastro.subEspecie.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover essa item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
-         </div>
+          @endif
+		  </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
