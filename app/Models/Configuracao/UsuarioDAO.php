@@ -26,7 +26,7 @@ class UsuarioDAO extends Model
 	   'email'        => $dados['email'],
 	   'login'        => $dados['login'],
 	   'password'     => bcrypt($dados['password']),
-	   'nivel_acesso' => $dados['nivel_acesso'],                         
+	   'nivel_acesso' => $dados['nivel_acesso'],
 	]);	
 	}
 	

@@ -49,6 +49,14 @@ td{
             <hr style="border-top:3px solid #000">			
 </div>
  
+ <!-- Message of query -->
+ <?php if(isset($msgSuccess)): ?>
+ <div class="alert alert-success h5" role="alert">
+ <?php echo e($msgSuccess); ?>
+
+ </div>
+ <?php endif; ?>
+ 
 <!-- Product form -->
 <div class="jumbotron bg-primary">
         
@@ -57,43 +65,37 @@ td{
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
-   <form class="form-signin">
+   <form method="post" action="<?php echo e(route('dashboard.cadastro.actions')); ?>" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
    
-    <!-- Codigo -->
-     <div class="form-group">
-       <label for="cbNivelAcesso" class="text-white h5">Codigo</label>
-	   <input type="text" class="form-control" id="id_codigo"  placeholder="Codigo da Sub Especie.....">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>
-	  </div>
-    
-	<!-- Tipo do endereço --> 
-		<div class="form-group">
-         <label for="cbNivelAcesso" class="text-white h5">Sub Especie</label>
-         <input type="text" class="form-control" id="id_codigo"  placeholder="Digite a Sub Especie...">
-       <small id="txtEmail" class="form-text text-muted"><!-- Small message --></small>		 
-		 </div>
+   <input type="hidden" name="_token" id="csrf-token" value="<?php echo e(Session::token()); ?>" />
 		
+	<?php if(isset($dadosSubEspecie)): ?>	
+    <!-- ID --> 
+       <input type="hidden" id="id"  name="id" value="<?php echo e($dadosSubEspecie[0]->id); ?>">
+	<?php endif; ?>
+    
+	<!-- Sub Especie -->
+	   <div class="form-group row">
+        <label for="staticEmail" class="col-sm-2 text-white h4">Sub Especie:</label>
+        <div class="col-sm-9">
+		 <?php if(isset($dadosSubEspecie)): ?>
+		  <input type="text" class="form-control" id="txtSubEspecie" name="sub_especie" value="<?php echo e($dadosSubEspecie[0]->sub_especie); ?>" placeholder="Digite a Sub Especie..." required autofocus>
+          <?php else: ?>
+		  <input type="text" class="form-control" id="txtSubEspecie" name="sub_especie" placeholder="Digite a Sub Especie..." required autofocus>
+         <?php endif; ?>
+        </div>
+       </div>
+	
   </br>
   <!-- Actions buttons -->
-  <center><div class="btn-group" role="group" aria-label="Basic example">
-  
-  <div class="btn-group mr-2" role="group" aria-label="First group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/addIcon.png')); ?>" class="imgIcons"></img> Gravar</button>
-   </div>
-        
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/clearIcon.png')); ?>" class="imgIcons"></img> Limpar campos</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/editIcon.png')); ?>" class="imgIcons"></img> Editar</button>
-   </div>
-   
-   <div class="btn-group mr-2" role="group" aria-label="Second group">
-    <button type="submit" class="btn btn-light" style="font-size: large;"><img src="<?php echo e(asset('img/icons/removeIcon.png')); ?>" class="imgIcons"></img> Remover</button>
-   </div>
-
-  </div></center>	
+  <?php if(!isset($dadosSubEspecie)): ?>
+ <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="<?php echo e(asset('img\icons\addIcon.png')); ?>"></img>Cadastrar</button>
+ <?php else: ?>
+ </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="<?php echo e(asset('img\icons\editIcon.png')); ?>" width="40px" height="40px"></img>Editar</button>
+ </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="<?php echo e(asset('img\icons\removeIcon.png')); ?>" width="40px" height="40px"></img>Remover</button>
+ <?php endif; ?>
+ </br><a href="<?php echo e(route('dashboard.cadastro.subEspecie')); ?>" class="btn btn-light btn-block" style="font-size:x-large;"><img src="<?php echo e(asset('img\icons\leftArrowIcon.png')); ?>" width="40px" height="40px"></img>Lista de Sub Especie</a>
+  	
  
  </form>
 </div><!-- Termina lista do estoque -->

@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-   <h1 class="h2">Consultar / Localização</h1>
+    <h1 class="h2">Consultar / Localização</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -133,4 +133,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\PDF;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cadastro\EstoqueDAO;
+use App\Models\Export\InventarioExport;
+use App\Http\Controllers\PDF\Inventario\InventarioJasperController;
+
 
 class EstoquePdfController extends Controller
 { 
@@ -18,6 +21,12 @@ class EstoquePdfController extends Controller
 	 return view('pdf.estoque.home');	
 	}
 	
+
+	//Call home with a msg
+	public function indexMsg(){
+	 return view('pdf.estoque.home',['msgError' => "Nenhum inventário encontrado para gerar relatório !"]); 	
+	}
+	
 	//Actions Menu
 	public function actionsMenu(Request $request){
 
@@ -25,92 +34,120 @@ class EstoquePdfController extends Controller
 		   
 		 case "codigo":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeCodigoDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeCodigoPdf($request->input('consulta'));
+		   if(!$this->estoqueDAO->getLikeCodigoDAO($request->input('consulta'))->count() == 0 ){
+			return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));	   
 		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		    return $this->indexMsg();
 		   }
 		 break;
 
 		 case "nomeProduto":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeNameDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeNomeProdutoPdf($request->input('consulta'));
+		   if(!$this->estoqueDAO->getLikeNameDAO($request->input('consulta'))->count() == 0 ){   
+			return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));
 		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+	    	return $this->indexMsg();   
 		   }
 		 break;
 		 
 		 case "fornecedor":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeFornecedorDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeFornecedorPdf($request->input('consulta'));
-		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		   if(!$this->estoqueDAO->getLikeFornecedorDAO($request->input('consulta'))->count() == 0 ){	    
+			 return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));		   
+		    }else{
+	    	 return $this->indexMsg();
 		   }
 		 break; 
 		 
 		 case "ean":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeEanDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeEanProdutoPdf($request->input('consulta'));
-		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		   
+		   if(!$this->estoqueDAO->getLikeEanDAO($request->input('consulta'))->count() == 0 ){
+		     return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));
+  		    }else{
+	    	 return $this->indexMsg();
 		   }
 		 break;
 		 
 		 case "subEspecie":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeSubEspecieDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeSubEspeciePdf($request->input('consulta'));
+		   
+		   if(!$this->estoqueDAO->getLikeSubEspecieDAO($request->input('consulta'))->count() == 0 ){    
+			return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));		   
 		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		    return view('pdf.estoque.home',['msgError' => "Nenhum inventário encontrado para gerar relatório !"]);
 		   }
 		 break;
 		 
 		 case "lote":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeLoteDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeLotePdf($request->input('consulta'));
-		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		   if(!$this->estoqueDAO->getLikeLoteDAO($request->input('consulta'))->count() == 0 ){  
+			 return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));	   
+		    }else{
+	    	 return $this->indexMsg();   
 		   }
 		 break; 
 		 
 		 case "endereco":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeEnderecoDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeEnderecoPdf($request->input('consulta'));
+		   if(!$this->estoqueDAO->getLikeEnderecoDAO($request->input('consulta'))->count() == 0 ){
+			return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));
 		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+	    	return $this->indexMsg();   
 		   }
 		 break;
 		 
 		 
 		 case "tipoEndereco":
 		   $this->validatedProdutoRelatorio($request);
-		   if($this->estoqueDAO->getLikeTipoEnderecoDAO($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeTipoEnderecoPdf($request->input('consulta'));
-		   }else{
-		    return view('pdf.estoque.home',['msgError' => "Nenhum produto encontrado para gerar relatório !"]);
+		    if(!$this->estoqueDAO->getLikeTipoEnderecoDAO($request->input('consulta'))->count() == 0 ){
+			 return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));	   
+		    }else{
+	    	 return $this->indexMsg();   
 		   }
 		 break;
 		 
 		 case "noFilter":
-		  if($this->estoqueDAO->getAllDAO()->count() > 0){
-		   return $this->getAllPdf();
+		  if(!$this->estoqueDAO->getAllDAO()->count() == 0){
+		    return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));
 		  }else{
-		   return view('pdf.estoque.home',['msgError' => "É necessario popular a logistica antes de gerar relatório !"]);
-		  }
+	    	return $this->indexMsg();   
+		   }
 		 break;		
 	   }
 	}
 	
+
+	public function getPdfOrExcelReport($extension, $option, $query){
+	 if($extension == "excel"){
+	  return $this->getExcelReport($option, $query);	 
+	 }else{
+	  return $this->getPdfReport($option, $query);	 
+	 }	
+	}
+
 	//Verify if´s empty
 	public function validatedProdutoRelatorio($dados){
 	 $validated = $dados->validate([
 	  'consulta'  => 'required',
 	 ]);	
+	}
+	
+
+	//Excel----------------------------------
+	 
+	 public function getExcelReport($option, $query){
+	  $report = new InventarioExport($option, $query);
+      return $report->getReportExcel();	 
+	 }
+	 
+	
+	
+	//PDF----------------------------------
+	
+	public function getPdfReport($option, $query){
+	 $report =  new InventarioJasperController($option, $query);
+     return $report->generateReport();	
 	}
 	
 	//Get All Produtos

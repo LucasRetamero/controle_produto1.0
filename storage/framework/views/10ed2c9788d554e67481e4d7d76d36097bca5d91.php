@@ -68,7 +68,7 @@
             <?php if(Route::has('login')): ?>
                 <div class="top-right links">
                     <?php if(auth()->guard()->check()): ?>
-                        <a href="<?php echo e(url('/home')); ?>">Home</a>
+                        <a href="#">Home</a>
                     <?php else: ?>
                         <a href="<?php echo e(route('login')); ?>">Login</a>
 
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <a href="<?php echo e(route('home')); ?>">Laravel</a>
+                    <a href="#">Laravel</a>
                 </div>
 
                 <div class="links">

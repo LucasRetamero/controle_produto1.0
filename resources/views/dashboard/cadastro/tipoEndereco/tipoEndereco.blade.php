@@ -55,7 +55,7 @@ td{
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
          <div class="col-sm-12 text-center">
-          <h1 class="h3">Consultar lista do tipo do endereço</h1>
+          <h1 class="h3">Consultar lista do tipo endereço</h1>
      <form method="post" action="{{ route('dashboard.cadastro.tipo_endereco.searching') }}">
       <div class="form-row">
 	  
@@ -95,11 +95,11 @@ td{
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
          <div class="col-sm-12 text-center">
-             @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+          @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
 		  <a href="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove', ['id' => $item->id, 'option' => 'edit' ] ) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
           <a href="{{ route('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove', ['id' => $item->id, 'option' => 'remove'] ) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnRemove" class="btn btn-danger btn-md center-block"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons"/> Remover</button></a>
           @endif
-		  </div>
+		 </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
@@ -133,4 +133,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

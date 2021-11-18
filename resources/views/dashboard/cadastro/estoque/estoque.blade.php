@@ -35,7 +35,7 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Consultar / Logistica</h1>
+    <h1 class="h2">Consultar / Logistica</h1> 
     <hr style="border-top:3px solid #000">	
 </div>
 
@@ -65,6 +65,7 @@ td{
          <div class="form-group">
           <select class="form-control" id="slctQuery" name="tipoQuery">
            <option value="nome" selected>Nome do Produto</option>
+           <option value="codigo">Codigo</option>
            <option value="ean">EAN</option>
            <option value="lote">Lote</option>
 	       <option value="endereco">Endereço</option>
@@ -109,7 +110,7 @@ td{
     @if($dados->count() > 0)
   @foreach($dados as $item)
     <tr>
-    <th scope="row">{{ $item->codigo}}</th>
+      <th scope="row">{{ $item->codigo}}</th>
       <td>{{ $item->nome_produto }}</td>
       <td>{{ $item->ean }}</td>
       <td>{{ $item->lote }}</td>
@@ -126,7 +127,6 @@ td{
         </div> <!-- End buttons edit /  remove-->
 	  </td>
     </tr>
-	
    @endforeach
    @else
    <div class="alert alert-danger" role="alert">
@@ -157,4 +157,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

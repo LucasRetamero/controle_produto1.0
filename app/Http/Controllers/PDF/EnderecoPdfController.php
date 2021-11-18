@@ -5,6 +5,10 @@ namespace App\Http\Controllers\PDF;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cadastro\EnderecoDAO;
+use App\Models\Export\EnderecoExport;
+use App\Http\Controllers\PDF\Endereco\EnderecoJasperController;
+
+
 
 class EnderecoPdfController extends Controller
 {
@@ -19,6 +23,11 @@ class EnderecoPdfController extends Controller
 	return view('pdf.endereco.home');
 	}
 	
+	//Get return with msg
+	public function indexWthMsg(){
+	return view('pdf.endereco.home',['msgError' => "Nenhum endereço encontrado para gerar relatório !"]);
+	}
+
 	//Actions Menu
 	public function actionsMenu(Request $request){
 
@@ -26,22 +35,33 @@ class EnderecoPdfController extends Controller
 		  		 
 		 case "endereco":
 		   $this->validatedEnderecoRelatorio($request);
-		   if($this->enderecoDAO->getLikeEnderecoAll($request->input('consulta'))->count() > 0 ){
-		   return $this->getLikeEnderecoPdf($request->input('consulta'));
-		   }else{
-		    return view('pdf.endereco.home',['msgError' => "Nenhum endereço encontrado para gerar relatório !"]);
-		   }
+		   
+		   if(!$this->enderecoDAO->getLikeEnderecoAll($request->input('consulta'))->count() == 0 ){
+             return $this->getPdfOrExcel($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));   
+			}else{
+		     return $this->indexWthMsg();	
+			}
 		 break;
 		 
 		 case "noFilter":
 		  if($this->enderecoDAO->getAllDAO()->count() > 0){
-		   return $this->getAllPdf();
+		   return $this->getPdfOrExcel($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));   
 		  }else{
-		   return view('pdf.endereco.home',['msgError' => "É necessario popular com endereço antes de gerar relatório !"]);
-		  }
+            return $this->indexWthMsg();  
+		   }
 		 break;		
 	   }
 	   
+	}
+
+	
+	//Return pdf or excel report
+	public function getPdfOrExcel($extension, $option,$query){
+	 if($extension == "excel"){
+	   return $this->getExcelReport($option, $query);
+	 }else{
+	   return $this->getPdfReport($option, $query);	        
+	 }	
 	}
 		
 	//Verify if´s empty
@@ -51,6 +71,20 @@ class EnderecoPdfController extends Controller
 	 ]);	
 	}
 	
+	
+
+	//Excel----------------------------------
+	public function getExcelReport($option, $query){
+	$report = new EnderecoExport($option, $query);
+    return $report->getReportExcel(); 	
+	}
+
+		
+	//PDF----------------------------------
+	public function getPdfReport($option, $query){
+	$report = new EnderecoJasperController($option, $query);
+    return $report->generateReport();	
+	}
 	
 	//Get All Endereco
 	public function getAllPdf(){

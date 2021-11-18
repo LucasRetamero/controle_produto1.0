@@ -85,6 +85,10 @@ class EstoqueController extends Controller
 	   return view('dashboard.cadastro.estoque.estoque',['dados' => $this->estoqueDAO->getLikeNameDAO($request->input('textoQuery'))]);	
 	   break;
 	   
+	   case "codigo":
+	   return view('dashboard.cadastro.estoque.estoque',['dados' => $this->estoqueDAO->getLikeCodigoDAO($request->input('textoQuery'))]);	
+	   break;
+	   
 	   case "ean":
 	   return view('dashboard.cadastro.estoque.estoque',['dados' => $this->estoqueDAO->getLikeEanDAO($request->input('textoQuery'))]);	
 	   break;

@@ -114,7 +114,7 @@ td{
       <td>{{ $item->sub_especie }}</td>
       <td>
 	    <div class="row"> <!-- buttons edit /  remove--> 
-			 <div class="col-sm-12 text-center">
+		 <div class="col-sm-12 text-center">
        @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
    	    <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
         <a href="{{ route('dashboard.cadastro.produto.productAddForm.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
@@ -265,4 +265,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

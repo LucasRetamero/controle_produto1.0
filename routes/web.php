@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/','Dashboard\homeController@index');
+
+Route::get('/', function(){
+ return view('login.index');	
+});
 
 Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
 
@@ -135,6 +138,7 @@ Route::post('cadastro/subEspecie/actions', 'Cadastro\SubEspecieController@action
 
 //Rota: Form Sub Especie to edit
 Route::get('cadastro/subEspecie/editForm/{id}', 'Cadastro\SubEspecieController@editForm')->name('dashboard.cadastro.subEspecie.edit');
+
 //Rota: Remove Sub Especie by url
 Route::get('cadastro/subEspecie/remove/{id}', 'Cadastro\SubEspecieController@getDeleteByUrl')->name('dashboard.cadastro.subEspecie.remove');
 
@@ -164,7 +168,34 @@ Route::get('configuracao/usuarios/usuariosFormulario', function(){
 	return view('dashboard.configuration.usuario.usuarioForm');
 })->name('dashboard.configuracao.usuarios.userFormAdd');
 
+//Lista de PDFs --------
+
+//Home do produto para configurar relatório
+Route::get('cadastro/produtos/configurarPdf','PDF\ProdutosPdfController@index')->name('dashboard.pdf.produtos.configurarPdf');
+
+//Choose type all / produtos / Nome / Fornecedor / Sub-Especie
+Route::get('cadastro/produtos/configurarPdf/actionsMenu', 'PDF\ProdutosPdfController@actionsMenu')->name('dashboard.pdf.produtos.actionsMenu');
+
+//Home do endereço para configurar relatório
+Route::get('cadastro/endereco/gerarPdf','PDF\EnderecoPdfController@index')->name('dashboard.pdf.endereco.configurarPdf');
+
+//Choose type all / endereco
+Route::get('cadastro/endereco/configurarPdf/actionsMenu', 'PDF\EnderecoPdfController@actionsMenu')->name('dashboard.pdf.endereco.actionsMenu');
+
+//Home do estoque para configurar relatório
+Route::get('cadastro/estoque/configurarPdf','PDF\EstoquePdfController@index')->name('dashboard.pdf.estoque.configurarPdf');
+
+//Choose type all / nome produto e etc
+Route::get('cadastro/estoque/configurarPdf/actionsMenu', 'PDF\EstoquePdfController@actionsMenu')->name('dashboard.pdf.estoque.actionsMenu');
+
+//Home do Apuração de Ocorrencia 
+Route::get('cadastro/apuracaoOcorrencia/configurarPdf','PDF\apuracaoOcorrenciaController@index')->name('dashboard.pdf.apuracao_ocorrencia.configurarPdf');
+
+//Choose type all / nome produto e etc
+Route::post('cadastro/apuracaoOcorrencia/configurarPdf/actionsMenu', 'PDF\apuracaoOcorrenciaController@actionsMenu')->name('dashboard.pdf.apuracao_ocorrencia.actionsMenu');
+
 });
+
 
 //Grupo de rotas: Login
 Route::group(['prefix' => 'login', 'namespace' => 'Configuracao'], function(){

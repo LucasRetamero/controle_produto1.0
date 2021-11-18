@@ -23,10 +23,10 @@
 
     <div class="container-fluid">
       <div class="row">
-        <!-- nav from dashboard -->
+          <!-- nav from dashboard --> 
          <?php echo $__env->make('dashboard.nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-         <?php echo $__env->yieldContent('content'); ?>
+		 <?php echo $__env->yieldContent('content'); ?>
         </main>
       </div>
     </div>
@@ -36,6 +36,7 @@
     <script src="<?php echo e(asset('js/jquery-3.3.1.slim.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/popper.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/jQuery v3.6.0.js')); ?>"></script>
   </body>
 </html>
 <?php /**PATH J:\Projects\Controle de Produto\controle_produto\resources\views/dashboard/default.blade.php ENDPATH**/ ?>

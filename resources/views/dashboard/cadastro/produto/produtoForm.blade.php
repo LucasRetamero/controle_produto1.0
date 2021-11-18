@@ -65,7 +65,20 @@ td{
    <form class="form-signin" method="post" action="{{ route('dashboard.cadastro.produto.productAddForm.action') }}" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
     
 		<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-	 
+		
+		<!-- Photo 
+	    <div class="form-group mx-auto" style="width: 200px;">
+         <label for="txtLogin" class="h5">Imagem do produto</label>
+	     <img src="{{ asset('img/icons/defaultProductIcon.png')}}" width="200px" height="200px" id="imgProdutoShow"/>
+         <small id="txtEmail" class="form-text text-muted"> Small text</small>
+	     <label for="inputFileForm" class="btn btn-primary font-weight-bold btn-block">Selecionar foto</label>
+         <input type="file" class="form-control-file" style="display:none;" id="inputFileForm">
+         <span id="fileName" style="display:none;"></span>
+         <input id="srcFileText" class="form-control font-weight-bold" type="text" placeholder="Selecione o arquivo..." style="background-color: white;font-size:large;" readonly>
+         <input type="hidden" name="img" id="imgProduto" value=" " />
+		</div>-->
+		
+ 
 		<!-- Code -->
         @if(isset($dadosProduto))
  	     <input  type="hidden"  id="id_codigo" name="id" value="{{ $dadosProduto[0]->id }}" />		
@@ -151,9 +164,18 @@ td{
  </form>
 </div>
 
+ 		
+
 
 <!-- JS Script -->
 <script type="text/javascript">
+//var $input    = document.getElementById('inputFileForm'),
+//     $fileName = document.getElementById('fileName');
+
+ //$input.addEventListener('change', function(){
+//	$fileName.textContent = document.getElementById('srcFileText').value = this.value;	
+//	document.getElementById('imgProduto').value = $fileName.textContent;
+ //});
 function updateDiv(div) {
     var div = '#' + div;
     $(div).load(window.location.href + " " + div);

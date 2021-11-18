@@ -46,7 +46,7 @@ td{
 
 <div class="container" id="topPage">
             <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.tipo_endereco') }}">Tipo Endereço</a> / Formulário: Tipo Endereç</h1> 
-			<hr style="border-top:3px solid #000">			
+            <hr style="border-top:3px solid #000">			
 </div>
  
 <!-- Product form -->
@@ -85,12 +85,22 @@ td{
  </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
- </br><a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</a>
+ </br><a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista Tipo Endereço</a>
   		
  
  </form>
 </div>
+		
+ 	
+</div>
+</div>
+  
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+</div>
 
+<!-- JS Script -->
+<script type="text/javascript">
 
+</script>
 @endsection
 
