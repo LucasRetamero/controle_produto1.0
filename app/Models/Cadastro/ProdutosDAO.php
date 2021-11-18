@@ -60,9 +60,8 @@ class ProdutosDAO extends Model {
 	public function getLikeCodigoDAO($name){
 	return ProdutosDAO::where('codigo',$name)
 	                    ->get();
-						
 	}
-	
+							
 	//Get List like fornecedor
 	public function getLikeFornecedorDAO($name){
 	return ProdutosDAO::where('fornecedor', 'like', $name.'%')
@@ -71,10 +70,10 @@ class ProdutosDAO extends Model {
 	}
 	
 	//Get List like sub-especie
+
 	public function getLikeSubEspecieDAO($name){
 	return ProdutosDAO::where('sub_especie', 'like', $name.'%')
 	                    ->get();
     }
-	
 
 }

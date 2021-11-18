@@ -8,6 +8,7 @@ use App\Models\Cadastro\EstoqueDAO;
 use App\Models\Export\InventarioExport;
 use App\Http\Controllers\PDF\Inventario\InventarioJasperController;
 
+
 class EstoquePdfController extends Controller
 { 
     protected $estoqueDAO;
@@ -15,11 +16,12 @@ class EstoquePdfController extends Controller
 	public function __construct(EstoqueDAO $estoque_dao){
 	 $this->estoqueDAO = $estoque_dao;	
 	}
-	//Call home
+	
 	public function index(){
 	 return view('pdf.estoque.home');	
 	}
 	
+
 	//Call home with a msg
 	public function indexMsg(){
 	 return view('pdf.estoque.home',['msgError' => "Nenhum inventário encontrado para gerar relatório !"]); 	
@@ -53,21 +55,23 @@ class EstoquePdfController extends Controller
 		   if(!$this->estoqueDAO->getLikeFornecedorDAO($request->input('consulta'))->count() == 0 ){	    
 			 return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));		   
 		    }else{
-	    	 return $this->indexMsg();   
+	    	 return $this->indexMsg();
 		   }
 		 break; 
 		 
 		 case "ean":
 		   $this->validatedProdutoRelatorio($request);
+		   
 		   if(!$this->estoqueDAO->getLikeEanDAO($request->input('consulta'))->count() == 0 ){
 		     return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));
   		    }else{
-	    	 return $this->indexMsg();   
+	    	 return $this->indexMsg();
 		   }
 		 break;
 		 
 		 case "subEspecie":
 		   $this->validatedProdutoRelatorio($request);
+		   
 		   if(!$this->estoqueDAO->getLikeSubEspecieDAO($request->input('consulta'))->count() == 0 ){    
 			return $this->getPdfOrExcelReport($request->input('cbMode'), $request->input('cbQuery'), $request->input('consulta'));		   
 		   }else{
@@ -113,6 +117,7 @@ class EstoquePdfController extends Controller
 	   }
 	}
 	
+
 	public function getPdfOrExcelReport($extension, $option, $query){
 	 if($extension == "excel"){
 	  return $this->getExcelReport($option, $query);	 
@@ -120,7 +125,6 @@ class EstoquePdfController extends Controller
 	  return $this->getPdfReport($option, $query);	 
 	 }	
 	}
-	
 
 	//Verify if´s empty
 	public function validatedProdutoRelatorio($dados){
@@ -129,6 +133,7 @@ class EstoquePdfController extends Controller
 	 ]);	
 	}
 	
+
 	//Excel----------------------------------
 	 
 	 public function getExcelReport($option, $query){

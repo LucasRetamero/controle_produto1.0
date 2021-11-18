@@ -265,4 +265,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

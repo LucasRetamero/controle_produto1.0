@@ -254,4 +254,5 @@ function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
  
 </script>
 <!-- End JS Script--> 
-@endsection('content')
+@endsection
+

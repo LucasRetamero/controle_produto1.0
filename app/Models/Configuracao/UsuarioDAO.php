@@ -26,7 +26,7 @@ class UsuarioDAO extends Model
 	   'email'        => $dados['email'],
 	   'login'        => $dados['login'],
 	   'password'     => bcrypt($dados['password']),
-	   'nivel_acesso' => $dados['nivel_acesso'],                     
+	   'nivel_acesso' => $dados['nivel_acesso'],
 	]);	
 	}
 	
@@ -94,6 +94,6 @@ class UsuarioDAO extends Model
 	//Buscar pelo nivel de acesso
 	public function getNivelAcessoUsuario($nivelAcesso){
 	return UsuarioDAO::where('nivel_acesso', 'like' ,$nivelAcesso.'%')
-	                   ->get();	
+	                   ->get();
 	 }	
 }

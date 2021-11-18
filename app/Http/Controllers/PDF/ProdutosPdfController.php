@@ -9,6 +9,7 @@ use App\Models\Export\ProdutoExport;
 use JasperPHP\JasperPHP;
 use App\Http\Controllers\PDF\Produtos\ProdutoJasperController;
 
+
 class ProdutosPdfController extends Controller
 {
 	protected $produtosDAO;
@@ -21,6 +22,7 @@ class ProdutosPdfController extends Controller
 	public function index(){
 	return view('pdf.produtos.home');
 	}
+
 	
 	public function indexErrorMsg($msg){
 	return view('pdf.produtos.home',['msgError' => $msg]);	
@@ -48,6 +50,7 @@ class ProdutosPdfController extends Controller
 		   }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta')); 
 		    }			
+
 		 break;
 		 
 		 case "ean":
@@ -96,7 +99,7 @@ class ProdutosPdfController extends Controller
 	   return $this->getPdfReport($options, $query); 
 	  }
 	}
-	
+
 	//Verify if´s empty
 	public function validatedProdutoRelatorio($dados){
 	 $validated = $dados->validate([

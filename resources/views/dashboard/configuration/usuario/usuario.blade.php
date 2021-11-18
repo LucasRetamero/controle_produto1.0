@@ -150,4 +150,5 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
+
 @endsection

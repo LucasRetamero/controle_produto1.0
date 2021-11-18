@@ -217,4 +217,3 @@
 </div><!-- Termina lista do estoque -->
 
 @endsection
-

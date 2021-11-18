@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,3 +38,4 @@
     <script src="{{ asset('js/jQuery v3.6.0.js') }}"></script>
   </body>
 </html>
+

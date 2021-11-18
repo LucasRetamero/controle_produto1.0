@@ -37,7 +37,7 @@ class EstoqueDAO extends Model
 	//Get all list
 	public function getAllDAO(){
 	return EstoqueDAO::orderBy('endereco')
-	                   ->get();	
+	                   ->get();
 	}
 	
 	//Get one by id
@@ -49,7 +49,7 @@ class EstoqueDAO extends Model
 	//Get all by name
 	public function getLikeNameDAO($nome){
 	return EstoqueDAO::where('nome_produto', 'like', $nome.'%')
-					   ->get();	
+					   ->get();
 	}
 	
 	//Get all by codigo
