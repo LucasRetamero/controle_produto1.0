@@ -1,5 +1,7 @@
 @extends('dashboard.default')
 
+@section('title','Fazendo Logistica - Dashboard')
+
 @section('content')
 <!-- CSS from page -->
 <style type="text/css">
@@ -44,8 +46,10 @@ td{
   <div class="row">  
      <div class="col-sm-12 text-center">
       <h1 class="h3">Menu</h1>
-       <a href="{{ route('dashboard.cadastro.subEspecie.subEspecieAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
-       <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
+        @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
+	   <a href="{{ route('dashboard.cadastro.subEspecie.subEspecieAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
+       @endif
+	   <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
      </div>
   </div>
 </div>
@@ -82,7 +86,9 @@ td{
   <thead class="thead">
     <tr>
       <th scope="col">Sub_Especie</th>
+	  @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
       <th scope="col">Menu</th>
+      @endif
 	  
     </tr>
   </thead>
@@ -132,5 +138,4 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
-
 @endsection

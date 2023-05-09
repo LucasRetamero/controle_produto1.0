@@ -9,10 +9,8 @@ use App\Models\Cadastro\EnderecoDAO;
 
 class homeController extends Controller
 {
-
-	protected $enderecoVazio = 0,	
-	          $enderecoOcupados = 0;	
-
+	private  $enderecoVazio = 0,	
+	         $enderecoOcupados = 0;	
 			 
 	public function  __construct(EstoqueDAO $estoque_dao, EnderecoDAO $endereco_dao){
 	$this->enderecoDAO = $endereco_dao;	 	
@@ -21,7 +19,7 @@ class homeController extends Controller
 	
     public function index(){
 	 $this->getEnderecoAndVerify();
-	 return view('dashboard.index',['allEndereco' => $this->enderecoDAO->getAllDAO()->count(), 'usedEndereco' => $this->enderecoOcupados, 'emptyEndereco' => $this->enderecoVazio ]);	
+	 return view('dashboard.index',['allEndereco' => $this->enderecoDAO->getAllDAO()->count(), 'usedEndereco' => $this->getEnderecoOcupados(), 'emptyEndereco' => $this->getEnderecoVazio() ]);	
 	}
 	
 	//Verify empty/used/Existed Endereçs
@@ -30,7 +28,7 @@ class homeController extends Controller
 	 //Verify empty
 	 foreach($this->enderecoDAO->getAllDAO() as $item){
 		if($this->estoqueDAO->getListEnderecoDAO($item->endereco)->count() == 0)
-        $this->enderecoVazio++;			
+        $this->setEnderecoVazio($this->getEnderecoVazio()+1);			
 	 }
 	 
 	 //Verify used
@@ -48,10 +46,7 @@ class homeController extends Controller
 	
 	public function setEnderecoOcupados($endereco_ocupados){
 	$this->enderecoOcupados = $endereco_ocupados;	
-	 if($this->estoqueDAO->getListEnderecoDAO($item->endereco)->count() > 0)
-      $this->enderecoOcupados++;			
-	 }
-	 
+	}
 	
 	//get
    public function getEnderecoVazio(){

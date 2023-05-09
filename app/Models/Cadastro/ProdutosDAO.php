@@ -23,7 +23,17 @@ class ProdutosDAO extends Model {
 	
 	//Get all list
 	public function getAllProdutos(){
-	return ProdutosDAO::all();	
+	return ProdutosDAO::orderBy('nome')
+	                    ->get();	
+	}
+	
+	//Get all list with limit
+	public function getLimitProdutosDAO($min,$max){
+	 //max = 500 by page to return no error
+	 return ProdutosDAO::offset($min)
+	                    ->limit($max)
+	                    ->get();	
+						
 	}
 	
 	//Get produto by Id
@@ -60,8 +70,9 @@ class ProdutosDAO extends Model {
 	public function getLikeCodigoDAO($name){
 	return ProdutosDAO::where('codigo',$name)
 	                    ->get();
+						
 	}
-							
+	
 	//Get List like fornecedor
 	public function getLikeFornecedorDAO($name){
 	return ProdutosDAO::where('fornecedor', 'like', $name.'%')
@@ -70,10 +81,10 @@ class ProdutosDAO extends Model {
 	}
 	
 	//Get List like sub-especie
-
 	public function getLikeSubEspecieDAO($name){
 	return ProdutosDAO::where('sub_especie', 'like', $name.'%')
 	                    ->get();
     }
+	
 
 }

@@ -1,5 +1,7 @@
 @extends('dashboard.default')
 
+@section('title','Fazendo Logistica - Dashboard')
+
 @section('content')
 
 <div class="container">
@@ -205,7 +207,7 @@
  </br><button type="submit" name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
- </br><a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista da Logistica</a> 		
+ </br><a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista Logistico</a> 		
  
  </form>
 
@@ -217,3 +219,4 @@
 </div><!-- Termina lista do estoque -->
 
 @endsection
+

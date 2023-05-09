@@ -1,5 +1,7 @@
 @extends('dashboard.default')
 
+@section('title','Fazendo Logistica - Dashboard / Configuração: Usuario')
+
 @section('content')
 <!-- CSS from user dashboard -->
 <style type="text/css">
@@ -150,5 +152,4 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
-
 @endsection

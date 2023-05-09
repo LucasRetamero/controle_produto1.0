@@ -1,6 +1,6 @@
 @extends('dashboard.default')
 
-@section('title','Controle de produto - Dashboard / Relatório: Produto')
+@section('title','Fazendo Logistica - Dashboard / Relatório: Produto')
 
 @section('content')
 <!-- CSS -->
@@ -112,6 +112,8 @@ td{
          <input type="text" id="nameSearch" name="consulta" class="form-control" placeholder="Digite para pesquisar sobre o produto...">
         </div>    
 	 </div>
+		
+	   
 		  
      </div>
 	

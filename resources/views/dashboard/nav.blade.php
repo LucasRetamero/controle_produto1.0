@@ -7,7 +7,8 @@
 				    Home<span class="sr-only"></span>
                 </a>
               </li>
-
+			  
+             @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia" )
 			   <div id="main-menu" class="list-group">
 				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/addIcon.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
@@ -18,6 +19,7 @@
                     <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Logistico</a>
                 </div>
 			   </div>
+			@endif
 
 			   <div id="main-menu" class="list-group">
 				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/FilterIcon.png') }}" width="20px" height="20px"></img>  Consulta <span class="caret"></span></a>
@@ -57,3 +59,18 @@
     </button>
 
         </nav>
+		
+		<!-- List com sub-menu --
+		<div id="main-menu" class="list-group">
+				<a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse" data-parent="#main-menu"><img src="{{ asset('img/icons/home.png') }}" width="20px" height="20px"></img>  Cadastro <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 1</a>
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 2</a>
+                    <a href="#sub-sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#sub-menu">Sub Item 3 <span class="caret"></span></a>
+                    <div class="collapse list-group-level2" id="sub-sub-menu">
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 1</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 2</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 3</a>
+                    </div>
+                </div>
+			   </div>-->

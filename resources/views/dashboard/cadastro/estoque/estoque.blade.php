@@ -1,5 +1,7 @@
 @extends('dashboard.default')
 
+@section('title','Fazendo Logistica - Dashboard')
+
 @section('content')
 <!-- CSS from page -->
 <style type="text/css">
@@ -39,18 +41,34 @@ td{
     <hr style="border-top:3px solid #000">	
 </div>
 
+<div class="row">  
+   <form class="bg-primary w-50 mx-auto	" method="post" action="{{ route('dashboard.cadastro.estoque.searching') }}">
+    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
+    <input type="hidden" name="tipoQuery" value="codigo" />      
+	<label for="staticEmail" class="text-nowrap text-white h5">Codigo do produto</label>
+    <input type="text" class="form-control" id="nameSearchOrigin" name="textoQuery" placeholder="Digite o codigo do produto e pressione ENTER..." required autofocus>    
+    <center><button type="submit" class="btn btn-primary font-weight-bold text-white"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
+	<a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/iconGroup.png') }}" class="imgIcons"/> Buscar Todos</a></center>
+	  
+	</form>     
+</div>	
+	
+
 <!-- buttons actions -->
 <div id="container">
   <div class="row">  
      <div class="col-sm-12 text-center">
       <h1 class="h3">Menu</h1>
+	   @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
        <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"><button id="btnAddProduct" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/addIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
-       <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
+      @endif      
+	  <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/iconsFilter.png') }}" class="imgIcons"/> Filtrar</button>
      </div>
   </div>
 </div>
 
 </br>
+	
 <!-- Filter user List -->
 <div id="containerQuery" class="hiddenDiv">
   <div class="row">  
@@ -60,8 +78,8 @@ td{
        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
 		       
 	 <div class="form-row">
-	  
-        <<div class="col2">
+	 
+        <div class="col2">
          <div class="form-group">
           <select class="form-control" id="slctQuery" name="tipoQuery">
            <option value="nome" selected>Nome do Produto</option>
@@ -83,7 +101,7 @@ td{
      </div>
 	
 	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
-	    <a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</a>
+	    <a href="{{ route('dashboard.cadastro.estoque') }}" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/iconGroup.png') }}" class="imgIcons"/> Buscar Todos</a>
     
 	</form>
          </div>
@@ -102,7 +120,9 @@ td{
       <th scope="col">Lote</th>
       <th scope="col">Endereço</th>
       <th scope="col">Tipo Endereço</th>
-      <th scope="col">Ações</th>
+	  @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
+      <th scope="col">Menu</th>
+      @endif
 	  
     </tr>
   </thead>
@@ -157,5 +177,4 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
-
 @endsection

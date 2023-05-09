@@ -9,7 +9,6 @@ use App\Models\Export\ProdutoExport;
 use JasperPHP\JasperPHP;
 use App\Http\Controllers\PDF\Produtos\ProdutoJasperController;
 
-
 class ProdutosPdfController extends Controller
 {
 	protected $produtosDAO;
@@ -22,7 +21,6 @@ class ProdutosPdfController extends Controller
 	public function index(){
 	return view('pdf.produtos.home');
 	}
-
 	
 	public function indexErrorMsg($msg){
 	return view('pdf.produtos.home',['msgError' => $msg]);	
@@ -50,7 +48,6 @@ class ProdutosPdfController extends Controller
 		   }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta')); 
 		    }			
-
 		 break;
 		 
 		 case "ean":
@@ -99,7 +96,7 @@ class ProdutosPdfController extends Controller
 	   return $this->getPdfReport($options, $query); 
 	  }
 	}
-
+	
 	//Verify if´s empty
 	public function validatedProdutoRelatorio($dados){
 	 $validated = $dados->validate([
@@ -115,9 +112,47 @@ class ProdutosPdfController extends Controller
 	}
 	
 	
+	
 	//PDF Report ----------
-	public function getPdfReport($option, $query){
-	 $report = new ProdutoJasperController($option, $query);
-     return $report->generateReport();	
+	 public function  getPdfReport($opton, $query){
+	 ini_set('max_execution_time', '999'); // 300 = 5 seconds	
+	 ini_set("memory_limit", '999M');
+
+	  switch($opton){
+	  
+	  case "noFilter":
+	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getAllProdutos()])
+				   ->download('Relatório de Produtos.pdf');
+      break;
+	  
+	  case "nome":
+       return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeNomeDAO($query)])
+                  ->download('Relatório de Produtos.pdf');	 
+      break;
+	  
+	  case "codigo":
+		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeCodigoDAO($query)])
+                  ->download('Relatório de Produtos.pdf');	 
+     			
+		 break;
+		 
+		 case "ean":
+		   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeEanDAO($query)])
+                  ->download('Relatório de Produtos.pdf');
+		 break;
+		 
+		 case "fornecedor":
+    	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeFornecedorDAO($query)])
+                  ->download('Relatório de Produtos.pdf');
+		
+		 break;
+		 
+		 case "subEspecie": 
+		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeSubEspecieDAO($query)])
+                  ->download('Relatório de Produtos.pdf');	
+		break;
+		
+	  }
 	}
+	
 }

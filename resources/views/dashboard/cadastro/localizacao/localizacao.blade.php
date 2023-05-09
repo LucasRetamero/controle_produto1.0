@@ -1,5 +1,7 @@
 @extends('dashboard.default')
 
+@section('title','Fazendo Logistica - Dashboard')
+
 @section('content')
 <!-- CSS from page -->
 <style type="text/css">
@@ -133,5 +135,4 @@ function hiddenOrShowQuerUser(){
 	}
 }
 </script>
-
 @endsection

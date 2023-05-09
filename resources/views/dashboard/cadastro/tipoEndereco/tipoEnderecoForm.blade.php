@@ -1,6 +1,6 @@
 @extends('dashboard.default')
 
-@section('title','Controle de produto - Dashboard / Formulário: Tipo do endereço')
+@section('title','Fazendo Logistica - Dashboard')
 
 @section('content')
 <!-- CSS -->

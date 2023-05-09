@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -9,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     
 	<!-- Title from page -->
-    <title>Controle de Produto</title>
+    <title>Fazendo Logistica</title>
 	
 	<!-- CSS from page -->
 	<style type="text/css">
@@ -63,7 +62,7 @@ body {
     <form method="post" action="{{ route('login.logar') }}"class="form-signin bg-light">
 	<input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
       <img class="mb-4" src="{{ asset('img/icons/product.png') }}" alt="" width="72" height="72">   
-   	 <h1 class="h3 mb-3 font-weight-normal">Controle de Produto</h1>
+   	 <h1 class="h3 mb-3 font-weight-normal">Fazendo Logistica</h1>
       <label for="inputLogin" class="sr-only">Digite o login...</label>
       <input type="email" id="inputLogin" name="email" class="form-control" placeholder="Digite o email..." required autofocus>
       <label for="inputPassword" class="sr-only">Digite a senha...</label>

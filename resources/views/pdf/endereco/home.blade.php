@@ -1,6 +1,6 @@
 @extends('dashboard.default')
 
-@section('title','Controle de produto - Dashboard / Relatório: Produto')
+@section('title','Fazendo Logistica - Dashboard / Relatório: Endereco')
 
 @section('content')
 <!-- CSS -->
@@ -69,7 +69,7 @@ td{
  <div class="jumbotron bg-primary">
         
 		<div class="container">
-          <h1 class="h3 text-white">Relatório: Endereço</h1>
+          <h1 class="h3 text-white">Relatório: Endereço</a></h1>
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
@@ -105,7 +105,7 @@ td{
      <div class="col2">
       <label  class="col text-white h4">Digite a consulta:</label>	
        <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearch" name="consulta" class="form-control" placeholder="Digite para pesquisar sobre o produto...">
+         <input type="text" id="nameSearch" name="consulta" class="form-control" placeholder="Digite para pesquisar sobre o endereço...">
         </div>    
 	 </div>
 		  

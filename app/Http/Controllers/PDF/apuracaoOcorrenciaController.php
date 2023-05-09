@@ -45,7 +45,18 @@ class apuracaoOcorrenciaController extends Controller
 
 	//PDF----------------------------------
     public function getPdfReport($querys, $observationDetalhe, $estoquista, $validador){
-	 $report = new ApuracaoJasperController($querys, $observationDetalhe, $estoquista, $validador);
-	 return $report->generateReport();
+	 ini_set('max_execution_time', '999'); // 300 = 5 seconds	
+	 ini_set("memory_limit", '999M');	
+	  
+       return \PDF::loadView('pdf.apuracaoOcorrencia.apuracaoOcorrenciaPDF',['dados'      => $this->estoqueDAO->getListCodigoDAO($querys),
+	                                                                         'detalhe'    => $observationDetalhe,
+														                     'dateDay'    => date('d-m-Y'),
+														                     'estoquista' => $estoquista,
+														                     'validador'  => $validador])
+                    ->download('Fazendo Logistica - Apuracao de ocorrencia.pdf');	 
+  
 	}
+
+	
+	
 }
