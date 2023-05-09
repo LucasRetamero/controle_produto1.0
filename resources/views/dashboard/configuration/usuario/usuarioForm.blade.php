@@ -98,11 +98,11 @@ th,td{
     <label for="businessField" class="text-white h5">Empresa:</label>
       <select class="form-control" id="empresa_id" name="empresa_id">
        @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
-       <option  value="default">Seleciona a Empresa</option>
-       <option  value="" selected>Geral(acesso a todas as empresas)</option>
+       <option  value="0">Seleciona a Empresa</option>
+       <option  value="adm" selected>Geral(acesso a todas as empresas)</option>
        @else
-       <option  value="default" selected>Seleciona a Empresa</option>
-       <option  value="">Geral(acesso a todas as empresas)</option>
+       <option  value="0" selected>Seleciona a Empresa</option>
+       <option  value="adm">Geral(acesso a todas as empresas)</option>
        @endif
       @foreach($dadosEmpresa as $item)
            @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)

@@ -47,17 +47,17 @@ class UsuarioController extends Controller
 
 	//Validate User
 	public function validatedUser($dados){
-	return  $validated = $dados->validate([
-	  'nome'        => 'required',
-	  'sobrenome'   => 'required',
-	  'email'       => 'required|max:60',
-	  'login'       => 'required',
-	  'password'    => 'required',
-	  'nivel_acesso'=> 'required',
-	 ]);
+        return  $validated = $dados->validate([
+            'empresa_id'  => 'required|not_in:0',
+            'nome'        => 'required',
+            'sobrenome'   => 'required',
+            'email'       => 'required|max:60',
+            'login'       => 'required',
+            'password'    => 'required',
+            'nivel_acesso'=> 'required',
+        ]);
 	}
 
-	//Add / Edit or remove usuario
 	public function addEditRemUsuario(Request $request){
 
 	  switch($request->input('btnAction')){
@@ -65,6 +65,7 @@ class UsuarioController extends Controller
 	 case "btnAdd":
 	  if(!$this->verifyEmailDB($request->input('email'))){
        $this->validatedUser($request);
+       if($request->input('empresa_id') == 'adm')$request->merge(['empresa_id' => null]);
 	   $this->usuarioDAO->addUsuario($request->all());
 	   return redirect()->route('dashboard.configuracao.usuarios');
 	  }else{
@@ -74,6 +75,7 @@ class UsuarioController extends Controller
 
 	 case "btnEdit":
 	  $this->validatedUser($request);
+      if($request->input('empresa_id') == 'adm')$request->merge(['empresa_id' => null]);
 	  $this->usuarioDAO->editUsuario($request->input('id'), $request->all());
       return redirect()->route('dashboard.configuracao.usuarios');
 	 break;
