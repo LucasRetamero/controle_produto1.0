@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
- return view('login.index');	
+ return view('login.index');
 });
 
 Route::get('/home', 'Dashboard\homeController@index')->middleware('auth');
@@ -87,7 +87,7 @@ Route::post('cadastro/tipo_Endereco/tipoEndereco/searching', 'Cadastro\TipoEnder
 //Rota: open Formulario tipo do endereço to edit or remove
 Route::get('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/editOrRemove/{id}/{option}', 'Cadastro\TipoEnderecoController@editRemoveLoteTable')->name('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.editRemove');
 
-//Rota: Add, edit or remove tipo do endereço to 
+//Rota: Add, edit or remove tipo do endereço to
 Route::post('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/actionsMenu', 'Cadastro\TipoEnderecoController@actionsMenu')->name('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.actionsMenu');
 
 //Rota: Formulario Tipo de Endereço
@@ -106,7 +106,7 @@ Route::post('cadastro/lote/actionsMenu', 'Cadastro\LoteController@actionsMenu')-
 
 //Rota: Formulario do Lote to add
 Route::get('cadastro/lote/loteFormulario',function(){
- return view('dashboard.cadastro.lote.loteForm');	
+ return view('dashboard.cadastro.lote.loteForm');
 })->name('dashboard.cadastro.lote.loteAddForm');
 
 //Rota: Formulario do Lote to edit or remove
@@ -121,12 +121,12 @@ Route::post('cadastro/localizacao/searchingActions','Cadastro\LocalizacaoControl
 //Rota: List of actions Add, edit or remove Localizacao
 Route::post('cadastro/localizacao/localizacaoFormulario/actionsMenu', 'Cadastro\LocalizacaoController@actionsMenu')->name('dashboard.cadastro.localizacao.localizacaoAddForm.actionsMenu');
 
-//Rota: Form da localizacao to edit or remove  
+//Rota: Form da localizacao to edit or remove
 Route::get('cadastro/localizacao/localizacaoFormulario/EditRemove/{id}/{option}', 'Cadastro\LocalizacaoController@indexFormToEditRemove')->name('dashboard.cadastro.localizacao.localizacaoAddForm.editRemove');
 
 //Rota: Formulario da localizacao
 Route::get('cadastro/localizacao/localizacaoFormulario',function(){
- return view('dashboard.cadastro.localizacao.localizacaoForm');	
+ return view('dashboard.cadastro.localizacao.localizacaoForm');
 })->name('dashboard.cadastro.localizacao.localizacaoAddForm');
 
 //Rota: Lista de Sub Especie
@@ -146,26 +146,31 @@ Route::post('cadastro/subEspecie/searching', 'Cadastro\SubEspecieController@sear
 
 //Rota: Formulario da Sub Especie
 Route::get('cadastro/subEspecie/subEspecieFormulario',function(){
- return view('dashboard.cadastro.subEspecie.subEspecieForm');	
+ return view('dashboard.cadastro.subEspecie.subEspecieForm');
 })->name('dashboard.cadastro.subEspecie.subEspecieAddForm');
 
 //Rota: Exportar database
 Route::get('configuracao/exportacao', function(){
-  return view('dashboard.configuration.exportacao');	
+  return view('dashboard.configuration.exportacao');
 })->name('dashboard.configuracao.exportacao');
 
 //Rota: Importar Database
 Route::get('configuracao/importacao', function(){
- return view('dashboard.configuration.importacao');	
+ return view('dashboard.configuration.importacao');
 })->name('dashboard.configuracao.importacao');
 
 //Rota: Lista de Usuarios
 Route::get('configuracao/usuarios', 'Configuracao\UsuarioController@listaUsuarios')->name('dashboard.configuracao.usuarios');
 
 //Rota: Formulario de Usuarios
-Route::get('configuracao/usuarios/usuariosFormulario', function(){
-	return view('dashboard.configuration.usuario.usuarioForm');
-})->name('dashboard.configuracao.usuarios.userFormAdd');
+Route::get('configuracao/usuarios/usuariosFormulario', 'Configuracao\UsuarioController@userForm')->name('dashboard.configuracao.usuarios.userFormAdd');
+
+
+// Route: Business list
+Route::get('configuracao/empresa', 'Configuracao\EmpresaController@index')->name('dashboard.configuracao.empresa');
+// Route: Business form
+Route::get('configuracao/empresa/empresaFormulario', 'Configuracao\EmpresaController@empresaForm')->name('dashboard.configuracao.empresa.form');
+
 
 //Lista de PDFs --------
 
@@ -187,7 +192,7 @@ Route::get('cadastro/estoque/configurarPdf','PDF\EstoquePdfController@index')->n
 //Choose type all / nome produto e etc
 Route::get('cadastro/estoque/configurarPdf/actionsMenu', 'PDF\EstoquePdfController@actionsMenu')->name('dashboard.pdf.estoque.actionsMenu');
 
-//Home do Apuração de Ocorrencia 
+//Home do Apuração de Ocorrencia
 Route::get('cadastro/apuracaoOcorrencia/configurarPdf','PDF\apuracaoOcorrenciaController@index')->name('dashboard.pdf.apuracao_ocorrencia.configurarPdf');
 
 //Choose type all / nome produto e etc
@@ -200,16 +205,16 @@ Route::post('cadastro/apuracaoOcorrencia/configurarPdf/actionsMenu', 'PDF\apurac
 Route::group(['prefix' => 'login', 'namespace' => 'Configuracao'], function(){
 
 //Acessar login page
-Route::get('/','UsuarioController@index')->name('login');	
+Route::get('/','UsuarioController@index')->name('login');
 
 //Realizar login
-Route::post('/logar', 'UsuarioController@authenticate')->name('login.logar');	
+Route::post('/logar', 'UsuarioController@authenticate')->name('login.logar');
 
 //Add/Edit or Remove usuario
 Route::post('/addEditRemUsuario', 'UsuarioController@addEditRemUsuario')->name('login.addEditRemUsuario');
 
 //Deslogar login
-Route::get('/deslogar', 'UsuarioController@deslogar')->name('login.deslogar');	
+Route::get('/deslogar', 'UsuarioController@deslogar')->name('login.deslogar');
 
 //Editar Usuario
 Route::get('editarUsuarioForm/{id}', 'UsuarioController@editOuRemoverUsuario')->name('login.editarFormulario');

@@ -15,9 +15,11 @@ class CreateSubEspecieTable extends Migration
     {
         Schema::create('sub_especie', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('empresa_id')->nullable();
 			$table->string('sub_especie');
-      		$table->rememberToken();
+            $table->rememberToken();
             $table->timestamps();
+            $table->foreign('empresa_id')->references('id')->on('empresa')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

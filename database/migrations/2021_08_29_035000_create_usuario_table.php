@@ -13,16 +13,19 @@ class CreateUsuarioTable extends Migration
      */
     public function up()
     {
+
         Schema::create('usuarios', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('empresa_id')->nullable();
 			$table->string('nome');
 			$table->string('sobrenome');
 			$table->string('email', 60)->unique();
 			$table->string('login');
 			$table->string('password');
 			$table->string('nivel_acesso');
-      		$table->rememberToken();
+            $table->rememberToken();
             $table->timestamps();
+            $table->foreign('empresa_id')->references('id')->on('empresa')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

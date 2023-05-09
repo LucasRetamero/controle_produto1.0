@@ -16,6 +16,7 @@ class CreateEstoqueTable extends Migration
         Schema::create('estoque', function (Blueprint $table) {
             $table->increments('id');
 			$table->string('codigo');
+            $table->unsignedBigInteger('empresa_id')->nullable();
 			$table->string('nome_produto');
 			$table->string('ean');
 			$table->string('fornecedor');
@@ -24,6 +25,7 @@ class CreateEstoqueTable extends Migration
 			$table->string('endereco');
 			$table->string('tipo_endereco');
             $table->timestamps();
+            $table->foreign('empresa_id')->references('id')->on('empresa')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

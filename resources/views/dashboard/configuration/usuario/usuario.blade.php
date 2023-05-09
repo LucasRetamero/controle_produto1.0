@@ -14,7 +14,7 @@ thead{
 
 td{
   font-size: large;
-  font-weight: bolder;  
+  font-weight: bolder;
 }
 
 #btnUpdate,
@@ -29,11 +29,11 @@ td{
 }
 
 .hiddenDiv{
- display: none;	
+ display: none;
 }
 
 .showDiv{
- display: block;	
+ display: block;
 }
 </style>
 
@@ -41,10 +41,10 @@ td{
   <h1 class="h3">Configuração / Usuários</h1>
   <hr style="border-top:3px solid #000">
 </div>
-	
+
 <!-- buttons actions -->
 <div id="container">
-  <div class="row">  
+  <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Menu</h1>
      	  <a href="{{ route('dashboard.configuracao.usuarios.userFormAdd') }}"><button id="btnAddUser" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/userAddIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
@@ -56,12 +56,12 @@ td{
 </br>
 <!-- Filter user List -->
 <div id="containerQuery" class="hiddenDiv">
-  <div class="row">  
+  <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de usuários</h1>
      <form method="get" action="{{ route('login.consultaUsuario') }}">
       <div class="form-row">
-	  
+
         <div class="col2">
          <div class="form-group">
           <select class="form-control" id="slctQuery" name="cbQuery">
@@ -73,22 +73,22 @@ td{
           </select>
          </div>
         </div>
-	
+
       <div class="col">
 	    <div id="searchInput" class="form-group">
          <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar o usuârio...">
-        </div>    
+        </div>
 	 </div>
-		 
+
      </div>
-	
+
 	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
 	   <a href="{{ route('dashboard.configuracao.usuarios')
 	   }}"><button type="button" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/userAddIcon.png') }}" class="imgIcons"/> Buscar todos</button></a>
-    
+
 	</form>
          </div>
-        </div>	
+        </div>
 </div>
 
 </br>
@@ -103,7 +103,7 @@ td{
       <th scope="col">Login</th>
       <th scope="col">Nivel Acesso</th>
       <th scope="col">Menu</th>
-	  
+
     </tr>
   </thead>
   <tbody>
@@ -116,7 +116,7 @@ td{
       <td>{{ $item->login }}</td>
       <td>{{ $item->nivel_acesso }}</td>
       <td>
-	    <div class="row"> <!-- buttons edit /  remove--> 
+	    <div class="row"> <!-- buttons edit /  remove-->
 		 <div class="col-sm-12 text-center">
           <a href="{{ route('login.editarFormulario', $item->id) }}"><button id="btnUpdate" class="btn btn-primary btn-md center-block" name="btnAction"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Editar</button></a>
          </div>
@@ -129,7 +129,7 @@ td{
     Nenhum usuário encontrado !
    </div>
    @endif
-	
+
   </tbody>
 </table>
 

@@ -15,8 +15,10 @@ class CreateLoteTable extends Migration
     {
         Schema::create('lote', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedBigInteger('empresa_id')->nullable();
 			$table->string('lote');
             $table->timestamps();
+            $table->foreign('empresa_id')->references('id')->on('empresa')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

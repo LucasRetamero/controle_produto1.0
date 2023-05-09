@@ -16,22 +16,22 @@ thead{
 	font-size: large;
 }
 th,td{
- font-size:large;	
+ font-size:large;
 }
 
 .hiddenComp{
- display: none;	
+ display: none;
 }
 
 .showComp{
- display: block;	
+ display: block;
 }
 </style>
 
 
 <div class="container">
-            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Formulário: Usuários</h1> 
-            <hr style="border-top:3px solid #000">			
+            <h1 class="h2">Configuração / <a href="{{ route('dashboard.configuracao.usuarios') }}">Usuários</a> / Formulário: Usuários</h1>
+            <hr style="border-top:3px solid #000">
 </div>
 
 @if(isset($errorMessage))
@@ -39,18 +39,18 @@ th,td{
  {{ $errorMessage }}
  </div>
  @endif
- 
+
 <!-- Form add login -->
 <div class="jumbotron bg-primary">
-        
+
 		<div class="container">
-		 <h1 class="h3 text-white">Formulário: Usuários</h1>		 
+		 <h1 class="h3 text-white">Formulário: Usuários</h1>
 		 <hr class="confHr">
         </div>
-		
+
   <form method="post"  id="addUserForm" action="{{ route('login.addEditRemUsuario') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
   <div class="form-group">
-    
+
       <div class="row">
       <div class="col">
 	   <label for="txtLogin" class="text-white h5">Nome:</label>
@@ -59,7 +59,7 @@ th,td{
 	   <input type="hidden" name="id" value="{{ $dadoUsuario[0]->id }}"/>
 	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="{{ $dadoUsuario[0]->nome }}" required autofocus>
 	   @else
-	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="" required autofocus>      
+	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="" required autofocus>
 	   @endif
 	  </div>
       <div class="col">
@@ -67,13 +67,13 @@ th,td{
        @if(isset($dadoUsuario))
 	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="{{ $dadoUsuario[0]->sobrenome }}" required autofocus>
        @else
-	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="" required autofocus> 
+	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="" required autofocus>
 	   @endif
 	  </div>
       </div>
 	<small id="txtName" class="form-text text-muted"><!-- Small message --></small>
   </div>
-  
+
   <div class="form-group">
     <label for="txtEmail" class="text-white h5">Emai:</label>
     @if(isset($dadoUsuario))
@@ -83,7 +83,7 @@ th,td{
     @endif
 	<small class="form-text text-white h5">@if(isset($errorMessage)) {{ $errorMessage }} @endif</small>
   </div>
-  
+
   <div class="form-group">
     <label for="txtLogin" class="text-white h5">Login:</label>
     @if(isset($dadoUsuario))
@@ -93,19 +93,39 @@ th,td{
     @endif
 	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
   </div>
- 
+
+  <div class="form-group">
+    <label for="businessField" class="text-white h5">Empresa:</label>
+      <select class="form-control" id="empresa_id" name="empresa_id">
+       @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
+       <option  value="default">Seleciona a Empresa</option>
+       <option  value="" selected>Geral(acesso a todas as empresas)</option>
+       @else
+       <option  value="default" selected>Seleciona a Empresa</option>
+       <option  value="">Geral(acesso a todas as empresas)</option>
+       @endif
+      @foreach($dadosEmpresa as $item)
+           @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)
+           <option value="{{ $item->id }}" selected>{{ $item->fantasia }}</option>
+          @else
+          <option value="{{ $item->id }}">{{ $item->fantasia }}</option>
+          @endif
+         @endforeach
+     </select>
+   </div>
+
     <div class="form-group">
     <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
     <select class="form-control" id="cbNivelAcesso" name="nivel_acesso" required>
 	  @if(isset($dadoUsuario))
-		@switch($dadoUsuario[0]->nivel_acesso)  
+		@switch($dadoUsuario[0]->nivel_acesso)
           @case('administrador')
 		  <option value="administrador" selected>Administrador</option>
           <option value="gerencia">Gerência</option>
           <option value="producao">Produção</option>
-		 @break  
-         @case('gerencia')		  
-	      <option value="administrador">Administrador</option>   
+		 @break
+         @case('gerencia')
+	      <option value="administrador">Administrador</option>
 		  <option value="gerencia" selected>Gerência</option>
           <option value="producao">Produção</option>
 		  @break
@@ -119,37 +139,37 @@ th,td{
 		<option value="" selected>Selecione o nivel do usuário</option>
 		<option value="administrador">Administrador</option>
         <option value="gerencia">Gerência</option>
-        <option value="producao">Produção</option>  
+        <option value="producao">Produção</option>
 	  @endif
 	</select>
   </div>
-  
+
   <div class="form-group">
     <div class="row">
       <div class="col">
-	  <label for="txtPassword" class="text-white h5">Senha: </label>	 
+	  <label for="txtPassword" class="text-white h5">Senha: </label>
 	  <input type="password" class="form-control" id="txtPassword" name="password" placeholder="Digite a senha de acesso..." required autofocus>
 	  <small class="form-text text-white h5">@if(isset($dadoUsuario))*É preciso inserir a mesma ou uma nova senha.*@endif</small>
 	  </div>
-	    
+
       </div>
-	  
+
       </br>
-	  
-	  <label for="txtPassword" class="text-white h5">Nivel da senha:</label> 
+
+	  <label for="txtPassword" class="text-white h5">Nivel da senha:</label>
 	  <div class="progress">
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
  @if(isset($dadoUsuario))
-<button type="submit"  name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>	 
-<button type="submit"  name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>	 
+<button type="submit"  name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
+<button type="submit"  name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
 </br>
-<a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a>	 
+<a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a>
  @else
  <button type="submit" name="btnAction" class="btn btn-success btn-block" style="font-size:x-large;" value="btnAdd"><img src="{{ asset('img\icons\addIcon.png') }}"></img>Cadastrar</button>
  </br>
- <a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a> 
+ <a href="{{ route('dashboard.configuracao.usuarios') }}"><button type="button"  class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\NoIcon.png') }}" width="40px" height="40px"></img>Cancelar</button></a>
  @endif
 	</form>
 </div>
@@ -157,7 +177,7 @@ th,td{
 
 <!-- JS Script -->
 <script>
-	
+
 var code = document.getElementById("txtPassword");
 
 var strengthbar = document.getElementById("passParameter");
@@ -178,7 +198,7 @@ var removeBackground = [
 code.addEventListener("keyup", function() {
 	checkpassword(code.value);
 });
-   
+
 function checkpassword(password) {
   var strength = 0;
   if (password.match(/[a-z]+/)) {
@@ -194,7 +214,7 @@ function checkpassword(password) {
     strength += 1;
 
   }
-  
+
   switch (strength) {
     case 0:
      changeProgessBar(0, "0%", "0%");
@@ -217,11 +237,11 @@ function checkpassword(password) {
 	  changeProgessBar(100, "100%", "100%");
       break;
   }
-  
+
   changeProgresBarColor();
-  
-} 
-   
+
+}
+
 function removeBackgroundAddOther(bgAdd){
    	for(var x = 0; x < removeBackground.length; x++ ){
 	strengthbar.classList.remove(removeBackground[x]);
@@ -235,7 +255,7 @@ function changeProgresBarColor(){
 	   removeBackgroundAddOther("bg-danger");
 	   break;
 	  case 50:
-	   removeBackgroundAddOther("bg-warning");	
+	   removeBackgroundAddOther("bg-warning");
 	   break;
 	  case 75:
 	   removeBackgroundAddOther("bg-success");
@@ -243,15 +263,15 @@ function changeProgresBarColor(){
 	  default:
 	   //Do something
 	   break;
-	}	
+	}
 }
 
 function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
 	  strengthbar.value = valueProgress;
 	  strengthbar.style.width = widthProgress;
 	  strengthbar.innerHTML = innerHtmlProgress;
-}   
- 
+}
+
 </script>
-<!-- End JS Script--> 
+<!-- End JS Script-->
 @endsection('content')
