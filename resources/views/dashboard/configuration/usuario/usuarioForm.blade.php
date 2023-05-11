@@ -26,6 +26,12 @@ th,td{
 .showComp{
  display: block;
 }
+
+.invalid-feedback {
+    font-weight: bold;
+    color: #FFF;
+    font-size: 15px;
+}
 </style>
 
 
@@ -48,119 +54,149 @@ th,td{
 		 <hr class="confHr">
         </div>
 
-  <form method="post"  id="addUserForm" action="{{ route('login.addEditRemUsuario') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
-  <div class="form-group">
+  <form method="post" id="addUserForm" class="form-signin needs-validation" action="{{ route('login.addEditRemUsuario') }}" novalidate>
+  <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
 
-      <div class="row">
-      <div class="col">
-	   <label for="txtLogin" class="text-white h5">Nome:</label>
-       <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-	   @if(isset($dadoUsuario))
-	   <input type="hidden" name="id" value="{{ $dadoUsuario[0]->id }}"/>
-	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="{{ $dadoUsuario[0]->nome }}" required autofocus>
-	   @else
-	   <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="" required autofocus>
-	   @endif
-	  </div>
-      <div class="col">
-	   <label for="txtLogin" class="text-white h5">Sobrenome:</label>
-       @if(isset($dadoUsuario))
-	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="{{ $dadoUsuario[0]->sobrenome }}" required autofocus>
-       @else
-	   <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="" required autofocus>
-	   @endif
-	  </div>
+    <div class="form-group row">
+    <label for="txtName" class="col-sm-2 text-white h5">Nome:</label>
+    <div class="col-sm-9">
+        <div class="input-group">
+        @if(isset($dadoUsuario))
+        <input type="hidden" name="id" value="{{ $dadoUsuario[0]->id }}"/>
+        <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="{{ $dadoUsuario[0]->nome }}" required autofocus>
+        @else
+        <input type="text" class="form-control" id="txtName" name="nome"  placeholder="Digite o nome" value="" required autofocus>
+        @endif
+        <div class="invalid-feedback">
+            Campo Nome vazio !
+        </div>
       </div>
-	<small id="txtName" class="form-text text-muted"><!-- Small message --></small>
-  </div>
+    </div>
+    </div>
 
-  <div class="form-group">
-    <label for="txtEmail" class="text-white h5">Emai:</label>
-    @if(isset($dadoUsuario))
-	<input type="email" class="form-control" id="txtEmail" name="email" value="{{ $dadoUsuario[0]->email }}" placeholder="Digite o email" required autofocus>
-    @else
-	<input type="email" class="form-control" id="txtEmail" name="email" value="" placeholder="Digite o email" required autofocus>
-    @endif
-	<small class="form-text text-white h5">@if(isset($errorMessage)) {{ $errorMessage }} @endif</small>
-  </div>
+    <div class="form-group row">
+      <label for="txtLogin" class="col-sm-2 text-white h5">Sobrenome:</label>
+       <div class="col-sm-9">
+        @if(isset($dadoUsuario))
+        <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="{{ $dadoUsuario[0]->sobrenome }}" required autofocus>
+        @else
+        <input type="text" class="form-control" id="txtSecondName" name="sobrenome"  placeholder="Digite o sobrenome" value="" required autofocus>
+        @endif
+        <div class="invalid-feedback">
+            Campo Sobrenome vazio !
+        </div>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <label for="txtLogin" class="text-white h5">Login:</label>
-    @if(isset($dadoUsuario))
-	<input type="text" class="form-control" id="txtLogin"  name="login" value="{{ $dadoUsuario[0]->login }}" placeholder="Digite o login...." required autofocus>
-    @else
-    <input type="text" class="form-control" id="txtLogin"  name="login" value="" placeholder="Digite o login...." required autofocus>
-    @endif
-	<small id="txtLogin" class="form-text text-muted"><!-- Small message --></small>
-  </div>
-
-  <div class="form-group">
-    <label for="businessField" class="text-white h5">Empresa:</label>
-      <select class="form-control" id="empresa_id" name="empresa_id">
-       @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
-       <option  value="0">Seleciona a Empresa</option>
-       <option  value="adm" selected>Geral(acesso a todas as empresas)</option>
-       @else
-       <option  value="0" selected>Seleciona a Empresa</option>
-       <option  value="adm">Geral(acesso a todas as empresas)</option>
-       @endif
-      @foreach($dadosEmpresa as $item)
-           @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)
-           <option value="{{ $item->id }}" selected>{{ $item->fantasia }}</option>
-          @else
-          <option value="{{ $item->id }}">{{ $item->fantasia }}</option>
-          @endif
-         @endforeach
-     </select>
-   </div>
-
-    <div class="form-group">
-    <label for="cbNivelAcesso" class="text-white h5">Nivel de acesso:</label>
-    <select class="form-control" id="cbNivelAcesso" name="nivel_acesso" required>
-	  @if(isset($dadoUsuario))
-		@switch($dadoUsuario[0]->nivel_acesso)
-          @case('administrador')
-		  <option value="administrador" selected>Administrador</option>
-          <option value="gerencia">Gerência</option>
-          <option value="producao">Produção</option>
-		 @break
-         @case('gerencia')
-	      <option value="administrador">Administrador</option>
-		  <option value="gerencia" selected>Gerência</option>
-          <option value="producao">Produção</option>
-		  @break
-		  @case('producao')
-		  <option value="administrador">Administrador</option>
-          <option value="gerencia">Gerência</option>
-	      <option value="producao" selected>Produção</option>
-          @break
-		@endswitch
-	  @else
-		<option value="" selected>Selecione o nivel do usuário</option>
-		<option value="administrador">Administrador</option>
-        <option value="gerencia">Gerência</option>
-        <option value="producao">Produção</option>
-	  @endif
-	</select>
-  </div>
-
-  <div class="form-group">
-    <div class="row">
-      <div class="col">
-	  <label for="txtPassword" class="text-white h5">Senha: </label>
-	  <input type="password" class="form-control" id="txtPassword" name="password" placeholder="Digite a senha de acesso..." required autofocus>
-	  <small class="form-text text-white h5">@if(isset($dadoUsuario))*É preciso inserir a mesma ou uma nova senha.*@endif</small>
-	  </div>
-
+    <div class="form-group row">
+        <label for="txtEmail" class="col-sm-2 text-white h5">Email:</label>
+         <div class="col-sm-9">
+            @if(isset($dadoUsuario))
+            <input type="email" class="form-control" id="txtEmail" name="email" value="{{ $dadoUsuario[0]->email }}" placeholder="Digite o email" required autofocus>
+            @else
+            <input type="email" class="form-control" id="txtEmail" name="email" value="" placeholder="Digite o email" required autofocus>
+            @endif
+            <div class="invalid-feedback">
+                Campo Email vazio !
+            </div>
+        </div>
       </div>
 
-      </br>
+      <div class="form-group row">
+        <label for="txtLogin" class="col-sm-2 text-white h5">Login:</label>
+         <div class="col-sm-9">
+            @if(isset($dadoUsuario))
+            <input type="text" class="form-control" id="txtLogin"  name="login" value="{{ $dadoUsuario[0]->login }}" placeholder="Digite o login...." required autofocus>
+            @else
+            <input type="text" class="form-control" id="txtLogin"  name="login" value="" placeholder="Digite o login...." required autofocus>
+            @endif
+            <div class="invalid-feedback">
+                Campo Login vazio !
+            </div>
+        </div>
+      </div>
 
+      <div class="form-group row">
+        <label for="txtLogin" class="col-sm-2 text-white h5">Empresa:</label>
+         <div class="col-sm-9">
+            <select class="form-control form-select" id="empresa_id" name="empresa_id" required>
+                @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
+                <option  value="" disabled>Seleciona a Empresa</option>
+                <option  value="adm" selected>Geral(acesso a todas as empresas)</option>
+                @else
+                <option  value="" selected disabled>Seleciona a Empresa</option>
+                <option  value="adm">Geral(acesso a todas as empresas)</option>
+                @endif
+               @foreach($dadosEmpresa as $item)
+                    @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)
+                    <option value="{{ $item->id }}" selected>{{ $item->fantasia }}</option>
+                   @else
+                   <option value="{{ $item->id }}">{{ $item->fantasia }}</option>
+                   @endif
+                  @endforeach
+              </select>
+               <div class="invalid-feedback">
+                  Necessário selecionar uma Empresa
+               </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="txtLogin" class="col-sm-2 text-white h5">Nivel de acesso:</label>
+         <div class="col-sm-9">
+            <select class="form-control" id="cbNivelAcesso" name="nivel_acesso" required>
+                @if(isset($dadoUsuario))
+                  @switch($dadoUsuario[0]->nivel_acesso)
+                    @case('administrador')
+                    <option value="administrador" selected>Administrador</option>
+                    <option value="gerencia">Gerência</option>
+                    <option value="producao">Produção</option>
+                   @break
+                   @case('gerencia')
+                    <option value="administrador">Administrador</option>
+                    <option value="gerencia" selected>Gerência</option>
+                    <option value="producao">Produção</option>
+                    @break
+                    @case('producao')
+                    <option value="administrador">Administrador</option>
+                    <option value="gerencia">Gerência</option>
+                    <option value="producao" selected>Produção</option>
+                    @break
+                  @endswitch
+                @else
+                  <option value="" selected disabled>Selecione o nivel de acesso do usuário</option>
+                  <option value="administrador">Administrador</option>
+                  <option value="gerencia">Gerência</option>
+                  <option value="producao">Produção</option>
+                @endif
+              </select>
+            <div class="invalid-feedback">
+                Necessário selecionar um Nivel de Acesso !
+            </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="txtLogin" class="col-sm-2 text-white h5">Senha:</label>
+         <div class="col-sm-9">
+            @if(isset($dadoUsuario))
+            <input type="password" class="form-control" id="txtPassword" name="password" value="{{ $dadoUsuario[0]->password }}" placeholder="Digite a senha de acesso..." required autofocus>
+            @else
+            <input type="password" class="form-control" id="txtPassword" name="password" placeholder="Digite a senha de acesso..." required autofocus>
+            @endif
+            <div class="invalid-feedback">
+                Campo Senha vazio !
+            </div>
+        </div>
+      </div>
+
+  <div class="form-group">
 	  <label for="txtPassword" class="text-white h5">Nivel da senha:</label>
 	  <div class="progress">
         <div class="progress-bar bg-danger text-white" role="progressbar" id="passParameter" style="font-size: large;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
        </div>
   </div>
+
  @if(isset($dadoUsuario))
 <button type="submit"  name="btnAction" class="btn btn-warning btn-block" style="font-size:x-large;" value="btnEdit"><img src="{{ asset('img\icons\editIcon.png') }}" width="40px" height="40px"></img>Editar</button>
 <button type="submit"  name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
@@ -177,7 +213,6 @@ th,td{
 
 <!-- JS Script -->
 <script>
-
 var code = document.getElementById("txtPassword");
 
 var strengthbar = document.getElementById("passParameter");
@@ -272,6 +307,27 @@ function changeProgessBar(valueProgress, widthProgress, innerHtmlProgress){
 	  strengthbar.innerHTML = innerHtmlProgress;
 }
 
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 </script>
 <!-- End JS Script-->
 @endsection('content')

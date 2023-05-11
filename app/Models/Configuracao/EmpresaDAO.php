@@ -47,17 +47,17 @@ class EmpresaDAO extends Model
         return EmpresaDAO::all();
 	}
 
-	public function getEmpresaByID($id){
+	public function getBusinessByID($id){
         return EmpresaDAO::where('id', $id)
                            ->get();
 	}
 
-	public function getEmpresaByEmail($email){
+	public function getBusinessByEmail($email){
         return EmpresaDAO::where('email', 'like', $email.'%')
                            ->get();
 	}
 
-    public function getEmpresaByCNPJ($email){
+    public function getBusinessByCNPJ($email){
         return EmpresaDAO::where('cnpj', 'like', $email.'%')
                            ->get();
 	}

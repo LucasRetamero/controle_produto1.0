@@ -170,7 +170,10 @@ Route::get('configuracao/usuarios/usuariosFormulario', 'Configuracao\UsuarioCont
 Route::get('configuracao/empresa', 'Configuracao\EmpresaController@index')->name('dashboard.configuracao.empresa');
 // Route: Business form
 Route::get('configuracao/empresa/empresaFormulario', 'Configuracao\EmpresaController@empresaForm')->name('dashboard.configuracao.empresa.form');
-
+// Route: Business form to edit data
+Route::get('configuracao/empresa/empresaFormulario/{id}', 'Configuracao\EmpresaController@empresaFormToEditData')->name('dashboard.configuracao.empresa.form.edit');
+// Route Business Send from form
+Route::post('configuracao/empresa/AddEditRemovEmpresa', 'Configuracao\EmpresaController@btnAction')->name('dashboard.configuracao.empresa.editarFormulario');
 
 //Lista de PDFs --------
 

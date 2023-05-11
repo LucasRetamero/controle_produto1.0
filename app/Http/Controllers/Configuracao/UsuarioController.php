@@ -65,7 +65,7 @@ class UsuarioController extends Controller
 	 case "btnAdd":
 	  if(!$this->verifyEmailDB($request->input('email'))){
        $this->validatedUser($request);
-       if($request->input('empresa_id') == 'adm')$request->merge(['empresa_id' => null]);
+       if($request->input('empresa_id') == 'adm'){ $request->merge(['empresa_id' => null]); }
 	   $this->usuarioDAO->addUsuario($request->all());
 	   return redirect()->route('dashboard.configuracao.usuarios');
 	  }else{
@@ -75,7 +75,7 @@ class UsuarioController extends Controller
 
 	 case "btnEdit":
 	  $this->validatedUser($request);
-      if($request->input('empresa_id') == 'adm')$request->merge(['empresa_id' => null]);
+      if($request->input('empresa_id') == 'adm'){ $request->merge(['empresa_id' => null]); }
 	  $this->usuarioDAO->editUsuario($request->input('id'), $request->all());
       return redirect()->route('dashboard.configuracao.usuarios');
 	 break;

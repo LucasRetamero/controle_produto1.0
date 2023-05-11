@@ -87,7 +87,7 @@
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> -
                             Usuários</a>
                     @endif
-                    @if (Auth::User()->nivel_acesso == 'administrador' && Auth::User()->empresa_id == 0)
+                    @if (Auth::User()->nivel_acesso == 'administrador' && Auth::User()->empresa_id == '')
                         <a href="{{ route('dashboard.configuracao.empresa') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"> -
                             Empresa</a>

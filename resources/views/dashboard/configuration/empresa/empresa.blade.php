@@ -1,6 +1,6 @@
 @extends('dashboard.default')
 
-@section('title','Fazendo Logistica - Dashboard / Configuração: Usuario')
+@section('title','Fazendo Logistica - Dashboard / Configuração: Empresa')
 
 @section('content')
 <!-- CSS from user dashboard -->
@@ -38,7 +38,7 @@ td{
 </style>
 
 <div class="container">
-  <h1 class="h3">Configuração / Usuários</h1>
+  <h1 class="h3">Configuração / Empresa</h1>
   <hr style="border-top:3px solid #000">
 </div>
 
@@ -47,7 +47,7 @@ td{
   <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Menu</h1>
-     	  <a href="{{ route('dashboard.configuracao.usuarios.userFormAdd') }}"><button id="btnAddUser" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/userAddIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
+     	  <a href="{{ route('dashboard.configuracao.empresa.form') }}"><button id="btnAddUser" class="btn btn-success font-weight-bold text-white"><img src="{{ asset('img/icons/userAddIcon.png') }}" class="imgIcons"/> Adicionar novo</button></a>
           <button id="btnQueryUser" class="btn btn-primary font-weight-bold text-white" onClick="hiddenOrShowQuerUser()"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Consultar</button>
          </div>
         </div>
@@ -118,7 +118,7 @@ td{
       <td>
 	    <div class="row"> <!-- buttons edit /  remove-->
 		 <div class="col-sm-12 text-center">
-          <a href="{{ route('login.editarFormulario', $item->id) }}"><button id="btnUpdate" class="btn btn-primary btn-md center-block" name="btnAction"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Editar</button></a>
+          <a href="{{ route('dashboard.configuracao.empresa.form.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-primary btn-md center-block" name="btnAction"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Editar</button></a>
          </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>

@@ -25,16 +25,51 @@ class EmpresaController extends Controller
       return view('dashboard.configuration.empresa.empresaForm');
     }
 
+    public function empresaFormToEditData($id){
+      return view('dashboard.configuration.empresa.empresaForm', ['dataEmpresa' => $this->empresaDAO->getBusinessByID($id)]);
+    }
+
 	//Validate User
-	public function validatedUser($dados){
+	public function validatedBusiness($dados){
 	return  $validated = $dados->validate([
-	  'nome'        => 'required',
-	  'sobrenome'   => 'required',
-	  'email'       => 'required|max:60',
-	  'login'       => 'required',
-	  'password'    => 'required',
-	  'nivel_acesso'=> 'required',
-	 ]);
+                            'razao_social' => 'required',
+                            'fantasia'     => 'required',
+                            'cnpj'         => 'required',
+                            'email'        => 'required|max:60',
+                            'contato'      => 'required',
+                        ]);
 	}
+
+    public function btnAction(Request $request){
+        switch($request->input('btnAction')){
+            case "btnAdd":
+                $this->validatedBusiness($request);
+                $this->addEmpresa($request->all());
+                return redirect()->route('dashboard.configuracao.empresa');
+            break;
+            case "btnEdit":
+                $this->validatedBusiness($request);
+                $this->updateEmpresa($request->input('id'), $request->all());
+                return redirect()->route('dashboard.configuracao.empresa');
+            break;
+            case "btnRemove":
+                $this->removeEmpresa($request->input('id'));
+                return redirect()->route('dashboard.configuracao.empresa');
+            break;
+        }
+    }
+
+
+    private function addEmpresa($request){
+       $this->empresaDAO->addEmpresa($request);
+    }
+
+    private function updateEmpresa($id, $request){
+       $this->empresaDAO->editEmpresa($id, $request);
+    }
+
+    private function removeEmpresa($id){
+       $this->empresaDAO->removeEmpresa($id);
+    }
 
 }
