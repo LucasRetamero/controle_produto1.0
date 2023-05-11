@@ -174,6 +174,8 @@ Route::get('configuracao/empresa/empresaFormulario', 'Configuracao\EmpresaContro
 Route::get('configuracao/empresa/empresaFormulario/{id}', 'Configuracao\EmpresaController@empresaFormToEditData')->name('dashboard.configuracao.empresa.form.edit');
 // Route Business Send from form
 Route::post('configuracao/empresa/AddEditRemovEmpresa', 'Configuracao\EmpresaController@btnAction')->name('dashboard.configuracao.empresa.editarFormulario');
+// Route Business to filter data from database
+Route::post('configuracao/empresa/filtered', 'Configuracao\EmpresaController@getBusinessFilter')->name('dashboard.configuracao.empresa.filter');
 
 //Lista de PDFs --------
 

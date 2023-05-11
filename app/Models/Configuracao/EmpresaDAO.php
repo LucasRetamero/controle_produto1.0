@@ -52,13 +52,28 @@ class EmpresaDAO extends Model
                            ->get();
 	}
 
+    public function getBusinessByRazaoSocial($razao_social){
+        return EmpresaDAO::where('razao_social', 'like', $razao_social.'%')
+        ->get();
+    }
+
+    public function getBusinessByFantasia($fantasia){
+        return EmpresaDAO::where('fantasia', 'like', $fantasia.'%')
+                           ->get();
+    }
+
+    public function getBusinessByCNPJ($cnpj){
+        return EmpresaDAO::where('cnpj', 'like', $cnpj.'%')
+                           ->get();
+    }
+
 	public function getBusinessByEmail($email){
         return EmpresaDAO::where('email', 'like', $email.'%')
                            ->get();
 	}
 
-    public function getBusinessByCNPJ($email){
-        return EmpresaDAO::where('cnpj', 'like', $email.'%')
+	public function getBusinessByContato($contato){
+        return EmpresaDAO::where('contato', 'like', $contato.'%')
                            ->get();
 	}
 

@@ -59,31 +59,33 @@ td{
   <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de empresas</h1>
-     <form method="get" action="{{ route('login.consultaUsuario') }}">
-      <div class="form-row">
+     <form method="post" action="{{ route('dashboard.configuracao.empresa.filter') }}">
+        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+
+        <div class="form-row">
 
         <div class="col2">
          <div class="form-group">
           <select class="form-control" id="slctQuery" name="cbQuery">
-           <option value="Nome" selected>Nome</option>
-           <option value="Sobrenome">Sobrenome</option>
-           <option value="Email">Email</option>
-	       <option value="Login">Login</option>
-	       <option value="nivel_acesso">Nivel Acesso</option>
+           <option value="razao_social" selected>Razão Social</option>
+           <option value="fantasia">Fantasia</option>
+	       <option value="cnpj">CNPJ</option>
+           <option value="email">Email</option>
+	       <option value="contato">Contato</option>
           </select>
          </div>
         </div>
 
       <div class="col">
 	    <div id="searchInput" class="form-group">
-         <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar o usuârio...">
+         <input type="text" id="nameSearchOrigin" name="textSearch" class="form-control" placeholder="Digite para pesquisar a empresa...">
         </div>
 	 </div>
 
      </div>
 
 	   <button type="submit" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
-	   <a href="{{ route('dashboard.configuracao.usuarios')
+	   <a href="{{ route('dashboard.configuracao.empresa')
 	   }}"><button type="button" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/userAddIcon.png') }}" class="imgIcons"/> Buscar todos</button></a>
 
 	</form>

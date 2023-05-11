@@ -59,6 +59,27 @@ class EmpresaController extends Controller
         }
     }
 
+    public function getBusinessFilter(Request $request){
+        switch($request->input('cbQuery')){
+            case "razao_social":
+                $dados = $this->empresaDAO->getBusinessByRazaoSocial($request->input('textSearch'));
+                break;
+            case "fantasia":
+                $dados = $this->empresaDAO->getBusinessByFantasia($request->input('textSearch'));
+                break;
+            case "cnpj":
+                $dados = $this->empresaDAO->getBusinessByCNPJ($request->input('textSearch'));
+                break;
+            case "email":
+                $dados = $this->empresaDAO->getBusinessByEmail($request->input('textSearch'));
+                break;
+            case "contato":
+                $dados = $this->empresaDAO->getBusinessByContato($request->input('textSearch'));
+                break;
+        }
+        return view('dashboard.configuration.empresa.empresa', ['dados' => $dados]);
+    }
+
 
     private function addEmpresa($request){
        $this->empresaDAO->addEmpresa($request);
