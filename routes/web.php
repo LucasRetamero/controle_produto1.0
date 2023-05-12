@@ -149,6 +149,17 @@ Route::get('cadastro/subEspecie/subEspecieFormulario',function(){
  return view('dashboard.cadastro.subEspecie.subEspecieForm');
 })->name('dashboard.cadastro.subEspecie.subEspecieAddForm');
 
+// Route: Classification list
+Route::get('cadastro/classificacao/', 'Cadastro\ClassificacaoController@index')->name('dashboard.cadastro.classificacao');
+// Route: Classification form
+Route::get('cadastro/classificacao/classificacaoFormulario', 'Cadastro\ClassificacaoController@classificacaoForm')->name('dashboard.cadastro.classificacao.form');
+// Route: Classification form to edit data
+Route::get('cadastro/classificacao/classificacaoFormulario/{id}', 'Cadastro\ClassificacaoController@classificacaoEditForm')->name('dashboard.cadastro.classificacao.form.edit');
+// Route Classification Send from form
+Route::post('cadastro/classificacao/AddEditRemovClassificacao', 'Cadastro\ClassificacaoController@btnAction')->name('dashboard.cadastro.classificacao.editarFormulario');
+// Route Classification to filter data from database
+Route::post('cadastro/classificacao/filtered', 'Cadastro\ClassificacaoController@getClassificationFilter')->name('dashboard.cadastro.classificacao.filter');
+
 //Rota: Exportar database
 Route::get('configuracao/exportacao', function(){
   return view('dashboard.configuration.exportacao');

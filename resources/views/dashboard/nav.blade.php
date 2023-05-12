@@ -30,6 +30,9 @@
                         <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Logistico</a>
+                        <a href="{{ route('dashboard.cadastro.classificacao') }}"
+                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                            Classificação</a>
                     </div>
                 </div>
             @endif
