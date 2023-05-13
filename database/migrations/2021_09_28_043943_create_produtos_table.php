@@ -22,7 +22,7 @@ class CreateProdutosTable extends Migration
 			$table->string('fornecedor');
 			$table->string('sub_especie');
             $table->string('referencia');
-            $table->string('classicacao');
+            $table->string('classificacao');
             $table->string('etica');
 			$table->timestamps();
             $table->foreign('empresa_id')->references('id')->on('empresa')->nullable()->constrained()->cascadeOnDelete();

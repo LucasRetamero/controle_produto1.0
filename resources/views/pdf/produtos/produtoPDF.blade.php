@@ -11,19 +11,25 @@
         <th><b>EAN</b></th>
         <th><b>FORNECEDOR</b></th>
         <th><b>SUB-ESPECIE</b></th>
-      </tr> 
+        <th><b>REFERENCIA</b></th>
+        <th><b>CLASSIFICACAO</b></th>
+        <th><b>ETICA</b></th>
+      </tr>
     </thead>
 	@foreach($dados as $item)
     <tr>
-      <td><center>{{ $item->codigo }}</center></td>
-      <td><center>{{ $item->nome }}</center></td>
-      <td><center>{{ $item->ean }}</center></td>
-      <td><center>{{ $item->fornecedor }}</center></td>
-      <td><center>{{ $item->sub_especie }}</center></td>
+      <td>{{ $item->codigo }}</td>
+      <td>{{ $item->nome }}</td>
+      <td>{{ $item->ean }}</td>
+      <td>{{ $item->fornecedor }}</td>
+      <td>{{ $item->sub_especie }}</td>
+      <td>{{ $item->referencia }}</td>
+      <td>{{ $item->classificacao }}</td>
+      <td>{{ $item->etica }}</td>
     </tr>
     @endforeach
-   
+
   </table>
-  
+
 </body>
 </html>

@@ -3,45 +3,57 @@
 namespace App\Models\Cadastro;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class LoteDAO extends Model
 {
     protected $table = "lote";
-	protected $fillable = ['lote',
-                           'id_empresa'];
-	public $timestamps = false;
+    protected $fillable = [
+        'empresa_id',
+        'lote'
+    ];
+    public $timestamps = false;
 
-	//Add new date
-	public function addDAO($dado){
+    //Add new date
+    public function addDAO($dado)
+    {
         return LoteDAO::create($dado);
-	}
+    }
 
-	//Edit date
-	public function editDAO($id, $dado){
+    //Edit date
+    public function editDAO($id, $dado)
+    {
         return LoteDAO::where('id', $id)
-                        ->update($dado);
-	}
+            ->update($dado);
+    }
 
-	//Remove date
-	public function removeDAO($id){
+    //Remove date
+    public function removeDAO($id)
+    {
         return LoteDAO::where('id', $id)
-                        ->delete();
-	}
+            ->delete();
+    }
 
-	//Get all list
-	public function getAllDAO(){
-        return LoteDAO::all();
-	}
+    //Get all list
+    public function getAllDAO()
+    {
+        return LoteDAO::where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 
-	//Get a by id
-	public function getIdDAO($id){
+    //Get a by id
+    public function getIdDAO($id)
+    {
         return LoteDAO::where('id', $id)
-                        ->get();
-	}
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 
-	//Get by like name lote
-	public function getLikeNameDAO($name){
-        return LoteDAO::where('lote', 'like', $name.'%')
-                        ->get();
-	}
+    //Get by like name lote
+    public function getLikeNameDAO($name)
+    {
+        return LoteDAO::where('lote', 'like', $name . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 }

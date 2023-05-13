@@ -25,6 +25,7 @@ return array(
     'App\\Export\\Produtos\\ProdutoFornecedorExport' => $baseDir . '/app/Export/Produtos/ProdutoFornecedorExport.php',
     'App\\Export\\Produtos\\ProdutoNomeExport' => $baseDir . '/app/Export/Produtos/ProdutoNomeExport.php',
     'App\\Export\\Produtos\\ProdutoSubEspecieExport' => $baseDir . '/app/Export/Produtos/ProdutoSubEspecieExport.php',
+    'App\\Http\\Controllers\\Cadastro\\ClassificacaoController' => $baseDir . '/app/Http/Controllers/Cadastro/ClassificacaoController.php',
     'App\\Http\\Controllers\\Cadastro\\EnderecoController' => $baseDir . '/app/Http/Controllers/Cadastro/EnderecoController.php',
     'App\\Http\\Controllers\\Cadastro\\EstoqueController' => $baseDir . '/app/Http/Controllers/Cadastro/EstoqueController.php',
     'App\\Http\\Controllers\\Cadastro\\LocalizacaoController' => $baseDir . '/app/Http/Controllers/Cadastro/LocalizacaoController.php',

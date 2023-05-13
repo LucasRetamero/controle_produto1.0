@@ -3,12 +3,13 @@
 namespace App\Models\Cadastro;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class EnderecoDAO extends Model
 {
     protected $table = 'endereco';
-	protected $fillable = ['endereco',
-                           'id_empresa'];
+	protected $fillable = ['empresa_id',
+                           'endereco'];
 	public $timestamps = false;
 
     public function addDAO($dado){
@@ -26,16 +27,20 @@ class EnderecoDAO extends Model
 	}
 
 	public function getAllDAO(){
-	    return EnderecoDAO::orderBy('endereco')->get();
+	    return EnderecoDAO::where('empresa_id', Auth::User()->empresa_id)
+                            ->orderBy('endereco')
+                            ->get();
 	}
 
 	public function getIdDAO($id){
         return EnderecoDAO::where('id', $id)
+                            ->where('empresa_id', Auth::User()->empresa_id)
                             ->get();
 	}
 
 	public function getLikeEnderecoAll($name){
         return EnderecoDAO::where('endereco', 'like', $name.'%')
+                            ->where('empresa_id', Auth::User()->empresa_id)
                             ->get();
 	}
 }

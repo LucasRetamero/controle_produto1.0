@@ -21,6 +21,9 @@ class CreateEstoqueTable extends Migration
 			$table->string('ean');
 			$table->string('fornecedor');
 			$table->string('sub_especie');
+            $table->string('referencia');
+            $table->string('classificacao');
+            $table->string('etica');
 			$table->string('lote');
 			$table->string('endereco');
 			$table->string('tipo_endereco');

@@ -3,117 +3,150 @@
 namespace App\Models\Cadastro;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class EstoqueDAO extends Model
 {
     protected $table = 'estoque';
-	protected $fillable = ['codigo',
-	                       'nome_produto',
-	                       'ean',
-	                       'fornecedor',
-	                       'sub_especie',
-	                       'lote',
-	                       'endereco',
-	                       'tipo_endereco',
-                           'id_empresa'];
-	public $timestamps = false;
+    protected $fillable = [
+        'codigo',
+        'empresa_id',
+        'nome_produto',
+        'ean',
+        'fornecedor',
+        'sub_especie',
+        'referencia',
+        'classificacao',
+        'etica',
+        'lote',
+        'endereco',
+        'tipo_endereco'
+    ];
+    public $timestamps = false;
 
-	//Add Estoque
-	public function addEstoqueDAO($dado){
+    //Add Estoque
+    public function addEstoqueDAO($dado)
+    {
         return EstoqueDAO::create($dado);
-	}
+    }
 
-	//Update Estoque
-	public function updateEstoqueDAO($id, $dado){
-        return EstoqueDAO::where('id',$id)
-                        ->update($dado);
-	 }
-
-	//Delete Estoque
-	public function removeEstoqueDAO($id){
-        return EstoqueDAO::where('id',$id)
-                        ->delete();
-	}
-
-	//Get all list
-	public function getAllDAO(){
-        return EstoqueDAO::orderBy('endereco')
-                        ->get();
-	}
-
-	//Get one by id
-	public function getIdEstoqueDAO($id){
+    //Update Estoque
+    public function updateEstoqueDAO($id, $dado)
+    {
         return EstoqueDAO::where('id', $id)
-                        ->get();
-	}
+            ->update($dado);
+    }
 
-	//Get all by name
-	public function getLikeNameDAO($nome){
-        return EstoqueDAO::where('nome_produto', 'like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Delete Estoque
+    public function removeEstoqueDAO($id)
+    {
+        return EstoqueDAO::where('id', $id)
+            ->delete();
+    }
 
-	//Get all by codigo
-	public function getLikeCodigoDAO($nome){
-        return EstoqueDAO::where('codigo', 'like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all list
+    public function getAllDAO()
+    {
+        return EstoqueDAO::where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by ean
-	public function getLikeEanDAO($nome){
+    //Get one by id
+    public function getIdEstoqueDAO($id)
+    {
+        return EstoqueDAO::where('id', $id)
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
+
+    //Get all by name
+    public function getLikeNameDAO($nome)
+    {
+        return EstoqueDAO::where('nome_produto', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
+
+    //Get all by codigo
+    public function getLikeCodigoDAO($nome)
+    {
+        return EstoqueDAO::where('codigo', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
+
+    //Get all by ean
+    public function getLikeEanDAO($nome)
+    {
         return EstoqueDAO::where('ean', $nome)
-                        ->orderBy('endereco')
-                        ->get();
-	}
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by lote
-	public function getLikeLoteDAO($nome){
-        return EstoqueDAO::where('lote','like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all by lote
+    public function getLikeLoteDAO($nome)
+    {
+        return EstoqueDAO::where('lote', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by endereço
-	public function getLikeEnderecoDAO($nome){
-        return EstoqueDAO::where('endereco','like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all by endereço
+    public function getLikeEnderecoDAO($nome)
+    {
+        return EstoqueDAO::where('endereco', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by fornecedor
-	public function getLikeFornecedorDAO($nome){
-        return EstoqueDAO::where('fornecedor','like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all by fornecedor
+    public function getLikeFornecedorDAO($nome)
+    {
+        return EstoqueDAO::where('fornecedor', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by sub_especie
-	public function getLikeSubEspecieDAO($nome){
-        return EstoqueDAO::where('sub_especie','like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all by sub_especie
+    public function getLikeSubEspecieDAO($nome)
+    {
+        return EstoqueDAO::where('sub_especie', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get unique by endereço
-	public function getListEnderecoDAO($nome){
+    //Get unique by endereço
+    public function getListEnderecoDAO($nome)
+    {
         return EstoqueDAO::where('endereco', $nome)
-                        ->orderBy('endereco')
-                        ->get();
-	}
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get unique by codigo
-	public function getListCodigoDAO($nome){
+    //Get unique by codigo
+    public function getListCodigoDAO($nome)
+    {
         return EstoqueDAO::where('codigo', $nome)
-                        ->orderBy('endereco')
-                        ->get();
-	}
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 
-	//Get all by Tipo_Endereco
-	public function getLikeTipoEnderecoDAO($nome){
-        return EstoqueDAO::where('tipo_endereco', 'like', $nome.'%')
-                        ->orderBy('endereco')
-                        ->get();
-	}
+    //Get all by Tipo_Endereco
+    public function getLikeTipoEnderecoDAO($nome)
+    {
+        return EstoqueDAO::where('tipo_endereco', 'like', $nome . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->orderBy('endereco')
+            ->get();
+    }
 }

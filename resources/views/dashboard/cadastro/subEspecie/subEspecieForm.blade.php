@@ -12,13 +12,13 @@
 #fixedButtom {
  position: fixed;
  bottom: 0;
- top: 0; 
+ top: 0;
 }
 
 .roundedFixedBtn{
           height: 60px;
-          line-height: 80px;  
-          width: 60px;  
+          line-height: 80px;
+          width: 60px;
           font-size: 2em;
           font-weight: bold;
           border-radius: 50%;
@@ -34,8 +34,8 @@ thead{
 	color: #000;
 	font-size: large;
 }
-th,td{ 
- font-size:large;	
+th,td{
+ font-size:large;
 }
 td{
   background-color: #FFF;
@@ -45,34 +45,35 @@ td{
 </style>
 
 <div class="container" id="topPage">
-            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.subEspecie') }}">Sub Especie</a> / Formulário: Sub Especie</h1> 
-            <hr style="border-top:3px solid #000">			
+            <h1 class="h2">Cadastro / <a href="{{ route('dashboard.cadastro.subEspecie') }}">Sub Especie</a> / Formulário: Sub Especie</h1>
+            <hr style="border-top:3px solid #000">
 </div>
- 
+
  <!-- Message of query -->
  @if(isset($msgSuccess))
  <div class="alert alert-success h5" role="alert">
  {{ $msgSuccess }}
  </div>
  @endif
- 
+
 <!-- Product form -->
 <div class="jumbotron bg-primary">
-        
+
 		<div class="container">
           <h1 class="h3 text-white">Formulário: Sub Especie</h1>
 		  <hr style="border-top:3px solid #FFF">
         </div>
 
    <form method="post" action="{{ route('dashboard.cadastro.actions') }}" class="form-signin" onsubmit="return confirm('Deseja realmente executar essa açâo ?');">
-   
+
    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-		
-	@if(isset($dadosSubEspecie))	
-    <!-- ID --> 
-       <input type="hidden" id="id"  name="id" value="{{ $dadosSubEspecie[0]->id }}">
+
+	@if(isset($dadosSubEspecie))
+    <!-- ID -->
+       <input type="hidden" id="id" name="id" value="{{ $dadosSubEspecie[0]->id }}">
+       <input type="hidden" id="empresa_id" name="empresa_id" value="{{ $dadosSubEspecie[0]->empresa_id }}">
 	@endif
-    
+
 	<!-- Sub Especie -->
 	   <div class="form-group row">
         <label for="staticEmail" class="col-sm-2 text-white h4">Sub Especie:</label>
@@ -84,7 +85,7 @@ td{
          @endif
         </div>
        </div>
-	
+
   </br>
   <!-- Actions buttons -->
   @if(!isset($dadosSubEspecie))
@@ -94,15 +95,15 @@ td{
  </br><button type="submit" name="btnAction" class="btn btn-danger btn-block" style="font-size:x-large;" value="btnRemove"><img src="{{ asset('img\icons\removeIcon.png') }}" width="40px" height="40px"></img>Remover</button>
  @endif
  </br><a href="{{ route('dashboard.cadastro.subEspecie') }}" class="btn btn-light btn-block" style="font-size:x-large;"><img src="{{ asset('img\icons\leftArrowIcon.png') }}" width="40px" height="40px"></img>Lista de Sub Especie</a>
-  	
- 
+
+
  </form>
 </div><!-- Termina lista do estoque -->
-		
- 	
+
+
 </div>
 </div>
-  
+
   <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
 </div>
 

@@ -3,45 +3,57 @@
 namespace App\Models\Cadastro;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class TipoEnderecoDAO extends Model
 {
     protected $table = "tipo_endereco";
-	protected $fillable = ['tipo_endereco',
-                           'id_empresa'];
-	public $timestamps = false;
+    protected $fillable = [
+        'empresa_id',
+        'tipo_endereco'
+    ];
+    public $timestamps = false;
 
-	//Add new date
-	public function addDAO($dado){
+    //Add new date
+    public function addDAO($dado)
+    {
         return TipoEnderecoDAO::create($dado);
-	}
+    }
 
-	//Edit date
-	public function editDAO($id, $dado){
+    //Edit date
+    public function editDAO($id, $dado)
+    {
         return TipoEnderecoDAO::where('id', $id)
-                        ->update($dado);
-	}
+            ->update($dado);
+    }
 
-	//Remove date
-	public function removeDAO($id){
+    //Remove date
+    public function removeDAO($id)
+    {
         return TipoEnderecoDAO::where('id', $id)
-                        ->delete();
-	}
+            ->delete();
+    }
 
-	//Get all list
-	public function getAllDAO(){
-        return TipoEnderecoDAO::all();
-	}
+    //Get all list
+    public function getAllDAO()
+    {
+        return TipoEnderecoDAO::where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 
-	//Get a by id
-	public function getIdDAO($id){
+    //Get a by id
+    public function getIdDAO($id)
+    {
         return TipoEnderecoDAO::where('id', $id)
-                        ->get();
-	}
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 
-	//Get by like name tipo_endereco
-	public function getLikeNameDAO($name){
-        return TipoEnderecoDAO::where('tipo_endereco', 'like', $name.'%')
-                        ->get();
-	}
+    //Get by like name tipo_endereco
+    public function getLikeNameDAO($name)
+    {
+        return TipoEnderecoDAO::where('tipo_endereco', 'like', $name . '%')
+            ->where('empresa_id', Auth::User()->empresa_id)
+            ->get();
+    }
 }

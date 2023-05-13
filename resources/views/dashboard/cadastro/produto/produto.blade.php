@@ -12,7 +12,7 @@ thead{
 }
 
 td{
-    font-weight: bolder;  
+    font-weight: bolder;
 }
 
 #btnUpdate,
@@ -36,13 +36,13 @@ td{
 </style>
 
 <div class="container">
-    <h1 class="h2">Consultar / Produto</h1> 
-    <hr style="border-top:3px solid #000">	
+    <h1 class="h2">Consultar / Produto</h1>
+    <hr style="border-top:3px solid #000">
 </div>
 
 <!-- buttons actions -->
 <div id="container">
-  <div class="row">  
+  <div class="row">
      <div class="col-sm-12 text-center">
       <h1 class="h3">Menu</h1>
 	   @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
@@ -56,14 +56,14 @@ td{
 </br>
 <!-- Filter user List -->
 <div id="containerQuery" class="hiddenDiv">
-  <div class="row">  
+  <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de produto</h1>
      <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
-      <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />      
-		  
+      <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+
 	  <div class="form-row">
-	  
+
         <div class="col2">
          <div class="form-group">
           <select class="form-control" id="slctQuery" name="cbQuery">
@@ -72,24 +72,27 @@ td{
            <option value="ean">EAN</option>
            <option value="fornecedor">Fornecedor</option>
 	       <option value="subEspecie">Sub-Especie</option>
+	       <option value="referencia">Referencia</option>
+	       <option value="classicacao">Classicaçâo</option>
+	       <option value="etica">Etica</option>
           </select>
          </div>
         </div>
-	
+
       <div class="col">
 	    <div id="searchInput" class="form-group">
          <input type="text" id="nameSearch" name="textSearch" class="form-control" placeholder="Digite para pesquisar sobre o produto...">
-        </div>    
+        </div>
 	 </div>
-		  
+
      </div>
-	
+
 	   <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
        <A href="{{ route('dashboard.cadastro.produto') }}"><button   class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button></a>
-    
+
 	</form>
          </div>
-        </div>	
+        </div>
 </div>
 
 </br>
@@ -103,10 +106,13 @@ td{
 	  <th scope="col">EAN</th>
       <th scope="col">Fornecedor</th>
       <th scope="col">Sub-Especie</th>
+      <th scope="col">Referencia</th>
+      <th scope="col">Classificação</th>
+      <th scope="col">Etica</th>
 	  @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
       <th scope="col">Menu</th>
      @endif
-	  
+
     </tr>
   </thead>
   <tbody>
@@ -118,13 +124,16 @@ td{
       <td>{{ $item->ean }}</td>
       <td>{{ $item->fornecedor }}</td>
       <td>{{ $item->sub_especie }}</td>
+      <td>{{ $item->referencia }}</td>
+      <td>{{ $item->classificacao }}</td>
+      <td>{{ $item->etica }}</td>
       <td>
-	    <div class="row"> <!-- buttons edit /  remove--> 
+	    <div class="row"> <!-- buttons edit /  remove-->
 		 <div class="col-sm-12 text-center">
-       @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")  
+       @if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
    	    <a href="{{ route('dashboard.cadastro.produto.productAddForm.edit', $item->id) }}"><button id="btnUpdate" class="btn btn-warning btn-md center-block" name="btnAction" value="btnEdit"><img src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons"/> Editar</button></a>
         <a href="{{ route('dashboard.cadastro.produto.productAddForm.remove', $item->id) }}" onclick="return confirm('Deseja realmente remover esse item ?')"><button id="btnUpdate" class="btn btn-danger btn-md center-block" name="btnAction" value="btnRemove"><img src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" value="{{ $item->id }}"/> Remover</button></a>
-      @endif       
+      @endif
 	   </div>
         </div> <!-- End buttons edit /  remove-->
 	  </td>
@@ -135,7 +144,7 @@ td{
     Nenhum item encontrado !
    </div>
    @endif
-	
+
   </tbody>
 </table>
 
@@ -146,11 +155,11 @@ td{
 var txtComponentList = ["idNomeSearch",
                         "idSobreNomeSearch",
 						"idEmailSearch",
-						"idLoginSearch"]; 
+						"idLoginSearch"];
 
 // Options of the Select list ------
-var nivelAcessoOptions = ["Administração", 
-                          "Gerência", 
+var nivelAcessoOptions = ["Administração",
+                          "Gerência",
 						  "Produção"];
 
 // Select configuration -----------
@@ -172,7 +181,7 @@ select.addEventListener('change', function(){
 	verifyTheCase();
 });
 
-// Verify the option selected to create element 
+// Verify the option selected to create element
 function verifyTheCase(){
 	switch(select.value){
 	  case "Nome":
@@ -189,7 +198,7 @@ function verifyTheCase(){
 	  break;
       case "Nivel de acesso":
       createSelectMethod();
-	  break;  	  
+	  break;
 	}
 }
 
@@ -198,15 +207,15 @@ function createFormTextMethod(idInput,nameInput, placeHolInput){
 	formTextMethod.id = idInput;
 	formTextMethod.name = nameInput;
     formTextMethod.placeholder = placeHolInput;
-	
+
 	if(document.getElementById("nameSearchOrigin")){
      	document.body.querySelector("#searchInput").removeChild(document.getElementById("nameSearchOrigin"));
 		verifyTheCase();
       }else if(document.getElementById("nivelAcessoSearch")){
-		document.body.querySelector("#searchInput") .removeChild(document.getElementById("nivelAcessoSearch")); 
-        verifyTheCase();	 
- 	 }else{ 
-	   document.body.querySelector("#searchInput").appendChild(formTextMethod);	
+		document.body.querySelector("#searchInput") .removeChild(document.getElementById("nivelAcessoSearch"));
+        verifyTheCase();
+ 	 }else{
+	   document.body.querySelector("#searchInput").appendChild(formTextMethod);
 	  }
 }
 
@@ -214,27 +223,27 @@ function createFormTextMethod(idInput,nameInput, placeHolInput){
 function clearOtherElement(){
    if(document.getElementById("nameSearchOrigin")){
 	document.body.querySelector("#searchInput").removeChild(document.getElementById("nameSearchOrigin"));
-	}else{	
+	}else{
 	for(var x=0; x < txtComponentList.length; x++){
       if(document.getElementById(txtComponentList[x]))
-      document.body.querySelector("#searchInput").removeChild(document.getElementById(txtComponentList[x]));		  
+      document.body.querySelector("#searchInput").removeChild(document.getElementById(txtComponentList[x]));
 	 }
-	}	
+	}
 }
 
 // Add option and configuration of the select
 function createSelectMethod(){
-	
+
 	clearOtherElement();
-	
+
 	if(nivelAcessoSelectList.length > 0){
-	clearListBeforeAdd();	
+	clearListBeforeAdd();
 	addOptionListSearch();
 	}else{
 	addOptionListSearch();
 	}
-	
-	document.body.querySelector("#searchInput").appendChild(nivelAcessoSelectList);		
+
+	document.body.querySelector("#searchInput").appendChild(nivelAcessoSelectList);
 }
 
 //Add option on the list
@@ -243,14 +252,14 @@ function addOptionListSearch(){
 	  var option = document.createElement("option");
           option.value = nivelAcessoOptions[o];
           option.text  = nivelAcessoOptions[o];
-        nivelAcessoSelectList.appendChild(option);      		  
-	}	
+        nivelAcessoSelectList.appendChild(option);
+	}
 }
 
 //Clear List
 function clearListBeforeAdd(){
 	for(var p = nivelAcessoSelectList.length-1; p >= 0; p--){
-	 nivelAcessoSelectList.options[p] = null;	
+	 nivelAcessoSelectList.options[p] = null;
 	}
 }
 

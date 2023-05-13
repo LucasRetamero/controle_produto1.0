@@ -570,6 +570,7 @@ class ComposerStaticInit0eea47491f26486f31eb1830d73a2cc2
         'App\\Export\\Produtos\\ProdutoFornecedorExport' => __DIR__ . '/../..' . '/app/Export/Produtos/ProdutoFornecedorExport.php',
         'App\\Export\\Produtos\\ProdutoNomeExport' => __DIR__ . '/../..' . '/app/Export/Produtos/ProdutoNomeExport.php',
         'App\\Export\\Produtos\\ProdutoSubEspecieExport' => __DIR__ . '/../..' . '/app/Export/Produtos/ProdutoSubEspecieExport.php',
+        'App\\Http\\Controllers\\Cadastro\\ClassificacaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Cadastro/ClassificacaoController.php',
         'App\\Http\\Controllers\\Cadastro\\EnderecoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Cadastro/EnderecoController.php',
         'App\\Http\\Controllers\\Cadastro\\EstoqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/Cadastro/EstoqueController.php',
         'App\\Http\\Controllers\\Cadastro\\LocalizacaoController' => __DIR__ . '/../..' . '/app/Http/Controllers/Cadastro/LocalizacaoController.php',
