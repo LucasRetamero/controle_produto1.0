@@ -116,30 +116,35 @@ th,td{
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="txtLogin" class="col-sm-2 text-white h5">Empresa:</label>
-         <div class="col-sm-9">
-            <select class="form-control form-select" id="empresa_id" name="empresa_id" required>
-                @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
-                <option  value="" disabled>Seleciona a Empresa</option>
-                <option  value="adm" selected>Geral(acesso a todas as empresas)</option>
-                @else
-                <option  value="" selected disabled>Seleciona a Empresa</option>
-                <option  value="adm">Geral(acesso a todas as empresas)</option>
-                @endif
-               @foreach($dadosEmpresa as $item)
-                    @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)
-                    <option value="{{ $item->id }}" selected>{{ $item->fantasia }}</option>
-                   @else
-                   <option value="{{ $item->id }}">{{ $item->fantasia }}</option>
-                   @endif
-                  @endforeach
-              </select>
-               <div class="invalid-feedback">
-                  Necessário selecionar uma Empresa
-               </div>
+      @if(empty(Auth::User()->empresa_id))
+        <div class="form-group row">
+            <label for="txtLogin" class="col-sm-2 text-white h5">Empresa:</label>
+            <div class="col-sm-9">
+                <select class="form-control form-select" id="empresa_id" name="empresa_id" required>
+                    @if(isset($dadoUsuario) && $dadoUsuario[0]->empresa_id == "")
+                    <option  value="" disabled>Seleciona a Empresa</option>
+                    <option  value="adm" selected>Geral(acesso a todas as empresas)</option>
+                    @else
+                    <option  value="" selected disabled>Seleciona a Empresa</option>
+                    <option  value="adm">Geral(acesso a todas as empresas)</option>
+                    @endif
+                @foreach($dadosEmpresa as $item)
+                        @if(isset($dadoUsuario) &&  $dadoUsuario[0]->empresa_id == $item->id)
+                        <option value="{{ $item->id }}" selected>{{ $item->fantasia }}</option>
+                    @else
+                    <option value="{{ $item->id }}">{{ $item->fantasia }}</option>
+                    @endif
+                    @endforeach
+                </select>
+                <div class="invalid-feedback">
+                    Necessário selecionar uma Empresa
+                </div>
+            </div>
         </div>
-      </div>
+      @else
+      <input type="hidden" name="empresa_id" id="empresa_id" value="{{ Auth::User()->empresa_id }}"/>
+      @endif
+
 
       <div class="form-group row">
         <label for="txtLogin" class="col-sm-2 text-white h5">Nivel de acesso:</label>
@@ -179,11 +184,8 @@ th,td{
       <div class="form-group row">
         <label for="txtLogin" class="col-sm-2 text-white h5">Senha:</label>
          <div class="col-sm-9">
-            @if(isset($dadoUsuario))
-            <input type="password" class="form-control" id="txtPassword" name="password" value="{{ $dadoUsuario[0]->password }}" placeholder="Digite a senha de acesso..." required autofocus>
-            @else
             <input type="password" class="form-control" id="txtPassword" name="password" placeholder="Digite a senha de acesso..." required autofocus>
-            @endif
+            <small class="form-text text-white h5">@if(isset($dadoUsuario))*Necessário inserir a mesma ou uma nova senha.*@endif</small>
             <div class="invalid-feedback">
                 Campo Senha vazio !
             </div>

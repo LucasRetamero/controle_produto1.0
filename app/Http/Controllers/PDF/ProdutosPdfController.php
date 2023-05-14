@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cadastro\ProdutosDAO;
 use App\Models\Export\ProdutoExport;
-use JasperPHP\JasperPHP;
-use App\Http\Controllers\PDF\Produtos\ProdutoJasperController;
+use Dompdf\Dompdf;
 
 class ProdutosPdfController extends Controller
 {
@@ -85,7 +84,6 @@ class ProdutosPdfController extends Controller
 		   }
 		 break;
 	   }
-
 	}
 
     //Call PDF or XML
@@ -121,8 +119,9 @@ class ProdutosPdfController extends Controller
 	  switch($opton){
 
 	  case "noFilter":
-	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getAllProdutos()])
-				   ->download('Relatório de Produtos.pdf');
+	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados' => $this->produtosDAO->getAllProdutos()])
+				    ->setPaper('A4', 'landscape')
+                    ->download('Relatório de Produtos.pdf');
       break;
 
 	  case "nome":

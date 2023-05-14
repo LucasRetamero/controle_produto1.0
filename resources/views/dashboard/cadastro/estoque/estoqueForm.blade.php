@@ -77,8 +77,7 @@
     <!-- ID -->
 	@if(isset($dadosLogistico))
 	   <input type="hidden" id="id_codigo"  name="id" value="{{ $dadosLogistico[0]->id }}">
-	   <input type="hidden" id="empresa_id"  name="id" value="{{ $dadosLogistico[0]->empresa_id }}">
-       <!--<small id="txtEmail" class="form-text text-muted"> Small message </small>-->
+	   <input type="hidden" id="empresa_id"  name="empresa_id" value="{{ $dadosLogistico[0]->empresa_id }}">
 	@endif
 
 	  <!-- Codigo -->
@@ -257,12 +256,20 @@
         <label for="staticEmail" class="col-sm-2 text-white h4">Endereço:</label>
         <div class="col-sm-9">
 		 <select class="form-control" id="cb_localizacao" name="endereco" required autofocus>
-          <option  value="" selected>Seleciona a Endereço do produto....</option>
+          <option  value="" selected>Seleciona o Endereço do produto....</option>
 	      @foreach($dadosEndereco as $item)
-   	        @if(isset($dadosLogistico) &&  $dadosLogistico[0]->endereco == $item->endereco)
-     	      <option value="{{ $item->endereco }}" selected>{{ $item->endereco }}</option>
+   	        @if(isset($dadosLogistico) &&  $dadosLogistico[0]->endereco == $item['endereco'])
+                @if($item['id'] == 000)
+                <option value="{{ $item['id'] }}" disabled>{{ $item['endereco'] }}</option>
+                @else
+                <option value="{{ $item['endereco'] }}" selected>{{ $item['endereco'] }}</option>
+                @endif
 		      @else
-		      <option value="{{ $item->endereco }}">{{ $item->endereco }}</option>
+                @if($item['id'] == 000)
+                <option value="{{ $item['id'] }}" disabled>{{ $item['endereco'] }}</option>
+                @else
+                <option value="{{ $item['endereco'] }}">{{ $item['endereco'] }}</option>
+                @endif
               @endif
 		     @endforeach
 		 </select>

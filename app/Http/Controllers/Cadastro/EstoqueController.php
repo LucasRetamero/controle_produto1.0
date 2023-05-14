@@ -41,16 +41,18 @@ class EstoqueController extends Controller
     //Open estoque form
     public function getEstoqueForm()
     {
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $this->enderecoDAO->getAllDAO(), 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO()]);
+        $addressList = $this->getEnderecoAndVerify();
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO()]);
     }
 
     //Get produt and return to estoque form
     public function getEstoqueFormWithProduct(Request $request)
     {
+        $addressList = $this->getEnderecoAndVerify();
         if ($this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'))->count() > 0) {
-            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $this->enderecoDAO->getAllDAO(), 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgSuccess' => "Produto Encontrado !", 'dadosProduto' => $this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'))]);
+            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgSuccess' => "Produto Encontrado !", 'dadosProduto' => $this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'))]);
         } else {
-            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $this->enderecoDAO->getAllDAO(), 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgError' => "Nenhum produto encontrado !"]);
+            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgError' => "Nenhum produto encontrado !"]);
         }
     }
 
@@ -85,7 +87,8 @@ class EstoqueController extends Controller
             case "edit":
                 $data = $this->estoqueDAO->getIdEstoqueDAO($id);
                 if ($data->count() > 0) {
-                    return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $this->enderecoDAO->getAllDAO(), 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO()]);
+                    $addressList = $this->getEnderecoAndVerify();
+                    return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO()]);
                 }
                 return redirect()->route('dashboard.cadastro.estoque');
                 break;
@@ -152,6 +155,28 @@ class EstoqueController extends Controller
     //Return estoque form with a message
     public function getEstoqueFormWithMsg($msg)
     {
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $this->enderecoDAO->getAllDAO(), 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgSuccess' => $msg]);
+        $addressList = $this->getEnderecoAndVerify();
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(), 'msgSuccess' => $msg]);
     }
+
+    public function getEnderecoAndVerify(){
+       $addressList = [];
+       $addressList[] = ['id' => 000, 'endereco' => '----- Endereços Vazios ----'];
+        //Verify empty
+        foreach($this->enderecoDAO->getAllDAO() as $item){
+           if($this->estoqueDAO->getListEnderecoDAO($item->endereco)->count() == 0){
+            $addressList[] = ['id' => $item->id, 'endereco' => $item->endereco];
+           }
+        }
+        $addressList[] = ['id' => 000, 'endereco' => '----- Endereços Ocupados ----'];
+        //Verify used
+        foreach($this->enderecoDAO->getAllDAO() as $item){
+           if($this->estoqueDAO->getListEnderecoDAO($item->endereco)->count() > 0){
+             $addressList[] = ['id' => $item->id, 'endereco' => $item->endereco];
+           }
+        }
+      return $addressList;
+    }
+
+
 }
