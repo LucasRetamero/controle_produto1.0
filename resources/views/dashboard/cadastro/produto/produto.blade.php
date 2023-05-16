@@ -59,7 +59,40 @@ td{
   <div class="row">
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de produto</h1>
-     <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
+    @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+    <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
+        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+
+        <div class="form-row">
+
+          <div class="col2">
+           <div class="form-group">
+            <select class="form-control" id="slctQuery" name="cbQuery">
+             <option value="nome" selected>Nome</option>
+             <option value="codigo">Codigo</option>
+             <option value="ean">EAN</option>
+             <option value="fornecedor">Fornecedor</option>
+             <option value="subEspecie">Sub-Especie</option>
+             <option value="referencia">Referencia</option>
+             <option value="classicacao">Classicaçâo</option>
+             <option value="etica">Etica</option>
+            </select>
+           </div>
+          </div>
+
+        <div class="col">
+          <div id="searchInput" class="form-group">
+           <input type="text" id="nameSearch" name="textSearch" class="form-control" placeholder="Digite para pesquisar sobre o produto...">
+          </div>
+       </div>
+
+       </div>
+
+         <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
+         <button type="submit" name="btnAction" value="all" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
+      </form>
+    @else
+    <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
       <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
 
 	  <div class="form-row">
@@ -91,6 +124,7 @@ td{
        <A href="{{ route('dashboard.cadastro.produto') }}"><button   class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button></a>
 
 	</form>
+    @endif
          </div>
         </div>
 </div>

@@ -34,27 +34,27 @@ class SubEspecieDAO extends Model
             ->delete();
     }
 
-    public function getAllSubEspecie()
+    public function getAllSubEspecie($empresa_id)
     {
-        return SubEspecieDAO::where('empresa_id', Auth::User()->empresa_id)
+        return SubEspecieDAO::where('empresa_id', $empresa_id)
             ->get();
     }
 
     //buscar todas sub especie
-    public function getAllBySubEspecie($sub_especie)
+    public function getAllBySubEspecie($sub_especie, $empresa_id)
     {
         return SubEspecieDAO::where('sub_especie', 'like', $sub_especie . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
 
 
     //Get one Sub especie
-    public function getOneSub($id)
+    public function getOneSub($id, $empresa_id)
     {
         return SubEspecieDAO::where('id', $id)
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 }

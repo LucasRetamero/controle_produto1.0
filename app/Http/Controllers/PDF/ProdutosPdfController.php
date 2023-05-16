@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cadastro\ProdutosDAO;
 use App\Models\Export\ProdutoExport;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutosPdfController extends Controller
 {
@@ -33,7 +34,7 @@ class ProdutosPdfController extends Controller
 		 case "nome":
 
 		  $this->validatedProdutoRelatorio($request);
-		   if($this->produtosDAO->getLikeNomeDAO($request->input('consulta'))->count() == 0){
+		   if($this->produtosDAO->getByNomeDAO($request->input('consulta'), Auth::User()->empresa_id)->count() == 0){
 			return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
 		   }else{
 			return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -42,7 +43,7 @@ class ProdutosPdfController extends Controller
 
 		 case "codigo":
 		  $this->validatedProdutoRelatorio($request);
-		   if($this->produtosDAO->getLikeCodigoDAO($request->input('consulta'))->count() == 0 ){
+		   if($this->produtosDAO->getByCodigoDAO($request->input('consulta'), Auth::User()->empresa_id)->count() == 0 ){
 		    return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
 		   }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -51,7 +52,7 @@ class ProdutosPdfController extends Controller
 
 		 case "ean":
 		   $this->validatedProdutoRelatorio($request);
-		   if( $this->produtosDAO->getLikeEanDAO($request->input('consulta'))->count() == 0  ){
+		   if( $this->produtosDAO->getByEanDAO($request->input('consulta'), Auth::User()->empresa_id)->count() == 0  ){
 		    return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
 		   }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -60,7 +61,7 @@ class ProdutosPdfController extends Controller
 
 		 case "fornecedor":
     	  $this->validatedProdutoRelatorio($request);
-		  if($this->produtosDAO->getLikeFornecedorDAO($request->input('consulta'))->count() == 0 ){
+		  if($this->produtosDAO->getByFornecedorDAO($request->input('consulta'), Auth::User()->empresa_id)->count() == 0 ){
 		    return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
 	      }else{
 		   return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -69,7 +70,7 @@ class ProdutosPdfController extends Controller
 
 		 case "subEspecie":
 		  $this->validatedProdutoRelatorio($request);
-		   if($this->produtosDAO->getLikeSubEspecieDAO($request->input('consulta'))->count() == 0 ){
+		   if($this->produtosDAO->getBySubEspecieDAO($request->input('consulta'), Auth::User()->empresa_id)->count() == 0 ){
 		    return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
 	       }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -77,7 +78,7 @@ class ProdutosPdfController extends Controller
 		break;
 
 		 case "noFilter":
-     	   if($this->produtosDAO->getAllProdutos()->count() == 0){
+     	   if($this->produtosDAO->getAllProdutos(Auth::User()->empresa_id)->count() == 0){
 		    return $this->indexErrorMsg("Nenhum produto encontrado para gerar relatório !");
            }else{
 		    return $this->callReportXmlOrPdf( $request->input('cbQuery'), $request->input('cbMode'), $request->input('consulta'));
@@ -119,35 +120,35 @@ class ProdutosPdfController extends Controller
 	  switch($opton){
 
 	  case "noFilter":
-	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados' => $this->produtosDAO->getAllProdutos()])
+	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados' => $this->produtosDAO->getAllProdutos(Auth::User()->empresa_id)])
 				    ->setPaper('A4', 'landscape')
                     ->download('Relatório de Produtos.pdf');
       break;
 
 	  case "nome":
-       return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeNomeDAO($query)])
+       return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getByNomeDAO($query, Auth::User()->empresa_id)])
                   ->download('Relatório de Produtos.pdf');
       break;
 
 	  case "codigo":
-		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeCodigoDAO($query)])
+		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getByCodigoDAO($query, Auth::User()->empresa_id)])
                   ->download('Relatório de Produtos.pdf');
 
 		 break;
 
 		 case "ean":
-		   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeEanDAO($query)])
+		   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getByEanDAO($query, Auth::User()->empresa_id)])
                   ->download('Relatório de Produtos.pdf');
 		 break;
 
 		 case "fornecedor":
-    	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeFornecedorDAO($query)])
+    	   return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getByFornecedorDAO($query, Auth::User()->empresa_id)])
                   ->download('Relatório de Produtos.pdf');
 
 		 break;
 
 		 case "subEspecie":
-		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getLikeSubEspecieDAO($query)])
+		 return \PDF::loadView('pdf.produtos.produtoPDF',['dados'  => $this->produtosDAO->getBySubEspecieDAO($query, Auth::User()->empresa_id)])
                   ->download('Relatório de Produtos.pdf');
 		break;
 

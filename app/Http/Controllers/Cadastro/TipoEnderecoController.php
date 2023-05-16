@@ -19,7 +19,7 @@ class TipoEnderecoController extends Controller
     //Returning list with all Lote
     public function index()
     {
-        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO()]);
+        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     //Actions to add/edit or remove
@@ -42,7 +42,7 @@ class TipoEnderecoController extends Controller
                 $this->tipoEnderecoDAO->removeDAO($request->input('id'));
                 break;
         }
-        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO()]);
+        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     //Edit/Remove actions from table
@@ -51,7 +51,7 @@ class TipoEnderecoController extends Controller
         switch ($option) {
 
             case "edit":
-                $data = $this->tipoEnderecoDAO->getIdDAO($id);
+                $data = $this->tipoEnderecoDAO->getIdDAO($id, Auth::User()->empresa_id);
                 if($data->count() > 0){
                     return view('dashboard.cadastro.tipoEndereco.tipoEnderecoForm', ['dadosTipoEndereco' => $data]);
                 }
@@ -62,7 +62,7 @@ class TipoEnderecoController extends Controller
                 $this->tipoEnderecoDAO->removeDAO($id);
                 break;
         }
-        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO()]);
+        return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
 
@@ -71,11 +71,11 @@ class TipoEnderecoController extends Controller
     {
         switch ($request->input('btnAction')) {
             case "nameQuery":
-                return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getLikeNameDAO($request->input('tipo_endereco'))]);
+                return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getLikeNameDAO($request->input('tipo_endereco'), Auth::User()->empresa_id)]);
                 break;
 
             case "allQuery":
-                return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO()]);
+                return view('dashboard.cadastro.tipoEndereco.tipoEndereco', ['dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id)]);
                 break;
         }
     }

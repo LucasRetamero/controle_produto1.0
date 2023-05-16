@@ -19,7 +19,7 @@ class SubEspecieController extends Controller
     //Return list of Sub_Escpecie
     public function index()
     {
-        return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie()]);
+        return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id)]);
     }
 
     //Actions to add\update\remove and cancel
@@ -61,7 +61,7 @@ class SubEspecieController extends Controller
     //Open form to edit info
     public function editForm($id)
     {
-        $data = $this->subEspecieDAO->getOneSub($id);
+        $data = $this->subEspecieDAO->getOneSub($id, Auth::User()->empresa_id);
         if($data->count() > 0){
             return view('dashboard.cadastro.subEspecie.subEspecieForm', ['dadosSubEspecie' => $data]);
         }
@@ -81,11 +81,11 @@ class SubEspecieController extends Controller
     {
         switch ($request->input('btnAction')) {
             case "nameQuery":
-                return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllBySubEspecie($request->input('sub_especie'))]);
+                return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllBySubEspecie($request->input('sub_especie'), Auth::User()->empresa_id)]);
                 break;
 
             case "allQuery":
-                return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie()]);
+                return view('dashboard.cadastro.subEspecie.subEspecie', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id)]);
                 break;
         }
     }

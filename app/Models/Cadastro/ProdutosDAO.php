@@ -42,9 +42,10 @@ class ProdutosDAO extends Model
             ->delete();
     }
 
-    public function getAllProdutos()
+    public function getAllProdutos($empresa_id)
     {
-        return ProdutosDAO::where('empresa_id', Auth::User()->empresa_id)
+
+        return ProdutosDAO::where('empresa_id', $empresa_id)
             ->orderBy('nome')
             ->get();
     }
@@ -57,66 +58,66 @@ class ProdutosDAO extends Model
             ->get();
     }
 
-    public function getByIdDAO($id)
+    public function getByIdDAO($id, $empresa_id)
     {
         return ProdutosDAO::where('id', $id)
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByNomeDAO($name)
+    public function getByNomeDAO($name, $empresa_id)
     {
         return ProdutosDAO::where('nome', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByEanDAO($name)
+    public function getByEanDAO($ean, $empresa_id)
     {
-        return ProdutosDAO::where('ean', $name)
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('ean', $ean)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByCodigoDAO($name)
+    public function getByCodigoDAO($codigo, $empresa_id)
     {
-        return ProdutosDAO::where('codigo', $name)
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('codigo', $codigo)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByFornecedorDAO($name)
+    public function getByFornecedorDAO($fornecedor, $empresa_id)
     {
-        return ProdutosDAO::where('fornecedor', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('fornecedor', 'like', $fornecedor . '%')
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getBySubEspecieDAO($name)
+    public function getBySubEspecieDAO($sub_especie, $empresa_id)
     {
-        return ProdutosDAO::where('sub_especie', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('sub_especie', 'like', $sub_especie . '%')
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByReferenciaeDAO($name)
+    public function getByReferenciaeDAO($referencia, $empresa_id)
     {
-        return ProdutosDAO::where('referencia', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('referencia', 'like', $referencia . '%')
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByClassicacaoDAO($name)
+    public function getByClassicacaoDAO($classificacao, $empresa_id)
     {
-        return ProdutosDAO::where('classicacao', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('classicacao', 'like', $classificacao . '%')
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByEticaDAO($name)
+    public function getByEticaDAO($etica, $empresa_id)
     {
-        return ProdutosDAO::where('etica', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+        return ProdutosDAO::where('etica', 'like', $etica . '%')
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 }

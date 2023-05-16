@@ -30,26 +30,26 @@ class ProdutosController extends Controller
     //Lista de produto
     public function index()
     {
-        return view('dashboard.cadastro.produto.produto', ['dados' => $this->produtosDAO->getAllProdutos()]);
+        return view('dashboard.cadastro.produto.produto', ['dados' => $this->produtosDAO->getAllProdutos(Auth::User()->empresa_id)]);
     }
 
     //Formulario de produto
     public function indexFormProduto()
     {
         return view('dashboard.cadastro.produto.produtoForm', [
-            'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(),
-            'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(),
+            'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
+            'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
         ]);
     }
 
     public function editFormProduto($id)
     {
-        $data = $this->produtosDAO->getByIdDAO($id);
+        $data = $this->produtosDAO->getByIdDAO($id, Auth::User()->empresa_id);
         if ($data->count() > 0) {
             return view('dashboard.cadastro.produto.produtoForm', [
                 'dadosProduto'       => $data,
-                'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(),
-                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(),
+                'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
             ]);
         }
 
@@ -104,35 +104,35 @@ class ProdutosController extends Controller
     {
         switch ($request->input('cbQuery')) {
             case "nome":
-                $dados = $this->produtosDAO->getByNomeDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByNomeDAO($request->input('textSearch'),  Auth::User()->empresa_id);
                 break;
 
             case "codigo":
-                $dados = $this->produtosDAO->getByCodigoDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByCodigoDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "ean":
-                $dados = $this->produtosDAO->getByEanDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByEanDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "fornecedor":
-                $dados = $this->produtosDAO->getByFornecedorDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByFornecedorDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "subEspecie":
-                $dados = $this->produtosDAO->getBySubEspecieDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getBySubEspecieDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "referencia":
-                $dados = $this->produtosDAO->getByReferenciaeDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByReferenciaeDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "classicacao":
-                $dados = $this->produtosDAO->getByClassicacaoDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByClassicacaoDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
 
             case "etica":
-                $dados = $this->produtosDAO->getByEticaDAO($request->input('textSearch'));
+                $dados = $this->produtosDAO->getByEticaDAO($request->input('textSearch'), Auth::User()->empresa_id);
                 break;
         }
 
@@ -150,8 +150,8 @@ class ProdutosController extends Controller
     public function getProdutoFormReturnMsg($msg)
     {
         return view('dashboard.cadastro.produto.produtoForm', [
-            'msgSuccess' => $msg, 'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(),
-            'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(),
+            'msgSuccess' => $msg, 'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
+            'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
         ]);
     }
 }

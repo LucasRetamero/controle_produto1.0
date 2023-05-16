@@ -35,25 +35,25 @@ class LocalizacaoDAO extends Model
     }
 
     //Get all list
-    public function getAll()
+    public function getAll($empresa_id)
     {
-        return LocalizacaoDAO::where('empresa_id', Auth::User()->empresa_id)
+        return LocalizacaoDAO::where('empresa_id', $empresa_id)
             ->get();
     }
 
     //Get one of list
-    public function getOne($id)
+    public function getOne($id, $empresa_id)
     {
         return LocalizacaoDAO::where('id', $id)
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
     //Get all like name of localizacao
-    public function getLikeNameAll($name)
+    public function getLikeNameAll($name, $empresa_id)
     {
         return LocalizacaoDAO::where('localizacao', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 }

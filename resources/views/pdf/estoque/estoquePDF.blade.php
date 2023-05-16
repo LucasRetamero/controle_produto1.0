@@ -6,12 +6,12 @@
   <table border="1px" width="100%">
     <thead>
       <tr>
-        <th>ENDERECO</th>
-        <th>CODIGO</th>
-        <th>NOME PRODUTO</th>
-        <th>LOTE</th>
-        <th>QTDE</th>
-      </tr> 
+        <th bgcolor="lightgray">ENDERECO</th>
+        <th bgcolor="lightgray">CODIGO</th>
+        <th bgcolor="lightgray">NOME PRODUTO</th>
+        <th bgcolor="lightgray">LOTE</th>
+        <th bgcolor="lightgray">QTDE</th>
+      </tr>
     </thead>
 	@foreach($dados as $item)
     <tr>
@@ -22,8 +22,8 @@
       <td><center> </center></td>
     </tr>
     @endforeach
-   
+
   </table>
-  
+
 </body>
 </html>

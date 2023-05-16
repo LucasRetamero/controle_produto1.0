@@ -35,25 +35,25 @@ class TipoEnderecoDAO extends Model
     }
 
     //Get all list
-    public function getAllDAO()
+    public function getAllDAO($empresa_id)
     {
-        return TipoEnderecoDAO::where('empresa_id', Auth::User()->empresa_id)
+        return TipoEnderecoDAO::where('empresa_id', $empresa_id)
             ->get();
     }
 
     //Get a by id
-    public function getIdDAO($id)
+    public function getIdDAO($id, $empresa_id)
     {
         return TipoEnderecoDAO::where('id', $id)
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
     //Get by like name tipo_endereco
-    public function getLikeNameDAO($name)
+    public function getLikeNameDAO($name, $empresa_id)
     {
         return TipoEnderecoDAO::where('tipo_endereco', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 }

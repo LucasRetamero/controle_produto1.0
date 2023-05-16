@@ -26,21 +26,27 @@ class EnderecoDAO extends Model
                             ->delete();
 	}
 
-	public function getAllDAO(){
-	    return EnderecoDAO::where('empresa_id', Auth::User()->empresa_id)
+	public function getAllDAO($empresa_id){
+	    return EnderecoDAO::where('empresa_id', $empresa_id)
                             ->orderBy('endereco')
                             ->get();
 	}
 
-	public function getIdDAO($id){
-        return EnderecoDAO::where('id', $id)
-                            ->where('empresa_id', Auth::User()->empresa_id)
+	public function getAllDAOToAdm($empresa_id){
+	    return EnderecoDAO::where('empresa_id', $empresa_id)
+                            ->orderBy('endereco')
                             ->get();
 	}
 
-	public function getLikeEnderecoAll($name){
+	public function getIdDAO($id, $empresa_id){
+        return EnderecoDAO::where('id', $id)
+                            ->where('empresa_id', $empresa_id)
+                            ->get();
+	}
+
+	public function getLikeEnderecoAll($name, $empresa_id){
         return EnderecoDAO::where('endereco', 'like', $name.'%')
-                            ->where('empresa_id', Auth::User()->empresa_id)
+                            ->where('empresa_id', $empresa_id)
                             ->get();
 	}
 }

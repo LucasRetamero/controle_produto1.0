@@ -6,9 +6,9 @@
   <table border="1px" width="100%">
     <thead>
       <tr>
-        <th>ENDERECO</th>
+        <th bgcolor="lightgray">ENDERECO</th>
       </tr> <tr>
-        <th>AREA-RUA-PREDIO-NIVEL-APTO</th>
+        <th bgcolor="lightgray">AREA-RUA-PREDIO-NIVEL-APTO</th>
       </tr>
     </thead>
 	@foreach($dados as $item)
@@ -16,8 +16,8 @@
       <td><center>{{ $item->endereco }}</center></td>
     </tr>
     @endforeach
-   
+
   </table>
-  
+
 </body>
 </html>

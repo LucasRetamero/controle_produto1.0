@@ -29,7 +29,7 @@ class ClassificacaoController extends Controller
 
     public function index()
     {
-        return view($this->classificacaoPath, ['dadosClassificacao' => $this->classificacaoDAO->getAllDAO()]);
+        return view($this->classificacaoPath, ['dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     public function classificacaoForm()
@@ -39,7 +39,7 @@ class ClassificacaoController extends Controller
 
     public function classificacaoEditForm($id)
     {
-        $data = $this->classificacaoDAO->getByIdDAO($id);
+        $data = $this->classificacaoDAO->getByIdDAO($id, Auth::User()->empresa_id);
         if($data->count() > 0){
           return view('dashboard.cadastro.classificacao.classificacaoForm', ['dadosClassificacao' => $data]);
         }
@@ -73,7 +73,7 @@ class ClassificacaoController extends Controller
 
     public function getClassificationFilter(Request $request)
     {
-        $dados = $this->classificacaoDAO->getByNameDAO($request->input('textSearch'));
+        $dados = $this->classificacaoDAO->getByNameDAO($request->input('textSearch'), Auth::User()->empresa_id);
         return view($this->classificacaoPath, ['dadosClassificacao' => $dados]);
     }
 }

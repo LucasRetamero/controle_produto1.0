@@ -9,49 +9,58 @@ canvas { margin:30px 50px; float:right;}
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
-            <!--<div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button class="btn btn-sm btn-outline-secondary">Share</button>
-                <button class="btn btn-sm btn-outline-secondary">Export</button>
-              </div>
-              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                 This week
-              </button>
-            </div>-->
           </div>
+          @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+          <form method="post" action="{{ route('dashboard.filter.adm') }}">
+            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+            <div class="form-group">
+              <div class="form-group">
+                <label for="cbEmpresa"><b>Selecione a empresa</b></label>
+                <select class="form-control" id="cbEmpresa" name="empresa_id" onchange="this.form.submit()">
+                  <option value="000" selected>Selecione a Empresa</option>
+                  @foreach($dadosEmpresa as $item)
+                  @if(isset($dadosEmpresa) && isset($empresaSelected) && $empresaSelected == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->razao_social }}</option>
+                 @else
+                 <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                 @endif
+                @endforeach
+                </select>
+              </div>
+            </div>
+        </form>
+        @endif
 
             <!-- Main content -->
 
-      
 	 <div id="wrapper">
 <canvas id="canvas" width="300" height="300"></canvas>
 <table id="mydata">
- <thead> 
-  <tr>       
+ <thead>
+  <tr>
 	<th>Endereços</th>
-	<th>Valores</th> 
+	<th>Valores</th>
   </tr>
  </thead>
- 
+
  <tbody>
   <tr>
-	<!--<td>Existentes</td>  
-	<td> allEndereco </td>  
+	<!--<td>Existentes</td>
+	<td> allEndereco </td>
    </tr>-->
-   
+
    <tr>
-	<td>Ocupados</td>  
-	<td>{{ $usedEndereco }}</td>  
+	<td>Ocupados</td>
+	<td>{{ $usedEndereco }}</td>
   </tr>
-  
+
   <tr>
-	<td>Vazio</td>  
-	<td>{{ $emptyEndereco }}</td>  
+	<td>Vazios</td>
+	<td>{{ $emptyEndereco }}</td>
   </tr>
 
 
- 
+
  </tbody>
 </table>
 
@@ -138,7 +147,7 @@ window.onload = function() {
     }
 
 
-var mudarCor = document.getElementById("muda-cor"); 
+var mudarCor = document.getElementById("muda-cor");
 mudarCor.onclick = function() {
 window.location.reload();
 }

@@ -188,6 +188,10 @@ Route::post('configuracao/empresa/AddEditRemovEmpresa', 'Configuracao\EmpresaCon
 // Route Business to filter data from database
 Route::post('configuracao/empresa/filtered', 'Configuracao\EmpresaController@getBusinessFilter')->name('dashboard.configuracao.empresa.filter');
 
+// Route to administration rule
+Route::post('adm/filtered', 'Dashboard\homeController@indexToAdm')->name('dashboard.filter.adm');
+
+
 //Lista de PDFs --------
 
 //Home do produto para configurar relatório

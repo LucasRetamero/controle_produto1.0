@@ -31,24 +31,24 @@ class ClassificacaoDAO extends Model
             ->delete();
     }
 
-    public function getAllDAO()
+    public function getAllDAO($empresa_id)
     {
-        return ClassificacaoDAO::where('empresa_id', Auth::User()->empresa_id)
+        return ClassificacaoDAO::where('empresa_id', $empresa_id)
             ->orderBy('nome')
             ->get();
     }
 
-    public function getByIdDAO($id)
+    public function getByIdDAO($id, $empresa_id)
     {
         return ClassificacaoDAO::where('id', $id)
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 
-    public function getByNameDAO($name)
+    public function getByNameDAO($name, $empresa_id)
     {
         return ClassificacaoDAO::where('nome', 'like', $name . '%')
-            ->where('empresa_id', Auth::User()->empresa_id)
+            ->where('empresa_id', $empresa_id)
             ->get();
     }
 }

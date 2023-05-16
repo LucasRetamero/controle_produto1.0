@@ -19,7 +19,7 @@ class EnderecoController extends Controller
     //Returning list with all Lote
     public function index()
     {
-        return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getAllDAO()]);
+        return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     //Actions to add/edit or remove
@@ -53,7 +53,7 @@ class EnderecoController extends Controller
         switch ($option) {
 
             case "edit":
-                $data = $this->enderecoDAO->getIdDAO($id);
+                $data = $this->enderecoDAO->getIdDAO($id, Auth::User()->empresa_id);
                 if ($data->count() > 0) {
                     return view('dashboard.cadastro.endereco.enderecoForm', ['dadosEndereco' => $data]);
                 } else {
@@ -74,7 +74,7 @@ class EnderecoController extends Controller
     {
         switch ($request->input('btnAction')) {
             case "nameQuery":
-                return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeEnderecoAll($request->input('enderecoQuery'))]);
+                return view('dashboard.cadastro.endereco.endereco', ['dadosEndereco' => $this->enderecoDAO->getLikeEnderecoAll($request->input('enderecoQuery'), Auth::User()->empresa_id)]);
                 break;
 
             case "allQuery":
