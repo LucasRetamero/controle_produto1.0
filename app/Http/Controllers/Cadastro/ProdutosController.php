@@ -8,28 +8,35 @@ use App\Models\Cadastro\ProdutosDAO;
 use App\Models\Cadastro\LocalizacaoDAO;
 use App\Models\Cadastro\SubEspecieDAO;
 use App\Models\Cadastro\ClassificacaoDAO;
+use App\Models\Configuracao\EmpresaDAO;
 use Illuminate\Support\Facades\Auth;
 
 class ProdutosController extends Controller
 {
 
-    private $produtosDAO, $localizacaoDAO, $subEspecieDAO, $classificacaoDAO;
+    private $produtosDAO, $localizacaoDAO, $subEspecieDAO, $classificacaoDAO, $empresaDAO;
 
     public function __construct(
         ProdutosDAO $produtos_dao,
         LocalizacaoDAO $localizacao_dao,
         SubEspecieDAO $subEspecie_dao,
-        ClassificacaoDAO $classificacaoDAO
+        ClassificacaoDAO $classificacaoDAO,
+        EmpresaDAO $empresaDAO
     ) {
         $this->produtosDAO = $produtos_dao;
         $this->localizacaoDAO = $localizacao_dao;
         $this->subEspecieDAO = $subEspecie_dao;
         $this->classificacaoDAO = $classificacaoDAO;
+        $this->empresaDAO = $empresaDAO;
     }
 
     //Lista de produto
     public function index()
     {
+        if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id)) {
+            return view('dashboard.cadastro.produto.produto', ['dados' => $this->produtosDAO->getAllProdutos(Auth::User()->empresa_id), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
+        }
+
         return view('dashboard.cadastro.produto.produto', ['dados' => $this->produtosDAO->getAllProdutos(Auth::User()->empresa_id)]);
     }
 
@@ -137,6 +144,60 @@ class ProdutosController extends Controller
         }
 
         return view('dashboard.cadastro.produto.produto', ['dados' => $dados]);
+    }
+
+    public function checkSearchingToAdm(Request $request)
+    {
+        if ($request->input('empresa_id') == "000") {
+            $dados = $this->produtosDAO->getAllProdutos($request->input('empresa_id'));
+            return view('dashboard.cadastro.produto.produto', ['dados' => $dados, 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
+        }
+
+        return $this->searchingMenuToAdm($request);
+    }
+
+    public function searchingMenuToAdm($request)
+    {
+        if ($request->input('btnAction') == "allQuery") {
+            $dados = $this->produtosDAO->getAllProdutos($request->input('empresa_id'));
+            return view('dashboard.cadastro.produto.produto', ['dados' => $dados, 'itemSelected' => $request->input('empresa_id'), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
+        }
+
+        switch ($request->input('cbQuery')) {
+            case "nome":
+                $dados = $this->produtosDAO->getByNomeDAO($request->input('textSearch'),  $request->input('empresa_id'));
+                break;
+
+            case "codigo":
+                $dados = $this->produtosDAO->getByCodigoDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "ean":
+                $dados = $this->produtosDAO->getByEanDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "fornecedor":
+                $dados = $this->produtosDAO->getByFornecedorDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "subEspecie":
+                $dados = $this->produtosDAO->getBySubEspecieDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "referencia":
+                $dados = $this->produtosDAO->getByReferenciaeDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "classicacao":
+                $dados = $this->produtosDAO->getByClassicacaoDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+
+            case "etica":
+                $dados = $this->produtosDAO->getByEticaDAO($request->input('textSearch'), $request->input('empresa_id'));
+                break;
+        }
+
+        return view('dashboard.cadastro.produto.produto', ['dados' => $dados, 'itemSelected' => $request->input('empresa_id'), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
     }
 
     //Remove produto from table

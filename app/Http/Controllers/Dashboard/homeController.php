@@ -55,7 +55,7 @@ class homeController extends Controller
 	public function getEnderecoAndVerifyToAdm($request){
 	 //Verify empty or used
      foreach($this->enderecoDAO->getAllDAOToAdm($request->input('empresa_id')) as $item){
-        if($this->estoqueDAO->getListEnderecoDAOToAdm($item->endereco, $request->input('empresa_id'))->count() == 0){
+        if($this->estoqueDAO->getListEnderecoDAO($item->endereco, $request->input('empresa_id'))->count() == 0){
           $this->setEnderecoVazio($this->getEnderecoVazio()+1);
         }else{
           $this->setEnderecoOcupados($this->getEnderecoOcupados()+1);

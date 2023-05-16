@@ -190,6 +190,7 @@ Route::post('configuracao/empresa/filtered', 'Configuracao\EmpresaController@get
 
 // Route to administration rule
 Route::post('adm/filtered', 'Dashboard\homeController@indexToAdm')->name('dashboard.filter.adm');
+Route::post('produtos/adm/filtered', 'Cadastro\ProdutosController@checkSearchingToAdm')->name('dashboard.produtos.filter.adm');
 
 
 //Lista de PDFs --------

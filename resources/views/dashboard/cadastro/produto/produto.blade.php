@@ -60,7 +60,7 @@ td{
          <div class="col-sm-12 text-center">
           <h1 class="h3">Consultar lista de produto</h1>
     @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
-    <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
+    <form method="post" action="{{ route('dashboard.produtos.filter.adm') }}">
         <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
 
         <div class="form-row">
@@ -87,9 +87,24 @@ td{
        </div>
 
        </div>
+       <h1 class="h4">Lista de empresa</h1>
+       <div class="form-group row">
+        <div class="col-sm-9">
+		 <select class="form-control" id="cb_empresaId" name="empresa_id">
+         <option  value="000" selected disabled>Seleciona a Empresa...</option>
+	      @foreach($dadosEmpresa as $item)
+   	        @if(isset($dadosEmpresa) && isset($itemSelected) && $itemSelected == $item->id)
+     	      <option value="{{ $item->id }}" selected>{{ $item->razao_social }}</option>
+		      @else
+		      <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+              @endif
+		     @endforeach
+		 </select>
+        </div>
+       </div>
 
          <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Iniciar consulta</button>
-         <button type="submit" name="btnAction" value="all" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
+         <button type="submit" name="btnAction" value="allQuery" class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}" class="imgIcons"/> Buscar Todos</button>
       </form>
     @else
     <form method="post" action="{{ route('dashboard.cadastro.produto.searching') }}">
