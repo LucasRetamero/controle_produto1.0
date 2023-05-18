@@ -74,9 +74,7 @@ Route::get('cadastro/enderecos/enderecoFormulario/editOrRemove/{id}/{option}', '
 Route::post('cadastro/enderecos/enderecoFormulario/actionsMenu', 'Cadastro\EnderecoController@actionsMenu')->name('dashboard.cadastro.endereco.enderecoForm.actionsMenu');
 
 //Rota: Formulario do Endereço
-Route::get('cadastro/enderecos/enderecoFormulario', function(){
- return view('dashboard.cadastro.endereco.enderecoForm');
-})->name('dashboard.cadastro.endereco.enderecoAddForm');
+Route::get('cadastro/enderecos/enderecoFormulario', 'Cadastro\EnderecoController@addForm')->name('dashboard.cadastro.endereco.enderecoAddForm');
 
 //Rota: Lista Tipo de Endereço
 Route::get('cadastro/tipo_Endereco/tipoEndereco', 'Cadastro\TipoEnderecoController@index')->name('dashboard.cadastro.tipo_endereco');
@@ -91,9 +89,7 @@ Route::get('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/editOrRem
 Route::post('cadastro/tipo_Endereco/tipoEndereco/tipoEnderecoFormulario/actionsMenu', 'Cadastro\TipoEnderecoController@actionsMenu')->name('dashboard.cadastro.tipo_endereco.tipo_enderecoForm.actionsMenu');
 
 //Rota: Formulario Tipo de Endereço
-Route::get('cadastro/tipoEndereco/tipoEnderecoFormulario', function(){
- return view('dashboard.cadastro.tipoEndereco.tipoEnderecoForm');
-})->name('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm');
+Route::get('cadastro/tipoEndereco/tipoEnderecoFormulario', 'Cadastro\TipoEnderecoController@formtoAdd')->name('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm');
 
 //Rota: Lista de Lote
 Route::get('cadastro/lote', 'Cadastro\LoteController@index')->name('dashboard.cadastro.lote');
@@ -145,9 +141,7 @@ Route::get('cadastro/subEspecie/remove/{id}', 'Cadastro\SubEspecieController@get
 Route::post('cadastro/subEspecie/searching', 'Cadastro\SubEspecieController@searchBySubEspecie')->name('dashboard.cadastro.subEspecie.searching');
 
 //Rota: Formulario da Sub Especie
-Route::get('cadastro/subEspecie/subEspecieFormulario',function(){
- return view('dashboard.cadastro.subEspecie.subEspecieForm');
-})->name('dashboard.cadastro.subEspecie.subEspecieAddForm');
+Route::get('cadastro/subEspecie/subEspecieFormulario','Cadastro\SubEspecieController@addForm')->name('dashboard.cadastro.subEspecie.subEspecieAddForm');
 
 // Route: Classification list
 Route::get('cadastro/classificacao/', 'Cadastro\ClassificacaoController@index')->name('dashboard.cadastro.classificacao');
@@ -190,8 +184,27 @@ Route::post('configuracao/empresa/filtered', 'Configuracao\EmpresaController@get
 
 // Route to administration rule
 Route::post('adm/filtered', 'Dashboard\homeController@indexToAdm')->name('dashboard.filter.adm');
+// Product
 Route::post('produtos/adm/filtered', 'Cadastro\ProdutosController@checkSearchingToAdm')->name('dashboard.produtos.filter.adm');
-
+Route::get('Cadastro/produtos/produtosFormulario/editar/adm/{id}/{empresa_id}', 'Cadastro\ProdutosController@editFormProdutoToAdm')->name('dashboard.cadastro.produto.productAddForm.adm.edit');
+// Address
+Route::post('endereco/adm/filtered', 'Cadastro\EnderecoController@checkSearchingToAdm')->name('dashboard.endereco.filter.adm');
+Route::get('Cadastro/endereco/enderecoFormulario/adm/{id}/{option}/{empresa_id}', 'Cadastro\EnderecoController@editRemoveTableToAdm')->name('dashboard.endereco.formulario.adm');
+// SubEspecie
+Route::post('subespecie/adm/filtered', 'Cadastro\SubEspecieController@checkSearchingToAdm')->name('dashboard.subespecie.filter.adm');
+Route::get('Cadastro/subespecie/subespecieoFormulario/adm/{id}/{empresa_id}', 'Cadastro\SubEspecieController@editFormToAdm')->name('dashboard.subespecie.formulario.adm');
+// TipoEndereco
+Route::post('tipoEndereco/adm/filtered', 'Cadastro\TipoEnderecoController@checkSearchingToAdm')->name('dashboard.tipoendereco.filter.adm');
+Route::get('Cadastro/tipoendereco/tipoEnderecoFormulario/adm/{id}/{empresa_id}', 'Cadastro\TipoEnderecoController@editRemoveLoteTableToAdm')->name('dashboard.tipoendereco.formulario.adm');
+// Estoque
+Route::post('estoque/adm/filtered', 'Cadastro\EstoqueController@checkSearchingToAdm')->name('dashboard.estoque.filter.adm');
+Route::post('Cadastro/estoque/estoqueFormulario/adm', 'Cadastro\EstoqueController@getEstoqueFormToAdm')->name('dashboard.estoque.formulario.add.adm');
+Route::get('Cadastro/estoque/estoqueFormulario/adm/{id}/{empresa_id}', 'Cadastro\EstoqueController@editForm')->name('dashboard.estoque.formulario.adm');
+Route::post('Cadastro/estoque/estoqueFormulario/getProduto/adm', 'Cadastro\EstoqueController@getEstoqueFormWithProductToAdm')->name('dashboard.estoque.formulario.produto.add.adm');
+Route::post('Cadastro/estoque/list/adm/filtered', 'Cadastro\EstoqueController@checkBeforeSearchingToAdm')->name('dashboard.estoque.list.filtered.adm');
+// Classificacao
+Route::post('classificacao/adm/filtered', 'Cadastro\ClassificacaoController@checkBeforeFilterToAdm')->name('dashboard.classificacao.filter.adm');
+Route::get('classificacao/classificacaoForm/adm/{id}/{empresa_id}', 'Cadastro\ClassificacaoController@classificacaoEditFormToAdm')->name('dashboard.classificacao.form.adm');
 
 //Lista de PDFs --------
 

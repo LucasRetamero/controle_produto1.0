@@ -206,6 +206,27 @@ td{
         </div>
        </div>
 
+    <!-- Empresa -->
+    @if(Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id))
+       <div class="form-group row">
+        <label for="cb_empresa_id" class="col-sm-2 text-white h5">Empresa:</label>
+        <div class="col-sm-9">
+		 <select class="form-control" id="cb_empresa_id" name="empresa_id" required>
+         <option  value="" selected disabled>Seleciona a Empresa...</option>
+	      @foreach($dadosEmpresa as $item)
+   	         @if(isset($dadosEmpresa) &&  isset($empresaSelected) && $empresaSelected == $item->id)
+     	      <option value="{{ $item->id }}" selected>{{ $item->razao_social }}</option>
+		      @else
+		      <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+              @endif
+		     @endforeach
+		 </select>
+         <div class="invalid-feedback">
+            Necessário selecionar uma Empresa
+        </div>
+        </div>
+       </div>
+      @endif
 		</br>
 
   </br>

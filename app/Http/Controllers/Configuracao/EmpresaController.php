@@ -101,4 +101,8 @@ class EmpresaController extends Controller
     {
         $this->empresaDAO->removeEmpresa($id);
     }
+
+    public function getEmpresaList(){
+       return $this->empresaDAO->getAllList();
+    }
 }

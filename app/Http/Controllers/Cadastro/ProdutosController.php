@@ -43,6 +43,14 @@ class ProdutosController extends Controller
     //Formulario de produto
     public function indexFormProduto()
     {
+        if (Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id)) {
+            return view('dashboard.cadastro.produto.produtoForm', [
+                'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
+                'dadosEmpresa' => $this->empresaDAO->getAllList(),
+            ]);
+        }
+
         return view('dashboard.cadastro.produto.produtoForm', [
             'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
             'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
@@ -57,6 +65,22 @@ class ProdutosController extends Controller
                 'dadosProduto'       => $data,
                 'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
                 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
+            ]);
+        }
+
+        return redirect()->route('dashboard.cadastro.produto');
+    }
+
+    public function editFormProdutoToAdm($id, $empresa_id)
+    {
+        $data = $this->produtosDAO->getByIdDAO($id, $empresa_id);
+        if ($data->count() > 0) {
+            return view('dashboard.cadastro.produto.produtoForm', [
+                'dadosProduto'       => $data,
+                'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie($empresa_id),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($empresa_id),
+                'dadosEmpresa' => $this->empresaDAO->getAllList(),
+                'empresaSelected' => $empresa_id,
             ]);
         }
 
@@ -84,20 +108,22 @@ class ProdutosController extends Controller
     {
         switch ($request->input('btnAction')) {
             case "btnAdd":
-                $request->merge(['empresa_id' => Auth::User()->empresa_id]);
+                if (!empty(Auth::User()->empresa_id)) {
+                    $request->merge(['empresa_id' => Auth::User()->empresa_id]);
+                }
                 $this->validatedProduct($request);
                 $this->produtosDAO->addDAO($request->except(['_token', 'btnAction']));
-                return $this->getProdutoFormReturnMsg("Produto cadastrado com sucesso !");
+                return $this->getProdutoFormReturnMsg("Produto cadastrado com sucesso !", $request);
                 break;
 
             case "btnEdit":
                 $this->produtosDAO->updateDAO($request->input('id'), $request->except(['_token', 'btnAction']));
-                return $this->getProdutoFormReturnMsg("Produto editado com sucesso !");
+                return $this->getProdutoFormReturnMsg("Produto editado com sucesso !", $request);
                 break;
 
             case "btnRemove":
                 $this->produtosDAO->removeDAO($request->input('id'));
-                return $this->getProdutoFormReturnMsg("Produto deletado com sucesso !");
+                return $this->getProdutoFormReturnMsg("Produto deletado com sucesso !", $request);
                 break;
 
             case "btnCancel":
@@ -208,8 +234,15 @@ class ProdutosController extends Controller
     }
 
     //Return produto from with a message
-    public function getProdutoFormReturnMsg($msg)
+    public function getProdutoFormReturnMsg($msg, $request)
     {
+        if (Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id)) {
+            return view('dashboard.cadastro.produto.produtoForm', [
+                'msgSuccess' => $msg, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($request->input('empresa_id')),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'dadosEmpresa' => $this->empresaDAO->getAllList(),
+            ]);
+        }
+
         return view('dashboard.cadastro.produto.produtoForm', [
             'msgSuccess' => $msg, 'dadosSubEspecie'    => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
             'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),

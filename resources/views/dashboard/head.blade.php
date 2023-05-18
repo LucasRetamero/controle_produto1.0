@@ -6,7 +6,7 @@
 </style>
 
 <nav class="navbar navbar-dark fixed-top bg-light flex-md-nowrap p-0 shadow">
-	 
+
 	  <a class="navbar-brand col-sm-3 col-md-2 mr-0 bg-light text-primary" href="{{ route('dashboard') }}"><img src="{{ asset('img/icons/product.png') }}" width="30px" height="30px"><font size="4px"> Fazendo Logistica</font></a>
 	@if(Auth::User()->nivel_acesso == "administrador" || Auth::User()->nivel_acesso == "gerencia")
 		<div class="dropdown">
@@ -19,8 +19,9 @@
                     <a href="{{ route('dashboard.cadastro.subEspecie.subEspecieAddForm') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
 					<a href="{{ route('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo Endereço</a>
                     <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Logistico</a>
+                    <a href="{{ route('dashboard.cadastro.classificacao.form') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Classificação</a>
   </div>
-</div>	
+</div>
 @endif
 
 <div class="dropdown">
@@ -33,6 +34,7 @@
                     <a href="{{ route('dashboard.cadastro.subEspecie') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Sub-Especie</a>
                     <a href="{{ route('dashboard.cadastro.tipo_endereco') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo Endereço</a>
                     <a href="{{ route('dashboard.cadastro.estoque') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Logistico</a>
+                    <a href="{{ route('dashboard.cadastro.classificacao') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Classificação</a>
   </div>
 </div>
 
@@ -46,24 +48,24 @@
                     <a href="{{ route('dashboard.pdf.estoque.configurarPdf') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Inventário</a>
                     <a href="{{ route('dashboard.pdf.apuracao_ocorrencia.configurarPdf') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Apuração de Ocorrencia</a>
   </div>
-</div>	
+</div>
 
 <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <img src="{{ asset('img/icons/configurationIcon.png')}}" width="25px" height="25x"></img>Configuração
   </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  @if(Auth::User()->nivel_acesso == "administrador")  
+  @if(Auth::User()->nivel_acesso == "administrador")
   <a href="{{ route('dashboard.configuracao.usuarios') }}" class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Login</a>
   @endif
   </div>
-</div>	
+</div>
 	   <form method="get" action="{{ route('login.deslogar') }}">
 	   <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
-	
+
 	  <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-		  
+
 		   <a href="#"><button type="submit" class="btn btn-danger"><img src="{{ asset('img/icons/iconClose.png')}}" width="25px" height="25x"></img>Deslogar</button></a>
         </li>
       </ul>

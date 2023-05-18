@@ -27,10 +27,16 @@
                         <a href="{{ route('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Tipo Endereço</a>
-                        <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"
-                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                            Logistico</a>
-                        <a href="{{ route('dashboard.cadastro.classificacao') }}"
+                        @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+                                <a class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu" data-toggle="modal"
+                                    data-target="#businessListModal">-
+                                    Logistico</a>
+                        @else
+                            <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"
+                                class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                                Logistico</a>
+                        @endif
+                        <a href="{{ route('dashboard.cadastro.classificacao.form') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Classificação</a>
                     </div>
@@ -57,6 +63,9 @@
                     <a href="{{ route('dashboard.cadastro.estoque') }}"
                         class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                         Logistico</a>
+                    <a href="{{ route('dashboard.cadastro.classificacao') }}"
+                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                        Classificação</a>
                 </div>
             </div>
 
@@ -82,8 +91,8 @@
 
             <div id="main-menu" class="list-group">
                 <a href="#sub-menu" class="list-group-item bg-white font-weight-bold" data-toggle="collapse"
-                    data-parent="#main-menu"><img src="{{ asset('img/icons/configurationIcon.png') }}" width="20px"
-                        height="20px"></img> Configuração <span class="caret"></span></a>
+                    data-parent="#main-menu"><img src="{{ asset('img/icons/configurationIcon.png') }}"
+                        width="20px" height="20px"></img> Configuração <span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
                     @if (Auth::User()->nivel_acesso == 'administrador')
                         <a href="{{ route('dashboard.configuracao.usuarios') }}"
@@ -107,3 +116,36 @@
     </button>
 
 </nav>
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('dashboard.estoque.formulario.add.adm') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
