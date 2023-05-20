@@ -43,19 +43,23 @@ class ProdutosController extends Controller
     //Formulario de produto
     public function indexFormProduto()
     {
-        if (Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id)) {
-            return view('dashboard.cadastro.produto.produtoForm', [
-                'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
-                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
-                'dadosEmpresa' => $this->empresaDAO->getAllList(),
-            ]);
-        }
-
         return view('dashboard.cadastro.produto.produtoForm', [
             'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id),
             'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id),
         ]);
     }
+
+    public function indexFormProdutoToAdm(Request $request)
+    {
+        return view('dashboard.cadastro.produto.produtoForm', [
+                'dadosSubEspecie'  => $this->subEspecieDAO->getAllSubEspecie($request->input('empresa_id')),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')),
+                'dadosEmpresa' => $this->empresaDAO->getAllList(),
+                'hasBusiness' => $request->input('empresa_id')
+            ]);
+    }
+
+
 
     public function editFormProduto($id)
     {
@@ -229,7 +233,7 @@ class ProdutosController extends Controller
     //Remove produto from table
     public function removeProduto($id)
     {
-        $this->produtosDAO->getDelete($id);
+        $this->produtosDAO->removeDAO($id);
         return redirect()->route('dashboard.cadastro.produto');
     }
 
@@ -239,7 +243,7 @@ class ProdutosController extends Controller
         if (Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id)) {
             return view('dashboard.cadastro.produto.produtoForm', [
                 'msgSuccess' => $msg, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($request->input('empresa_id')),
-                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'dadosEmpresa' => $this->empresaDAO->getAllList(),
+                'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'dadosEmpresa' => $this->empresaDAO->getAllList(), 'hasBusiness' => $request->input('empresa_id')
             ]);
         }
 

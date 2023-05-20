@@ -188,7 +188,7 @@
     <div id="containerQuery" class="hiddenDiv">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h1 class="h3">Consultar lista logistica</h1>
+                <h1 class="h3">Consultar lista Logistica</h1>
                 @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
                     <form method="post" action="{{ route('dashboard.estoque.filter.adm') }}">
                         <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
@@ -285,7 +285,7 @@
     </br>
     <!-- Table of users -->
     <table class="table">
-        <h1 class="h3 text-center">Lista da logistica</h1>
+        <h1 class="h3 text-center">Lista da Logistica</h1>
         <thead class="thead">
             <tr>
                 <th scope="col">Codigo</th>

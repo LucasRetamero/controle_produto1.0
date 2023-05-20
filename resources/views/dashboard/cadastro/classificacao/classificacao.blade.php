@@ -152,17 +152,27 @@
                                 <!-- buttons edit /  remove-->
                                 <div class="col-sm-12 text-center">
                                     @if (Auth::User()->nivel_acesso == 'administrador' || Auth::User()->nivel_acesso == 'gerencia')
-                                     @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
-                                     <a href="{{ route('dashboard.classificacao.form.adm', ['id' => $item->id, 'empresa_id' => $item->empresa_id]) }}"><button
-                                            id="btnUpdate" class="btn btn-primary btn-md center-block"><img
-                                                src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" />
-                                            Editar</button></a>
-                                     @else
-                                      <a href="{{ route('dashboard.cadastro.classificacao.form.edit', ['id' => $item->id]) }}"><button
-                                             id="btnUpdate" class="btn btn-primary btn-md center-block"><img
-                                                 src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" />
-                                             Editar</button></a>
-                                     @endif
+                                        @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+                                            <a
+                                                href="{{ route('dashboard.classificacao.form.adm', ['id' => $item->id, 'empresa_id' => $item->empresa_id]) }}"><button
+                                                    id="btnUpdate" class="btn btn-warning btn-md center-block"><img
+                                                        src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" />
+                                                    Editar</button></a>
+                                            <a href="{{ route('dashboard.cadastro.classificacao.remove', ['id' => $item->id]) }}"><button
+                                                    id="btnRemove" class="btn btn-danger btn-md center-block"><img
+                                                        src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" />
+                                                    Remover</button></a>
+                                        @else
+                                            <a
+                                                href="{{ route('dashboard.cadastro.classificacao.form.edit', ['id' => $item->id]) }}"><button
+                                                    id="btnUpdate" class="btn btn-warning btn-md center-block"><img
+                                                        src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" />
+                                                    Editar</button></a>
+                                            <a href="{{ route('dashboard.cadastro.classificacao.remove', ['id' => $item->id]) }}"><button
+                                                    id="btnRemove" class="btn btn-danger btn-md center-block"><img
+                                                        src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" />
+                                                    Remover</button></a>
+                                        @endif
                                     @endif
                                 </div>
                             </div> <!-- End buttons edit /  remove-->

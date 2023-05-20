@@ -11,6 +11,7 @@ use App\Models\Cadastro\EnderecoDAO;
 use App\Models\Cadastro\ProdutosDAO;
 use App\Models\Cadastro\TipoEnderecoDAO;
 use App\Models\Cadastro\ClassificacaoDAO;
+use App\Models\Cadastro\LoteDAO;
 use App\Models\Configuracao\EmpresaDAO;
 
 
@@ -22,9 +23,10 @@ class EstoqueController extends Controller
         $produtoDAO,
         $tipoEnderecoDAO,
         $classificacaoDAO,
-        $empresaDAO;
+        $empresaDAO,
+        $loteDAO;
 
-    public function __construct(EstoqueDAO $estoque_dao, SubEspecieDAO $subEspecie_dao, EnderecoDAO $endereco_dao, ProdutosDAO $produtos_dao, TipoEnderecoDAO $tipoEndereco_dao, ClassificacaoDAO $classificacaoDAO, EmpresaDAO $empresaDAO)
+    public function __construct(EstoqueDAO $estoque_dao, SubEspecieDAO $subEspecie_dao, EnderecoDAO $endereco_dao, ProdutosDAO $produtos_dao, TipoEnderecoDAO $tipoEndereco_dao, ClassificacaoDAO $classificacaoDAO, EmpresaDAO $empresaDAO, LoteDAO $loteDAO)
     {
         $this->estoqueDAO = $estoque_dao;
         $this->enderecoDAO = $endereco_dao;
@@ -33,6 +35,7 @@ class EstoqueController extends Controller
         $this->tipoEnderecoDAO = $tipoEndereco_dao;
         $this->classificacaoDAO = $classificacaoDAO;
         $this->empresaDAO = $empresaDAO;
+        $this->loteDAO = $loteDAO;
     }
 
     //return list of estoque
@@ -48,18 +51,14 @@ class EstoqueController extends Controller
     //Open estoque form
     public function getEstoqueForm()
     {
-        if (Auth::User()->nivel_acesso == "administrador" && empty(Auth::User()->empresa_id)) {
-            return view('dashboard.cadastro.estoque.estoqueForm', ['dados' => $this->estoqueDAO->getAllDAO(Auth::User()->empresa_id), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
-        }
-
         $addressList = $this->getEnderecoAndVerify();
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id)]);
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosLote' => $this->loteDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     public function getEstoqueFormToAdm(Request $request)
     {
         $addressList = $this->getEnderecoAndVerifyToAdm($request->input('empresa_id'));
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($request->input('empresa_id')), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($request->input('empresa_id')), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'hasBusiness' => $request->input('empresa_id')]);
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($request->input('empresa_id')), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($request->input('empresa_id')), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'hasBusiness' => $request->input('empresa_id'), 'dadosLote' => $this->loteDAO->getAllDAO($request->input('empresa_id'))]);
     }
 
     //Get produt and return to estoque form
@@ -67,10 +66,10 @@ class EstoqueController extends Controller
     {
         $addressList = $this->getEnderecoAndVerify();
         if ($this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'), Auth::User()->empresa_id)->count() > 0) {
-            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgSuccess' => "Produto Encontrado !", 'dadosProduto' => $this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'), Auth::User()->empresa_id)]);
+            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgSuccess' => "Produto Encontrado !", 'dadosProduto' => $this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'), Auth::User()->empresa_id), 'dadosLote' => $this->loteDAO->getAllDAO(Auth::User()->empresa_id)]);
         }
 
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgError' => "Nenhum produto encontrado !"]);
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgError' => "Nenhum produto encontrado !", 'dadosLote' => $this->loteDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
 
     public function getEstoqueFormWithProductToAdm(Request $request)
@@ -84,7 +83,8 @@ class EstoqueController extends Controller
                 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')),
                 'msgSuccess' => "Produto Encontrado !",
                 'dadosProduto' => $this->produtoDAO->getByCodigoDAO($request->input('nomeProdutoQuery'), $request->input('empresa_id')),
-                'hasBusiness' => $request->input('empresa_id')
+                'hasBusiness' => $request->input('empresa_id'),
+                'dadosLote' => $this->loteDAO->getAllDAO($request->input('empresa_id'))
             ]);
         }
 
@@ -93,7 +93,8 @@ class EstoqueController extends Controller
             'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($request->input('empresa_id')),
             'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')),
             'msgError' => "Nenhum produto encontrado !",
-            'hasBusiness' => $request->input('empresa_id')
+            'hasBusiness' => $request->input('empresa_id'),
+            'dadosLote' => $this->loteDAO->getAllDAO($request->input('empresa_id'))
         ]);
     }
 
@@ -109,9 +110,8 @@ class EstoqueController extends Controller
                 $this->estoqueDAO->addEstoqueDAO($request->except(['_token', 'btnAction']));
                 if (!empty(Auth::User()->empresa_id)) {
                     return $this->getEstoqueFormWithMsg("Logistica cadastrada com sucesso !");
-                } else {
-                    return $this->getEstoqueFormWithMsgToAdm("Logistica cadastrada com sucesso !", $request->input('empresa_id'));
                 }
+                    return $this->getEstoqueFormWithMsgToAdm("Logistica cadastrada com sucesso !", $request->input('empresa_id'));
                 break;
 
             case "btnEdit":
@@ -119,18 +119,16 @@ class EstoqueController extends Controller
                 $this->estoqueDAO->updateEstoqueDAO($request->input('id'), $request->except(['_token', 'btnAction']));
                 if (!empty(Auth::User()->empresa_id)) {
                     return $this->getEstoqueFormWithMsg("Logistica editada com sucesso !");
-                } else {
-                    return $this->getEstoqueFormWithMsgToAdm("Logistica editada com sucesso !", $request->input('empresa_id'));
                 }
+                    return $this->getEstoqueFormWithMsgToAdm("Logistica editada com sucesso !", $request->input('empresa_id'));
                 break;
 
             case "btnRemove":
                 $this->estoqueDAO->removeEstoqueDAO($request->input('id'));
                 if (!empty(Auth::User()->empresa_id)) {
                     return $this->getEstoqueFormWithMsg("Logistica deletada com sucesso !");
-                } else {
-                    return $this->getEstoqueFormWithMsgToAdm("Logistica deletada com sucesso !", $request->input('empresa_id'));
                 }
+                    return $this->getEstoqueFormWithMsgToAdm("Logistica deletada com sucesso !", $request->input('empresa_id'));
                 break;
         }
     }
@@ -143,7 +141,7 @@ class EstoqueController extends Controller
                 $data = $this->estoqueDAO->getIdEstoqueDAO($id, Auth::User()->empresa_id);
                 if ($data->count() > 0) {
                     $addressList = $this->getEnderecoAndVerify();
-                    return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id)]);
+                    return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosLote' => $this->loteDAO->getAllDAO(Auth::User()->empresa_id)]);
                 }
                 return redirect()->route('dashboard.cadastro.estoque');
                 break;
@@ -249,7 +247,7 @@ class EstoqueController extends Controller
         $data = $this->estoqueDAO->getIdEstoqueDAO($id, $empresa_id);
         if ($data->count() > 0) {
             $addressList = $this->getEnderecoAndVerifyToAdm($empresa_id);
-            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($empresa_id), 'hasBusiness' => $empresa_id]);
+            return view('dashboard.cadastro.estoque.estoqueForm', ['dadosLogistico' => $data, 'dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($empresa_id), 'hasBusiness' => $empresa_id, 'dadosLote' => $this->loteDAO->getAllDAO($empresa_id)]);
         }
 
         return redirect()->route('dashboard.cadastro.estoque');
@@ -278,12 +276,12 @@ class EstoqueController extends Controller
     public function getEstoqueFormWithMsg($msg)
     {
         $addressList = $this->getEnderecoAndVerify();
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgSuccess' => $msg]);
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie(Auth::User()->empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO(Auth::User()->empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO(Auth::User()->empresa_id), 'msgSuccess' => $msg, 'dadosLote' => $this->loteDAO->getAllDAO(Auth::User()->empresa_id)]);
     }
     public function getEstoqueFormWithMsgToAdm($msg, $empresa_id)
     {
         $addressList = $this->getEnderecoAndVerifyToAdm($empresa_id);
-        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($empresa_id), 'msgSuccess' => $msg, 'hasBusiness' => $empresa_id]);
+        return view('dashboard.cadastro.estoque.estoqueForm', ['dadosSubEspecie' => $this->subEspecieDAO->getAllSubEspecie($empresa_id), 'dadosEndereco' => $addressList, 'dadosTipoEndereco' => $this->tipoEnderecoDAO->getAllDAO($empresa_id), 'dadosClassificacao' => $this->classificacaoDAO->getAllDAO($empresa_id), 'msgSuccess' => $msg, 'hasBusiness' => $empresa_id, 'dadosLote' => $this->loteDAO->getAllDAO($empresa_id)]);
     }
 
     public function getEnderecoAndVerify()

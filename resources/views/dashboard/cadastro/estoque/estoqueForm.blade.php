@@ -88,9 +88,8 @@
                 </div>
 
                 <div class="row mx-auto">
-                    <button type="submit" name="btnAction" value="nameQuery"
-                        class="btn btn-primary font-weight-bold"><img src="{{ asset('img/icons/FilterIcon.png') }}"
-                            width="40px" height="40px" class="imgIcons" />
+                    <button type="submit" name="btnAction" value="nameQuery" class="btn btn-primary font-weight-bold"><img
+                            src="{{ asset('img/icons/FilterIcon.png') }}" width="40px" height="40px" class="imgIcons" />
                         Iniciar consulta</button>
                     <a href="{{ route('dashboard.cadastro.produto') }}" target="_blank"
                         class="btn btn-success font-weight-bold"><img src="{{ asset('img/icons/estoqueIcons.png') }}"
@@ -113,8 +112,7 @@
             @if (!empty(Auth::User()->empresa_id))
                 @if (isset($dadosLogistico))
                     <input type="hidden" id="id_codigo" name="id" value="{{ $dadosLogistico[0]->id }}">
-                    <input type="hidden" id="empresa_id" name="empresa_id"
-                        value="{{ $dadosLogistico[0]->empresa_id }}">
+                    <input type="hidden" id="empresa_id" name="empresa_id" value="{{ $dadosLogistico[0]->empresa_id }}">
                 @endif
             @endif
 
@@ -317,21 +315,22 @@
                 </div>
             </div>
 
-
-
             <!-- Lote -->
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 text-white h4">Lote:</label>
                 <div class="col-sm-9">
-                    @if (isset($dadosLogistico))
-                        <input type="text" class="form-control" id="txtLote" name="lote"
-                            value="{{ $dadosLogistico[0]->lote }}" placeholder="Digite o lote..." required autofocus>
-                    @else
-                        <input type="text" class="form-control" id="txtLote" name="lote"
-                            placeholder="Digite o lote..." required autofocus>
-                    @endif
+                    <select class="form-control" id="cb_lote" name="lote" required autofocus>
+                        <option value="" selected>Seleciona o Lote...</option>
+                        @foreach ($dadosLote as $item)
+                            @if (isset($dadosLogistico) && $dadosLogistico[0]->lote == $item->lote)
+                                <option value="{{ $item->lote }}" selected>{{ $item->lote }}</option>
+                            @else
+                                <option value="{{ $item->lote }}">{{ $item->lote }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                     <div class="invalid-feedback">
-                        Campo Lote vazio !
+                        Necessário selecionar um Lote !
                     </div>
                 </div>
             </div>

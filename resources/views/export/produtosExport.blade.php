@@ -8,6 +8,9 @@
         <th>EAN</th>
         <th>FORNECEDOR</th>
         <th>SUB-ESPECIE</th>
+        <th>REFERENCIA</th>
+        <th>CLASSIFICACAO</th>
+        <th>ETICA</th>
       </tr>
     </thead>
 	@foreach($dados as $item)
@@ -17,9 +20,12 @@
       <td>{{ $item->ean }}</td>
       <td>{{ $item->fornecedor }}</td>
       <td>{{ $item->sub_especie }}</td>
+      <td>{{ $item->referencia }}</td>
+      <td>{{ $item->classificacao }}</td>
+      <td>{{ $item->etica }}</td>
     </tr>
     @endforeach
-   
+
   </table>
-  
+
 </html>

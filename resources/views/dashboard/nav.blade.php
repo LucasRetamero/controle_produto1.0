@@ -15,22 +15,37 @@
                         data-parent="#main-menu"><img src="{{ asset('img/icons/addIcon.png') }}" width="20px"
                             height="20px"></img> Cadastro <span class="caret"></span></a>
                     <div class="collapse list-group-level1" id="sub-menu">
-                        <a href="{{ route('dashboard.cadastro.produto.productAddForm') }}"
-                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                            Produto</a>
+                        @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+                            <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                                data-parent="#sub-menu" data-toggle="modal" data-target="#businessListToProductModal">-
+                                Produto</a>
+                        @else
+                            <a href="{{ route('dashboard.cadastro.produto.productAddForm') }}"
+                                class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                                Produto</a>
+                        @endif
                         <a href="{{ route('dashboard.cadastro.endereco.enderecoAddForm') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Endereço</a>
                         <a href="{{ route('dashboard.cadastro.subEspecie.subEspecieAddForm') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Sub-Especie</a>
+                        @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+                            <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                                data-parent="#sub-menu" data-toggle="modal" data-target="#businessListLoteModal">-
+                                Lote</a>
+                        @else
+                            <a href="{{ route('dashboard.cadastro.lote.loteAddForm') }}"
+                                class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                                Lote</a>
+                        @endif
                         <a href="{{ route('dashboard.cadastro.tipo_endereco.tipoEnderecoAddForm') }}"
                             class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                             Tipo Endereço</a>
                         @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
-                                <a class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu" data-toggle="modal"
-                                    data-target="#businessListModal">-
-                                    Logistico</a>
+                            <a class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu"
+                                data-toggle="modal" data-target="#businessListModal">-
+                                Logistico</a>
                         @else
                             <a href="{{ route('dashboard.cadastro.estoque.estoqueAddForm') }}"
                                 class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
@@ -57,6 +72,9 @@
                     <a href="{{ route('dashboard.cadastro.subEspecie') }}"
                         class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
                         Sub-Especie</a>
+                    <a href="{{ route('dashboard.cadastro.lote') }}"
+                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                        Lote</a>
                     <a href="{{ route('dashboard.cadastro.tipo_endereco') }}"
                         class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">- Tipo
                         Endereço</a>
@@ -74,18 +92,37 @@
                     data-parent="#main-menu"><img src="{{ asset('img/icons/documentManIcon.png') }}" width="20px"
                         height="20px"></img> Relatório<span class="caret"></span></a>
                 <div class="collapse list-group-level1" id="sub-menu">
-                    <a href="{{ route('dashboard.pdf.produtos.configurarPdf') }}"
-                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                        Produto</a>
-                    <a href="{{ route('dashboard.pdf.endereco.configurarPdf') }}"
-                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                        Endereço</a>
-                    <a href="{{ route('dashboard.pdf.estoque.configurarPdf') }}"
-                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                        Inventário</a>
-                    <a href="{{ route('dashboard.pdf.apuracao_ocorrencia.configurarPdf') }}"
-                        class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
-                        Apuração de Ocorrencia</a>
+                    @if (Auth::User()->nivel_acesso == 'administrador' && empty(Auth::User()->empresa_id))
+                        <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                            data-parent="#sub-menu" data-toggle="modal"
+                            data-target="#businessListToProductReportModal">-
+                            Produto</a>
+                        <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                            data-parent="#sub-menu" data-toggle="modal"
+                            data-target="#businessListToAddressReportModal">-
+                            Endereço</a>
+                        <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                            data-parent="#sub-menu" data-toggle="modal"
+                            data-target="#businessListToInventoryReportModal">-
+                            Inventário</a>
+                        <a href="" class="list-group-item font-weight-bold bg-primary text-white"
+                            data-parent="#sub-menu" data-toggle="modal"
+                            data-target="#businessListToIssueProductReportModal">-
+                            Apuração de Ocorrencia</a>
+                    @else
+                        <a href="{{ route('dashboard.pdf.produtos.configurarPdf') }}"
+                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                            Produto</a>
+                        <a href="{{ route('dashboard.pdf.endereco.configurarPdf') }}"
+                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                            Endereço</a>
+                        <a href="{{ route('dashboard.pdf.estoque.configurarPdf') }}"
+                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                            Inventário</a>
+                        <a href="{{ route('dashboard.pdf.apuracao_ocorrencia.configurarPdf') }}"
+                            class="list-group-item font-weight-bold bg-primary text-white" data-parent="#sub-menu">-
+                            Apuração de Ocorrencia</a>
+                    @endif
                 </div>
             </div>
 
@@ -118,6 +155,39 @@
 </nav>
 
 @if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListLoteModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="{{ route('dashboard.cadastro.lote.loteAddForm') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
     <div class="modal fade" id="businessListModal" tabindex="-1" role="dialog"
         aria-labelledby="businessListModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -130,6 +200,171 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{{ route('dashboard.estoque.formulario.add.adm') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListToProductModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route('dashboard.produtos.form.adm') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListToProductReportModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="{{ route('dashboard.pdf.produtos.configurarPdf') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListToAddressReportModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="{{ route('dashboard.pdf.endereco.configurarPdf') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListToInventoryReportModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="{{ route('dashboard.pdf.estoque.configurarPdf') }}">
+                        <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                        <div class="form-group">
+                            <select class="form-control" id="cb_empresa_list" name="empresa_id" required>
+                                <option value="" selected disabled>Selecione a Empresa</option>
+                                @foreach (app('App\Http\Controllers\Configuracao\EmpresaController')->getEmpresaList() as $item)
+                                    <option value="{{ $item->id }}">{{ $item->razao_social }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Selecionar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+@if (empty(Auth::User()->empresa_id))
+    <div class="modal fade" id="businessListToIssueProductReportModal" tabindex="-1" role="dialog"
+        aria-labelledby="businessListModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Lista de Empresas</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="{{ route('dashboard.pdf.apuracao_ocorrencia.configurarPdf') }}">
                         <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                         <div class="form-group">
                             <select class="form-control" id="cb_empresa_list" name="empresa_id" required>

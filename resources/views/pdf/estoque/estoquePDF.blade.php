@@ -3,7 +3,7 @@
 <h1>Fazendo Logistica</h1>
 <h2>INVENTÁRIO</h2>
 <hr>
-  <table border="1px" width="100%">
+  <table border="1px" style="page-break-inside: avoid;" width="100%">
     <thead>
       <tr>
         <th bgcolor="lightgray">ENDERECO</th>
@@ -15,11 +15,11 @@
     </thead>
 	@foreach($dados as $item)
     <tr>
-      <td><center>{{ $item->endereco }}</center></td>
-      <td><center>{{ $item->codigo }}</center></td>
-      <td><center>{{ $item->nome_produto }}</center></td>
-      <td><center>{{ $item->lote }}</center></td>
-      <td><center> </center></td>
+      <td style="white-space: nowrap;">{{ $item->endereco }}</td>
+      <td>{{ $item->codigo }}</td>
+      <td style="word-wrap: break-word; width: 25%">{{ $item->nome_produto }}</td>
+      <td>{{ $item->lote }}</td>
+      <td><center>   </center></td>
     </tr>
     @endforeach
 

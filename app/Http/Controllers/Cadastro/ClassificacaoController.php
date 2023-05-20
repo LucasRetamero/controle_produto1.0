@@ -50,8 +50,8 @@ class ClassificacaoController extends Controller
     public function classificacaoEditForm($id)
     {
         $data = $this->classificacaoDAO->getByIdDAO($id, Auth::User()->empresa_id);
-        if($data->count() > 0){
-          return view('dashboard.cadastro.classificacao.classificacaoForm', ['dadosClassificacao' => $data]);
+        if ($data->count() > 0) {
+            return view('dashboard.cadastro.classificacao.classificacaoForm', ['dadosClassificacao' => $data]);
         }
 
         return redirect()->route('dashboard.cadastro.classificacao');
@@ -60,8 +60,8 @@ class ClassificacaoController extends Controller
     public function classificacaoEditFormToAdm($id, $empresa_id)
     {
         $data = $this->classificacaoDAO->getByIdDAO($id, $empresa_id);
-        if($data->count() > 0){
-          return view('dashboard.cadastro.classificacao.classificacaoForm', ['dadosClassificacao' => $data, 'dadosEmpresa' => $this->empresaDAO->getAllList(), 'empresaSelected' => $empresa_id]);
+        if ($data->count() > 0) {
+            return view('dashboard.cadastro.classificacao.classificacaoForm', ['dadosClassificacao' => $data, 'dadosEmpresa' => $this->empresaDAO->getAllList(), 'empresaSelected' => $empresa_id]);
         }
 
         return redirect()->route('dashboard.cadastro.classificacao');
@@ -90,8 +90,8 @@ class ClassificacaoController extends Controller
                 break;
         }
 
-        if($checkReturn)
-        return redirect()->route('dashboard.cadastro.classificacao');
+        if ($checkReturn)
+            return redirect()->route('dashboard.cadastro.classificacao');
     }
 
     public function getClassificationFilter(Request $request)
@@ -100,17 +100,24 @@ class ClassificacaoController extends Controller
         return view($this->classificacaoPath, ['dadosClassificacao' => $dados]);
     }
 
-    public function checkBeforeFilterToAdm(Request $request){
-        if($request->input('btnAction') == "allQuery"){
-           return view($this->classificacaoPath, ['dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
+    public function checkBeforeFilterToAdm(Request $request)
+    {
+        if ($request->input('btnAction') == "allQuery") {
+            return view($this->classificacaoPath, ['dadosClassificacao' => $this->classificacaoDAO->getAllDAO($request->input('empresa_id')), 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
         }
 
-       return $this->getClassificationFilterToAdm($request);
+        return $this->getClassificationFilterToAdm($request);
     }
 
     public function getClassificationFilterToAdm($request)
     {
         $dados = $this->classificacaoDAO->getByNameDAO($request->input('textSearch'), $request->input('empresa_id'));
         return view($this->classificacaoPath, ['dadosClassificacao' => $dados, 'dadosEmpresa' => $this->empresaDAO->getAllList()]);
+    }
+
+    public function removeClassification($id)
+    {
+        $this->classificacaoDAO->removeDAO($id);
+        return redirect()->route('dashboard.cadastro.classificacao');
     }
 }

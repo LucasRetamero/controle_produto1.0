@@ -101,12 +101,10 @@ Route::post('cadastro/lote/searching', 'Cadastro\LoteController@searchingAction'
 Route::post('cadastro/lote/actionsMenu', 'Cadastro\LoteController@actionsMenu')->name('dashboard.cadastro.lote.loteForm.actionsMenu');
 
 //Rota: Formulario do Lote to add
-Route::get('cadastro/lote/loteFormulario',function(){
- return view('dashboard.cadastro.lote.loteForm');
-})->name('dashboard.cadastro.lote.loteAddForm');
+Route::get('cadastro/lote/loteFormulario','Cadastro\LoteController@indexToForm')->name('dashboard.cadastro.lote.loteAddForm');
 
 //Rota: Formulario do Lote to edit or remove
-Route::get('cadastro/lote/loteFormulario/EditOrRemove/{id}/{option}','Cadastro\LoteController@editRemoveLoteTable')->name('dashboard.cadastro.lote.loteAddForm.editOrRemove');
+Route::get('cadastro/lote/loteFormulario/EditOrRemove/{id}/{option}/{empresa_id}','Cadastro\LoteController@editRemoveLoteTable')->name('dashboard.cadastro.lote.loteAddForm.editOrRemove');
 
 //Rota: Lista de Localizacao
 Route::get('cadastro/localizacao','Cadastro\LocalizacaoController@index')->name('dashboard.cadastro.localizacao');
@@ -153,6 +151,8 @@ Route::get('cadastro/classificacao/classificacaoFormulario/{id}', 'Cadastro\Clas
 Route::post('cadastro/classificacao/AddEditRemovClassificacao', 'Cadastro\ClassificacaoController@btnAction')->name('dashboard.cadastro.classificacao.editarFormulario');
 // Route Classification to filter data from database
 Route::post('cadastro/classificacao/filtered', 'Cadastro\ClassificacaoController@getClassificationFilter')->name('dashboard.cadastro.classificacao.filter');
+// Route Classification remove data from database
+Route::get('cadastro/classificacao/remove/{id}', 'Cadastro\ClassificacaoController@removeClassification')->name('dashboard.cadastro.classificacao.remove');
 
 //Rota: Exportar database
 Route::get('configuracao/exportacao', function(){
@@ -186,6 +186,7 @@ Route::post('configuracao/empresa/filtered', 'Configuracao\EmpresaController@get
 Route::post('adm/filtered', 'Dashboard\homeController@indexToAdm')->name('dashboard.filter.adm');
 // Product
 Route::post('produtos/adm/filtered', 'Cadastro\ProdutosController@checkSearchingToAdm')->name('dashboard.produtos.filter.adm');
+Route::post('produtos/form/adm', 'Cadastro\ProdutosController@indexFormProdutoToAdm')->name('dashboard.produtos.form.adm');
 Route::get('Cadastro/produtos/produtosFormulario/editar/adm/{id}/{empresa_id}', 'Cadastro\ProdutosController@editFormProdutoToAdm')->name('dashboard.cadastro.produto.productAddForm.adm.edit');
 // Address
 Route::post('endereco/adm/filtered', 'Cadastro\EnderecoController@checkSearchingToAdm')->name('dashboard.endereco.filter.adm');
@@ -205,6 +206,8 @@ Route::post('Cadastro/estoque/list/adm/filtered', 'Cadastro\EstoqueController@ch
 // Classificacao
 Route::post('classificacao/adm/filtered', 'Cadastro\ClassificacaoController@checkBeforeFilterToAdm')->name('dashboard.classificacao.filter.adm');
 Route::get('classificacao/classificacaoForm/adm/{id}/{empresa_id}', 'Cadastro\ClassificacaoController@classificacaoEditFormToAdm')->name('dashboard.classificacao.form.adm');
+// PDFS
+Route::get('cadastro/produtos/configurarPdf/adm','PDF\ProdutosPdfController@indexToAdm')->name('dashboard.pdf.produtos.configurarPdf.adm');
 
 //Lista de PDFs --------
 
@@ -212,7 +215,7 @@ Route::get('classificacao/classificacaoForm/adm/{id}/{empresa_id}', 'Cadastro\Cl
 Route::get('cadastro/produtos/configurarPdf','PDF\ProdutosPdfController@index')->name('dashboard.pdf.produtos.configurarPdf');
 
 //Choose type all / produtos / Nome / Fornecedor / Sub-Especie
-Route::get('cadastro/produtos/configurarPdf/actionsMenu', 'PDF\ProdutosPdfController@actionsMenu')->name('dashboard.pdf.produtos.actionsMenu');
+Route::post('cadastro/produtos/configurarPdf/actionsMenu', 'PDF\ProdutosPdfController@actionsMenu')->name('dashboard.pdf.produtos.actionsMenu');
 
 //Home do endereço para configurar relatório
 Route::get('cadastro/endereco/gerarPdf','PDF\EnderecoPdfController@index')->name('dashboard.pdf.endereco.configurarPdf');
