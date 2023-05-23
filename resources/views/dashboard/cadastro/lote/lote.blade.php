@@ -165,8 +165,8 @@
                             <div class="row">
                                 <!-- buttons edit /  remove-->
                                 <div class="col-sm-12 text-center">
-                                    <a
-                                        href="{{ route('dashboard.cadastro.lote.loteAddForm.editOrRemove', ['id' => $item->id, 'option' => 'edit', 'empresa_id' => $item->empresa_id]) }}"><button
+                                    @if (Auth::User()->nivel_acesso == 'administrador' || Auth::User()->nivel_acesso == 'gerencia')
+                                    <a href="{{ route('dashboard.cadastro.lote.loteAddForm.editOrRemove', ['id' => $item->id, 'option' => 'edit', 'empresa_id' => $item->empresa_id]) }}"><button
                                             id="btnUpdate" class="btn btn-warning btn-md center-block"><img
                                                 src="{{ asset('img/icons/editIcon.png') }}" class="imgIcons" />
                                             Editar</button></a>
@@ -175,6 +175,7 @@
                                             id="btnRemove" class="btn btn-danger btn-md center-block"><img
                                                 src="{{ asset('img/icons/removeIcon.png') }}" class="imgIcons" />
                                             Remover</button></a>
+                                    @endif
                                 </div>
                             </div> <!-- End buttons edit /  remove-->
                         </td>

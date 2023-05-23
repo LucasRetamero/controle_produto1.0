@@ -48,7 +48,7 @@
     </style>
 
     <div class="container" id="topPage">
-        <h1 class="h2">Relatório / Apuração de Ocorrencia / Configuração: Apuração de Ocorrencia</h1>
+        <h1 class="h2">Relatório / Apuração de Ocorrencia / Formulário: Apuração de Ocorrencia</h1>
         <hr style="border-top:3px solid #000">
     </div>
     <!-- Return message from query -->

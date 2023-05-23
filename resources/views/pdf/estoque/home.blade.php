@@ -1,4 +1,4 @@
--@extends('dashboard.default')
+@extends('dashboard.default')
 
 @section('title', 'Fazendo Logistica - Dashboard / Relatório: Logistica')
 
@@ -48,7 +48,7 @@
     </style>
 
     <div class="container" id="topPage">
-        <h1 class="h2">Relatório / Inventário / Configuração: Inventário</h1>
+        <h1 class="h2">Relatório / Inventário / Formulário: Inventário</h1>
         <hr style="border-top:3px solid #000">
     </div>
     <!-- Return message from query -->

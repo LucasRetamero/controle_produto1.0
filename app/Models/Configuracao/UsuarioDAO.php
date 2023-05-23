@@ -115,12 +115,6 @@ class UsuarioDAO extends Model
 
     public function getQtdEmailUsuario($email)
     {
-        if (empty(Auth::User()->empresa_id)) {
-            return UsuarioDAO::where('email', $email)
-                ->get()
-                ->count();
-        }
-
         return UsuarioDAO::where('email', $email)
             ->where('empresa_id', Auth::User()->empresa_id)
             ->get()

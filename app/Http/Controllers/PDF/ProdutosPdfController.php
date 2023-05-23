@@ -132,8 +132,8 @@ class ProdutosPdfController extends Controller
     //PDF Report ----------
     public function  getPdfReport($opton, $query)
     {
-        ini_set('max_execution_time', '999'); // 300 = 5 seconds
-        ini_set("memory_limit", '999M');
+        ini_set('max_execution_time', '9999'); // 300 = 5 seconds
+        ini_set("memory_limit", '9999M');
 
         switch ($opton) {
 

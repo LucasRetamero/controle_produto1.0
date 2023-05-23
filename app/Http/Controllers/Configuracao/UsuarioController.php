@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Configuracao;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Configuracao\usuarioDAO;
+use App\Models\Configuracao\UsuarioDAO;
 use App\Models\Configuracao\EmpresaDAO;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;

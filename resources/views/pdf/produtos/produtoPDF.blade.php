@@ -12,7 +12,7 @@
  <li><b>ETI</b> - Etica</th>
 </ul>
 <hr>
-  <table border="1px" style="table-layout:fixed;page-break-inside: avoid;" width="102%">
+  <table border="1px" style="table-layout:fixed;" width="100%">
     <thead>
       <tr>
         <th bgcolor="lightgray"><b>COD</b></th>
